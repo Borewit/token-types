@@ -1,7 +1,7 @@
 {
-  "name": "strtok2",
+  "name": "token-types",
   "version": "0.0.1",
-  "description": "Common token types for decoding and encoding binairy numeric values",
+  "description": "Common token types for decoding and encoding binairy values",
   "author": {
     "name": "Borewit",
     "url": "https://github.com/Borewit"

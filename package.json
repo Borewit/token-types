@@ -1,0 +1,39 @@
+{
+  "name": "strtok2",
+  "version": "0.0.1",
+  "description": "Common token types for decoding and encoding binairy numeric values",
+  "author": {
+    "name": "Borewit",
+    "url": "https://github.com/Borewit"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "test": "mocha --require ts-node/register test",
+    "lint": "tslint --format verbose src/*.ts",
+    "dist": "copyfiles -f src/*.js src/*.js.map src/*.d.ts lib"
+  },
+  "engines": {
+    "node": ">=0.1.98"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Borewit/strtok2"
+  },
+  "license": "BSD-3-Clause",
+  "main": "./lib/index.js",
+  "typings": "lib/index",
+  "bugs": {
+    "url": "https://github.com/Borewit/strtok2/issues"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.0",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.31",
+    "chai": "^4.0.2",
+    "copyfiles": "^1.2.0",
+    "mocha": "^3.4.2",
+    "ts-node": "^3.0.6",
+    "typescript": "^2.3.4",
+    "typings": "^2.1.1"
+  }
+}

@@ -17,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Borewit/strtok2"
+    "url": "https://github.com/Borewit/token-types"
   },
   "license": "BSD-3-Clause",
   "main": "./lib/index.js",
   "typings": "lib/index",
   "bugs": {
-    "url": "https://github.com/Borewit/strtok2/issues"
+    "url": "https://github.com/Borewit/token-types/issues"
   },
   "devDependencies": {
     "@types/chai": "^4.0.0",

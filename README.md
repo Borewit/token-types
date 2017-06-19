@@ -1,7 +1,6 @@
 [![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![npm downloads][npm-downloads-image]][npm-url]
 
-A primitive token library used to encode and decode common data primitives
-for and and to a node `Buffer`.
+A primitive token library used to read from, and to write a node `Buffer`.
 
 ### Tokens
 

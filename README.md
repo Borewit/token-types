@@ -1,4 +1,7 @@
-[![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![npm downloads][npm-downloads-image]][npm-url]
+[![NPM version][npm-image]][npm-url] 
+[![npm downloads][npm-downloads-image]][npm-url] 
+[![Build Status][travis-image]][travis-url] 
+[![coveralls][coveralls-image]][coveralls-url]
 
 A primitive token library used to read from, and to write a node `Buffer`.
 
@@ -26,3 +29,6 @@ primitives. Maybe this will change later if this becomes important.
 
 [travis-url]: https://travis-ci.org/Borewit/token-types
 [travis-image]: https://api.travis-ci.org/Borewit/token-types.svg?branch=master
+
+[coveralls-url]: https://coveralls.io/github/Borewit/token-types?branch=master
+[coveralls-image]: https://coveralls.io/repos/github/Borewit/token-types/badge.svg?branch=master

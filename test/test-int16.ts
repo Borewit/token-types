@@ -35,53 +35,32 @@ describe("Parse 16-bit signed integer", () => {
         });
     });
 
-    /* ToDO
     describe("little-endian", () => {
 
         it("should encode", () => {
 
-            util.runGenerateTests(
-                [(b) => {
-                    return Token.INT16_LE.put(b, 0, 0x00);
-                }, '\x00\x00'],
-                [(b) => {
-                    return Token.INT16_LE.put(b, 0, 0x0f0b);
-                }, '\x0b\x0f'],
-                [(b) => {
-                    return Token.INT16_LE.put(b, 0, -0x0f0b);
-                }, '\xf5\xf0']
-            );
+            const buf = new Buffer(2);
 
+            Token.INT16_LE.put(buf, 0, 0x00);
+            util.checkBuffer(buf, "0000");
+
+            Token.INT16_LE.put(buf, 0, 0x0f0b);
+            util.checkBuffer(buf, "0b0f");
+
+            Token.INT16_LE.put(buf, 0, -0x0f0b);
+            util.checkBuffer(buf, "f5f0");
         });
 
         it("should decode", () => {
 
-            util.runParseTests('\x1a\x0a\x00\x00\xff\xff\x00\x80', [
-                (v) =>{
-                    assert.ok(v === undefined);
-                    return Token.INT16_LE;
-                },
-                (v) =>{
-                    assert.equal(v, 2586);
-                    return Token.INT16_LE;
-                },
-                (v) =>{
-                    assert.equal(v, 0);
-                    return Token.INT16_LE;
-                },
-                (v) =>{
-                    assert.equal(v, -1);
-                    return Token.INT16_LE;
-                },
-                (v) =>{
-                    assert.equal(v, -32768);
-                    return Token.INT16_LE;
-                }
-            ]);
+            const buf = new Buffer('\x1a\x0a\x00\x00\xff\xff\x00\x80', 'binary');
+
+            assert.equal(Token.INT16_LE.get(buf, 0), 2586);
+            assert.equal(Token.INT16_LE.get(buf, 2), 0);
+            assert.equal(Token.INT16_LE.get(buf, 4), -1);
+            assert.equal(Token.INT16_LE.get(buf, 6), -32768);
 
         });
     });
-    */
-
 
 });

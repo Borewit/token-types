@@ -15,7 +15,7 @@ A primitive token library used to read from, and to write a node `Buffer`.
 * `UINT24_BE`, `UINT24_LE`
 * `UINT32_BE`, `UINT32_LE`
 * `INT8`
-* `INT16_BE`
+* `INT16_BE`, `INT16_LE`
 * `INT24_BE`, `INT24_LE`
 * `INT32_BE`
 

@@ -256,10 +256,7 @@ export const INT8: IToken<number> = {
 export const INT16_BE: IToken<number> = {
     len: 2,
     get(buf: Buffer, off: number): number {
-        const v = UINT16_BE.get(buf, off);
-        return ((v & 0x8000) === 0x8000) ?
-            (-32768 + (v & 0x7fff)) :
-            v;
+        return buf.readInt16BE(off);
     },
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
         assert.equal(typeof o, 'number');
@@ -270,6 +267,28 @@ export const INT16_BE: IToken<number> = {
 
         const no = maybeFlush(b, o, this.len, flush);
         b.writeInt16BE(v, no);
+
+        return (no - o) + this.len;
+    }
+};
+
+/**
+ * 16-bit signed integer, Little Endian byte order
+ */
+export const INT16_LE: IToken<number> = {
+    len: 2,
+    get(buf: Buffer, off: number): number {
+        return buf.readInt16LE(off);
+    },
+    put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+        assert.equal(typeof o, 'number');
+        assert.equal(typeof v, 'number');
+        assert.ok(v >= -32768 && v <= 32767);
+        assert.ok(o >= 0);
+        assert.ok(this.len <= b.length);
+
+        const no = maybeFlush(b, o, this.len, flush);
+        b.writeInt16LE(v, no);
 
         return (no - o) + this.len;
     }

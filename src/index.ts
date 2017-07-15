@@ -57,7 +57,7 @@ export const UINT8: IToken<number> = {
     len: 1,
 
     get(buf: Buffer, off: number): number {
-        return buf[off];
+        return buf.readUInt8(off);
     },
 
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
@@ -68,7 +68,7 @@ export const UINT8: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = v & 0xff;
+        b.writeUInt8(v, no);
 
         return (no - o) + this.len;
     }
@@ -82,7 +82,7 @@ export const UINT16_LE: IToken<number> = {
     len: 2,
 
     get(buf: Buffer, off: number): number {
-        return buf[off] | (buf[off + 1] << 8);
+        return buf.readUInt16LE(off);
     },
 
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
@@ -93,8 +93,7 @@ export const UINT16_LE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = v & 0xff;
-        b[no + 1] = (v >>> 8) & 0xff;
+        b.writeUInt16LE(v, no);
 
         return (no - o) + this.len;
     }
@@ -108,7 +107,7 @@ export const UINT16_BE: IToken<number> = {
     len: 2,
 
     get(buf: Buffer, off: number): number {
-        return (buf[off] << 8) | buf[off + 1];
+        return buf.readUInt16BE(off);
     },
 
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
@@ -119,8 +118,7 @@ export const UINT16_BE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = (v >>> 8) & 0xff;
-        b[no + 1] = v & 0xff;
+        b.writeUInt16BE(v, no);
 
         return (no - o) + this.len;
     }
@@ -185,12 +183,7 @@ export const UINT32_LE: IToken<number> = {
     len: 4,
 
     get(buf: Buffer, off: number): number {
-        // Shifting the MSB by 24 directly causes it to go negative if its
-        // last bit is high, so we instead shift by 23 and multiply by 2.
-        // Also, using binary OR to count the MSB if its last bit is high
-        // causes the value to go negative. Use addition there.
-        return (buf[off] | (buf[off + 1] << 8) | (buf[off + 2] << 16)) +
-            ((buf[off + 3] << 23) * 2);
+        return buf.readUInt32LE(off);
     },
 
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
@@ -201,10 +194,7 @@ export const UINT32_LE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = v & 0xff;
-        b[no + 1] = (v >>> 8) & 0xff;
-        b[no + 2] = (v >>> 16) & 0xff;
-        b[no + 3] = (v >>> 24) & 0xff;
+        b.writeUInt32LE(v, no);
 
         return (no - o) + this.len;
     }
@@ -218,9 +208,7 @@ export const UINT32_BE: IToken<number> = {
     len: 4,
 
     get(buf: Buffer, off: number): number {
-        // See comments in UINT32_LE.get()
-        return ((buf[off] << 23) * 2) +
-            ((buf[off + 1] << 16) | (buf[off + 2] << 8) | buf[off + 3]);
+        return buf.readUInt32BE(off);
     },
 
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
@@ -231,10 +219,7 @@ export const UINT32_BE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = (v >>> 24) & 0xff;
-        b[no + 1] = (v >>> 16) & 0xff;
-        b[no + 2] = (v >>> 8) & 0xff;
-        b[no + 3] = v & 0xff;
+        b.writeUInt32BE(v, no);
 
         return (no - o) + this.len;
     }
@@ -248,10 +233,7 @@ export const INT8: IToken<number> = {
     len: 1,
 
     get(buf: Buffer, off: number): number {
-        const v = UINT8.get(buf, off);
-        return ((v & 0x80) === 0x80) ?
-            (-128 + (v & 0x7f)) :
-            v;
+        return buf.readInt8(off);
     },
 
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
@@ -262,7 +244,7 @@ export const INT8: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = v & 0xff;
+        b.writeInt8(v, no);
 
         return (no - o) + this.len;
     }
@@ -287,8 +269,7 @@ export const INT16_BE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = ((v & 0xffff) >>> 8) & 0xff;
-        b[no + 1] = v & 0xff;
+        b.writeInt16BE(v, no);
 
         return (no - o) + this.len;
     }
@@ -326,14 +307,7 @@ export const INT24_BE: IToken<number> = {
 export const INT32_BE: IToken<number> = {
     len: 4,
     get(buf: Buffer, off: number): number {
-        // We cannot check for 0x80000000 directly, as this always returns
-        // false. Instead, check for the two's-compliment value, which
-        // behaves as expected. Also, we cannot subtract our value all at
-        // once, so do it in two steps to avoid sign busting.
-        const v = UINT32_BE.get(buf, off);
-        return ((v & 0x80000000) === -2147483648) ?
-            ((v & 0x7fffffff) - 1073741824 - 1073741824) :
-            v;
+       return buf.readInt32BE(off);
     },
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
         assert.equal(typeof o, 'number');
@@ -343,10 +317,7 @@ export const INT32_BE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = (v >>> 24) & 0xff;
-        b[no + 1] = (v >>> 16) & 0xff;
-        b[no + 2] = (v >>> 8) & 0xff;
-        b[no + 3] = v & 0xff;
+        b.writeInt32BE(v, no);
 
         return (no - o) + this.len;
     }

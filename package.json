@@ -10,7 +10,9 @@
     "compile": "tsc",
     "test": "mocha --require ts-node/register test",
     "lint": "tslint --format verbose src/*.ts",
-    "dist": "copyfiles -f src/*.js src/*.js.map src/*.d.ts lib"
+    "dist": "copyfiles -f src/*.js src/*.js.map src/*.d.ts lib",
+    "prepare": "npm run dist",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
     "node": ">=0.1.98"
@@ -31,9 +33,12 @@
     "@types/node": "^7.0.31",
     "chai": "^4.0.2",
     "copyfiles": "^1.2.0",
+    "coveralls": "^2.13.1",
     "mocha": "^3.4.2",
+    "nyc": "^11.0.3",
     "ts-node": "^3.0.6",
     "typescript": "^2.3.4",
     "typings": "^2.1.1"
-  }
+  },
+  "dependencies": {}
 }

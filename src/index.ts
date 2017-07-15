@@ -343,6 +343,28 @@ export const INT32_BE: IToken<number> = {
 };
 
 /**
+ * 32-bit signed integer, Big Endian byte order
+ */
+export const INT32_LE: IToken<number> = {
+    len: 4,
+    get(buf: Buffer, off: number): number {
+        return buf.readInt32LE(off);
+    },
+    put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+        assert.equal(typeof o, 'number');
+        assert.equal(typeof v, 'number');
+        assert.ok(v >= -2147483648 && v <= 2147483647);
+        assert.ok(o >= 0);
+        assert.ok(this.len <= b.length);
+
+        const no = maybeFlush(b, o, this.len, flush);
+        b.writeInt32LE(v, no);
+
+        return (no - o) + this.len;
+    }
+};
+
+/**
  * Ignore a given number of bytes
  */
 export class IgnoreType implements IGetToken<Buffer> {

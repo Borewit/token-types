@@ -17,7 +17,7 @@ A primitive token library used to read from, and to write a node `Buffer`.
 * `INT8`
 * `INT16_BE`, `INT16_LE`
 * `INT24_BE`, `INT24_LE`
-* `INT32_BE`
+* `INT32_BE`, `INT32_LE`
 
 One might notice that there is no support for 64-bit tokens, since JavaScript
 seems to limit value size to less than 2^64. Rather than wrapping up an

@@ -8,4 +8,5 @@ install:
  - npm run compile
  - npm run dist
 script:
+ - npm run lint
  - npm run coveralls

@@ -1,6 +1,6 @@
 {
   "name": "token-types",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Common token types for decoding and encoding binairy values",
   "author": {
     "name": "Borewit",
@@ -8,11 +8,11 @@
   },
   "scripts": {
     "compile": "tsc",
+    "prepare": "npm run compile",
+    "lint": "tslint 'lib/**/*.ts' --exclude 'lib/**/*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
     "test": "mocha --require ts-node/register test",
-    "lint": "tslint --format verbose src/*.ts",
-    "dist": "copyfiles -f src/*.js src/*.js.map src/*.d.ts lib",
-    "prepare": "npm run dist",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "cover-test": "nyc npm run test",
+    "coveralls": "npm run cover-test && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
     "node": ">=0.1.98"

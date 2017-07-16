@@ -7,7 +7,7 @@ const maybeFlush = (b, o, len, flush) => {
     if (o + len > b.length) {
         if (typeof(flush) !== 'function') {
             throw new Error(
-                'Buffer out of space and no valid flush() function found'
+              'Buffer out of space and no valid flush() function found'
             );
         }
 
@@ -157,7 +157,7 @@ export const UINT24_LE: IToken<number> = {
 export const UINT24_BE: IToken<number> = {
     len : 3,
     get(buf: Buffer, off: number): number {
-        return (((buf[off] << 8) + buf[off + 1]) << 8) + buf[off + 2]
+        return (((buf[off] << 8) + buf[off + 1]) << 8) + buf[off + 2];
     },
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
         assert.equal(typeof o, 'number');
@@ -302,7 +302,7 @@ export const INT24_BE: IToken<number> = {
     get(buf: Buffer, off: number): number {
         const v = UINT24_BE.get(buf, off);
         return ((v & 0x800000) === 0x800000) ?
-            (-0x800000 + (v & 0x7fffff)) : v;
+          (-0x800000 + (v & 0x7fffff)) : v;
     },
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
         assert.equal(typeof o, 'number');
@@ -326,7 +326,7 @@ export const INT24_BE: IToken<number> = {
 export const INT32_BE: IToken<number> = {
     len: 4,
     get(buf: Buffer, off: number): number {
-       return buf.readInt32BE(off);
+        return buf.readInt32BE(off);
     },
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
         assert.equal(typeof o, 'number');
@@ -381,7 +381,6 @@ export class IgnoreType implements IGetToken<Buffer> {
     }
 }
 
-
 export class BufferType implements IGetToken<Buffer> {
 
     public constructor(public len: number) {
@@ -404,4 +403,3 @@ export class StringType implements IGetToken<string> {
         return buf.toString(this.encoding, off, off + this.len);
     }
 }
-

@@ -1,8 +1,8 @@
 // Test writing and reading uint8 values.
 
-import {} from "mocha"
+import {} from 'mocha';
 import {assert} from 'chai';
-import * as Token from '../src';
+import * as Token from '../lib';
 import * as util from './util';
 
 describe("Parse 8-bit unsigned integer (UINT8)", () => {
@@ -32,4 +32,3 @@ describe("Parse 8-bit unsigned integer (UINT8)", () => {
 
     });
 });
-

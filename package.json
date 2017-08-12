@@ -7,7 +7,7 @@
     "url": "https://github.com/Borewit"
   },
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc -p dist",
     "prepare": "npm run compile",
     "lint": "tslint 'lib/**/*.ts' --exclude 'lib/**/*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
     "test": "mocha --require ts-node/register test",

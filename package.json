@@ -9,7 +9,7 @@
   "scripts": {
     "compile": "tsc -p dist",
     "prepare": "npm run compile",
-    "lint": "tslint 'lib/**/*.ts' --exclude 'lib/**/*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
+    "lint": "tslint 'src/**/*.ts' --exclude 'src/**/*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
     "test": "mocha --require ts-node/register test",
     "cover-test": "nyc npm run test",
     "coveralls": "npm run cover-test && nyc report --reporter=text-lcov | coveralls"
@@ -39,7 +39,8 @@
     "ts-node": "^3.3.0",
     "tslint": "^5.6.0",
     "typescript": "^2.4.2",
-    "typings": "^2.1.1"
+    "typings": "^2.1.1",
+    "source-map": "^0.5.6"
   },
   "dependencies": {}
 }

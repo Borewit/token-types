@@ -132,7 +132,7 @@ export const UINT24_LE: IToken<number> = {
     len: 3,
 
     get(buf: Buffer, off: number): number {
-        return buf[off] | (buf[off + 1] << 8) | (buf[off + 2] << 16);
+        return buf.readUIntLE(off, 3);
     },
 
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
@@ -143,9 +143,7 @@ export const UINT24_LE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = v & 0xff;
-        b[no + 1] = (v >>> 8) & 0xff;
-        b[no + 2] = (v >>> 16) & 0xff;
+        b.writeUIntLE(v, no, 3);
 
         return (no - o) + this.len;
     }
@@ -157,7 +155,7 @@ export const UINT24_LE: IToken<number> = {
 export const UINT24_BE: IToken<number> = {
     len : 3,
     get(buf: Buffer, off: number): number {
-        return (((buf[off] << 8) + buf[off + 1]) << 8) + buf[off + 2];
+        return buf.readUIntBE(off, 3);
     },
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
         assert.equal(typeof o, 'number');
@@ -167,9 +165,7 @@ export const UINT24_BE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = (v >>> 16) & 0xff;
-        b[no + 1] = (v >>> 8) & 0xff;
-        b[no + 2] = v & 0xff;
+        b.writeUIntBE(v, no, 3);
 
         return (no - o) + this.len;
     }
@@ -295,14 +291,12 @@ export const INT16_LE: IToken<number> = {
 };
 
 /**
- * 24-bit signed integer, Big Endian byte order
+ * 24-bit signed integer, Little Endian byte order
  */
-export const INT24_BE: IToken<number> = {
+export const INT24_LE: IToken<number> = {
     len: 3,
     get(buf: Buffer, off: number): number {
-        const v = UINT24_BE.get(buf, off);
-        return ((v & 0x800000) === 0x800000) ?
-          (-0x800000 + (v & 0x7fffff)) : v;
+        return buf.readIntLE(off, 3);
     },
     put(b: Buffer, o: number, v: number, flush?: IFlush): number {
         assert.equal(typeof o, 'number');
@@ -312,9 +306,29 @@ export const INT24_BE: IToken<number> = {
         assert.ok(this.len <= b.length);
 
         const no = maybeFlush(b, o, this.len, flush);
-        b[no] = (v >>> 16) & 0xff;
-        b[no + 1] = (v >>> 8) & 0xff;
-        b[no + 2] = v & 0xff;
+        b.writeIntLE(v, no, 3);
+
+        return (no - o) + this.len;
+    }
+};
+
+/**
+ * 24-bit signed integer, Big Endian byte order
+ */
+export const INT24_BE: IToken<number> = {
+    len: 3,
+    get(buf: Buffer, off: number): number {
+        return buf.readIntBE(off, 3);
+    },
+    put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+        assert.equal(typeof o, 'number');
+        assert.equal(typeof v, 'number');
+        assert.ok(v >= -0x800000 && v <= 0x7fffff);
+        assert.ok(o >= 0);
+        assert.ok(this.len <= b.length);
+
+        const no = maybeFlush(b, o, this.len, flush);
+        b.writeIntBE(v, no, 3);
 
         return (no - o) + this.len;
     }

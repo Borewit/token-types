@@ -7,6 +7,34 @@ import * as util from './util';
 
 describe("Parse 24-bit signed integer", () => {
 
+  describe("little-endian", () => {
+
+    it("should encode", () => {
+
+      const buf = new Buffer(3);
+
+      Token.INT24_LE.put(buf, 0, 0x00);
+      util.checkBuffer(buf, "000000");
+
+      Token.INT24_LE.put(buf, 0, 0x0f0ba0);
+      util.checkBuffer(buf, "a00b0f");
+
+      Token.INT24_LE.put(buf, 0, -0x0f0bcc);
+      util.checkBuffer(buf, "34f4f0");
+    });
+
+    it("should decode", () => {
+
+      const buf = new Buffer('\x00\x00\x00\xff\xff\xff\xff\x00\x10\x00\x00\x80', 'binary');
+
+      assert.equal(Token.INT24_LE.get(buf, 0), 0);
+      assert.equal(Token.INT24_LE.get(buf, 3), -1);
+      assert.equal(Token.INT24_LE.get(buf, 6), 1048831);
+      assert.equal(Token.INT24_LE.get(buf, 9), -8388608);
+
+    });
+  });
+
   describe("big-endian", () => {
 
     it("should encode", () => {

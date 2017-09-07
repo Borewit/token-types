@@ -30,18 +30,18 @@
     "url": "https://github.com/Borewit/token-types/issues"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.3",
-    "@types/mocha": "^2.2.41",
-    "@types/node": "^8.0.24",
-    "chai": "^4.1.1",
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.0.27",
+    "chai": "^4.1.2",
     "copyfiles": "^1.2.0",
     "coveralls": "^2.13.1",
     "mocha": "^3.5.0",
-    "nyc": "^11.1.0",
-    "source-map": "^0.5.6",
+    "nyc": "^11.2.1",
+    "source-map": "^0.5.7",
     "ts-node": "^3.3.0",
-    "tslint": "^5.6.0",
-    "typescript": "^2.5.1",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2",
     "typings": "^2.1.1"
   },
   "dependencies": {}

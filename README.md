@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Borewit/token-types.svg?branch=master)](https://travis-ci.org/Borewit/token-types)
 [![NPM version](https://badge.fury.io/js/token-types.svg)](https://npmjs.org/package/token-types)
 [![npm downloads](http://img.shields.io/npm/dm/token-types.svg)](https://npmjs.org/package/token-types)
-[![Dependencies](https://david-dm.org/Borewit/token-types.svg)](https://github.com/Borewit/token-types)
+[![Dependencies](https://david-dm.org/Borewit/token-types.svg)](https://david-dm.org/Borewit/token-types)
 [![coveralls](https://coveralls.io/repos/github/Borewit/token-types/badge.svg?branch=master)](https://coveralls.io/github/Borewit/token-types?branch=master)
 
 A primitive token library used to read from, and to write a node `Buffer`.

@@ -3,7 +3,7 @@
 [![npm downloads](http://img.shields.io/npm/dm/token-types.svg)](https://npmjs.org/package/token-types)
 [![Dependencies](https://david-dm.org/Borewit/token-types.svg)](https://david-dm.org/Borewit/token-types)
 [![coveralls](https://coveralls.io/repos/github/Borewit/token-types/badge.svg?branch=master)](https://coveralls.io/github/Borewit/token-types?branch=master)
-
+[![NSP Status](https://nodesecurity.io/orgs/borewit/projects/a193313e-00be-4611-bcba-f68773e5704c/badge)](https://nodesecurity.io/orgs/borewit/projects/a193313e-00be-4611-bcba-f68773e5704c)
 A primitive token library used to read from, and to write a node `Buffer`.
 
 ### Tokens

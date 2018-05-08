@@ -11,7 +11,7 @@ describe("Parse 24-bit signed integer", () => {
 
     it("should encode", () => {
 
-      const buf = new Buffer(3);
+      const buf = Buffer.alloc(3);
 
       Token.INT24_LE.put(buf, 0, 0x00);
       util.checkBuffer(buf, "000000");
@@ -25,7 +25,7 @@ describe("Parse 24-bit signed integer", () => {
 
     it("should decode", () => {
 
-      const buf = new Buffer('\x00\x00\x00\xff\xff\xff\xff\x00\x10\x00\x00\x80', 'binary');
+      const buf = Buffer.from('\x00\x00\x00\xff\xff\xff\xff\x00\x10\x00\x00\x80', 'binary');
 
       assert.equal(Token.INT24_LE.get(buf, 0), 0);
       assert.equal(Token.INT24_LE.get(buf, 3), -1);
@@ -39,7 +39,7 @@ describe("Parse 24-bit signed integer", () => {
 
     it("should encode", () => {
 
-      const buf = new Buffer(3);
+      const buf = Buffer.alloc(3);
 
       Token.INT24_BE.put(buf, 0, 0x00);
       util.checkBuffer(buf, "000000");
@@ -53,7 +53,7 @@ describe("Parse 24-bit signed integer", () => {
 
     it("should decode", () => {
 
-      const buf = new Buffer('\x00\x00\x00\xff\xff\xff\x10\x00\xff\x80\x00\x00', 'binary');
+      const buf = Buffer.from('\x00\x00\x00\xff\xff\xff\x10\x00\xff\x80\x00\x00', 'binary');
 
       assert.equal(Token.INT24_BE.get(buf, 0), 0);
       assert.equal(Token.INT24_BE.get(buf, 3), -1);

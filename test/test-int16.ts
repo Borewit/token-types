@@ -11,7 +11,7 @@ describe("Parse 16-bit signed integer", () => {
 
         it("should encode", () => {
 
-            const buf = new Buffer(2);
+            const buf = Buffer.alloc(2);
 
             Token.INT16_BE.put(buf, 0, 0x00);
             util.checkBuffer(buf, "0000");
@@ -25,7 +25,7 @@ describe("Parse 16-bit signed integer", () => {
 
         it("should decode", () => {
 
-            const buf = new Buffer('\x0a\x1a\x00\x00\xff\xff\x80\x00', 'binary');
+            const buf = Buffer.from('\x0a\x1a\x00\x00\xff\xff\x80\x00', 'binary');
 
             assert.equal(Token.INT16_BE.get(buf, 0), 2586);
             assert.equal(Token.INT16_BE.get(buf, 2), 0);
@@ -39,7 +39,7 @@ describe("Parse 16-bit signed integer", () => {
 
         it("should encode", () => {
 
-            const buf = new Buffer(2);
+            const buf = Buffer.alloc(2);
 
             Token.INT16_LE.put(buf, 0, 0x00);
             util.checkBuffer(buf, "0000");
@@ -53,7 +53,7 @@ describe("Parse 16-bit signed integer", () => {
 
         it("should decode", () => {
 
-            const buf = new Buffer('\x1a\x0a\x00\x00\xff\xff\x00\x80', 'binary');
+            const buf = Buffer.from('\x1a\x0a\x00\x00\xff\xff\x00\x80', 'binary');
 
             assert.equal(Token.INT16_LE.get(buf, 0), 2586);
             assert.equal(Token.INT16_LE.get(buf, 2), 0);

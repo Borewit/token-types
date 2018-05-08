@@ -11,7 +11,7 @@ describe("Parse 32-bit unsigned integer", () => {
 
         describe("encode", () => {
 
-            const buf = new Buffer(4);
+            const buf = Buffer.alloc(4);
 
             it("should encode big-endian", () => {
 
@@ -41,7 +41,7 @@ describe("Parse 32-bit unsigned integer", () => {
 
         it("should decode", () => {
 
-            const buf = new Buffer('\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00', 'binary');
+            const buf = Buffer.from('\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00', 'binary');
 
             assert.equal(Token.UINT32_LE.get(buf, 0), 0x001a001a);
             assert.equal(Token.UINT32_BE.get(buf, 4), 0x1a001a00);

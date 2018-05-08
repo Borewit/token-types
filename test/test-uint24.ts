@@ -11,7 +11,7 @@ describe("Parse 24-bit unsigned integer", () => {
 
         it("should encode", () => {
 
-            const buf = new Buffer(3);
+            const buf = Buffer.alloc(3);
 
             Token.UINT24_LE.put(buf, 0, 0x00);
             util.checkBuffer(buf, "000000");
@@ -34,7 +34,7 @@ describe("Parse 24-bit unsigned integer", () => {
 
         it("should decode", () => {
 
-            const buf = new Buffer('\x1a\x1a\x00\x1a\x1a\x00\x1a\x1a\x00\x1a\x1a\x00', 'binary');
+            const buf = Buffer.from('\x1a\x1a\x00\x1a\x1a\x00\x1a\x1a\x00\x1a\x1a\x00', 'binary');
 
             assert.equal(Token.UINT24_LE.get(buf, 0), 0x001a1a);
             assert.equal(Token.UINT24_BE.get(buf, 3), 0x1a1a00);

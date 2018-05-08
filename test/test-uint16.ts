@@ -11,7 +11,7 @@ describe("Parse 16-bit unsigned integer", () => {
 
         it("should encode", () => {
 
-            const buf = new Buffer(4);
+            const buf = Buffer.alloc(4);
 
             Token.UINT16_LE.put(buf, 0, 0x00);
             Token.UINT16_LE.put(buf, 2, 0xffaa);
@@ -28,7 +28,7 @@ describe("Parse 16-bit unsigned integer", () => {
 
         it("should decode", () => {
 
-            const buf = new Buffer('\x1a\x00\x1a\x00\x1a\x00\x1a\x00', 'binary');
+            const buf = Buffer.from('\x1a\x00\x1a\x00\x1a\x00\x1a\x00', 'binary');
 
             assert.equal(Token.UINT16_LE.get(buf, 0), 0x001a);
             assert.equal(Token.UINT16_BE.get(buf, 2), 0x1a00);

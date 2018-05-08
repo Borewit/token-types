@@ -5,7 +5,7 @@ import {AnsiStringType} from "../src/index";
 describe("Decode ANSI-string (ISO-8859-1)", () => {
 
   function decode(v: string): string {
-    const buf = new Buffer(v, "binary");
+    const buf = Buffer.from(v, "binary");
     const ansiStr = new AnsiStringType(buf.length);
     return ansiStr.get(buf);
   }

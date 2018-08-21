@@ -379,6 +379,58 @@ export const INT32_LE: IToken<number> = {
 };
 
 /**
+ * 64-bit unsigned integer, Little Endian byte order
+ */
+export const UINT64_LE: IToken<number> = {
+  len: 8,
+  get(buf: Buffer, off: number): number {
+    return readUIntLE(buf, off, this.len);
+  },
+  put(b: Buffer, o: number, v: number): number {
+    return writeUIntLE(b, v, o,  this.len);
+  }
+};
+
+/**
+ * 64-bit signed integer, Little Endian byte order
+ */
+export const INT64_LE: IToken<number> = {
+  len: 8,
+  get(buf: Buffer, off: number): number {
+    return readIntLE(buf, off, this.len);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return writeIntLE(b, v, off,  this.len);
+  }
+};
+
+/**
+ * 64-bit unsigned integer, Big Endian byte order
+ */
+export const UINT64_BE: IToken<number> = {
+  len: 8,
+  get(buf: Buffer, off: number): number {
+    return readUIntBE(buf, off, this.len);
+  },
+  put(b: Buffer, o: number, v: number): number {
+    return writeUIntBE(b, v, o,  this.len);
+  }
+};
+
+/**
+ * 64-bit signed integer, Big Endian byte order
+ */
+export const INT64_BE: IToken<number> = {
+  len: 8,
+  get(buf: Buffer, off: number): number {
+    return readIntBE(buf, off, this.len);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return writeIntBE(b, v, off,  this.len);
+  }
+};
+
+/**
  * Ignore a given number of bytes
  */
 export class IgnoreType implements IGetToken<Buffer> {
@@ -474,4 +526,159 @@ export class AnsiStringType implements IGetToken<string> {
   public get(buf: Buffer, off: number = 0): string {
     return AnsiStringType.decode(buf, off, off + this.len);
   }
+}
+
+/**
+ * Best effort approach to read up to 64 bit unsigned integer, little endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+function readUIntLE(buf: Buffer, offset: number, byteLength: number): number {
+  offset = offset >>> 0;
+  byteLength = byteLength >>> 0;
+
+  let val = buf[offset];
+  let mul = 1;
+  let i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += buf[offset + i] * mul;
+  }
+  return val;
+}
+
+/**
+ * Best effort approach to write up to 64 bit unsigned integer, little endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+function writeUIntLE(buf: Buffer, value: number, offset: number, byteLength: number) {
+  value = +value;
+  offset = offset >>> 0;
+  byteLength = byteLength >>> 0;
+
+  let mul = 1;
+  let i = 0;
+  buf[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    buf[offset + i] = (value / mul) & 0xFF;
+  }
+  return offset + byteLength;
+}
+
+/**
+ * Best effort approach to read 64 but signed integer, little endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+function readIntLE(buf: Buffer, offset: number, byteLength: number): number {
+  offset = offset >>> 0;
+  byteLength = byteLength >>> 0;
+
+  let val = buf[offset];
+  let mul = 1;
+  let i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += buf[offset + i] * mul;
+  }
+  mul *= 0x80;
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+  return val;
+}
+
+/**
+ * Best effort approach to write 64 but signed integer, little endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+export function writeIntLE(buf: Buffer, value: number, offset: number, byteLength: number): number {
+  value = +value;
+  offset = offset >>> 0;
+
+  let i = 0;
+  let mul = 1;
+  let sub = 0;
+  buf[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && buf[offset + i - 1] !== 0) {
+      sub = 1;
+    }
+    buf[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+  }
+
+  return offset + byteLength;
+}
+
+/**
+ * Best effort approach to read up to 64 bit unsigned integer, big endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+export function readUIntBE(buf: Buffer, offset: number, byteLength: number): number {
+  offset = offset >>> 0;
+  byteLength = byteLength >>> 0;
+
+  let val = buf[offset + --byteLength];
+  let mul = 1;
+  while (byteLength > 0 && (mul *= 0x100)) {
+    val += buf[offset + --byteLength] * mul;
+  }
+  return val;
+}
+
+/**
+ * Best effort approach to write up to 64 bit unsigned integer, big endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+export function writeUIntBE(buf: Buffer, value: number, offset: number, byteLength: number) {
+  value = +value;
+  offset = offset >>> 0;
+  byteLength = byteLength >>> 0;
+
+  let i = byteLength - 1;
+  let mul = 1;
+  buf[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    buf[offset + i] = (value / mul) & 0xFF;
+  }
+  return offset + byteLength;
+}
+
+/**
+ * Best effort approach to read 64 but signed integer, big endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+export function readIntBE(buf: Buffer, offset: number, byteLength: number): number {
+  offset = offset >>> 0;
+  byteLength = byteLength >>> 0;
+
+  let i = byteLength;
+  let mul = 1;
+  let val = buf[offset + --i];
+  while (i > 0 && (mul *= 0x100)) {
+    val += buf[offset + --i] * mul;
+  }
+  mul *= 0x80;
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+  return val;
+}
+
+/**
+ * Best effort approach to write 64 but signed integer, big endian.
+ * Note that JavasScript is limited to 2^53 - 1 bit.
+ */
+export function writeIntBE(buf: Buffer, value: number, offset: number, byteLength: number): number {
+  value = +value;
+  offset = offset >>> 0;
+
+  let i = byteLength - 1;
+  let mul = 1;
+  let sub = 0;
+  buf[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && buf[offset + i + 1] !== 0) {
+      sub = 1;
+    }
+    buf[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+  }
+
+  return offset + byteLength;
 }

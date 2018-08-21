@@ -15,19 +15,18 @@ A primitive token library used to read from, and to write a node `Buffer`.
 * `UINT16_BE`, `UINT16_LE`
 * `UINT24_BE`, `UINT24_LE`
 * `UINT32_BE`, `UINT32_LE`
+* `UINT64_BE`, `UINT64_LE` *
 * `INT8`
 * `INT16_BE`, `INT16_LE`
 * `INT24_BE`, `INT24_LE`
 * `INT32_BE`, `INT32_LE`
+* `INT64_BE`, `UINT64_LE` *
 
 String types:
 * Windows-1252
 * ISO-8859-1
 
-One might notice that there is no support for 64-bit tokens, since JavaScript
-seems to limit value size to less than 2^64. Rather than wrapping up an
-additional math library to handle this, I wanted to stick with JavaScript
-primitives. Maybe this will change later if this becomes important.
+*) The 64-bit tokens are best effort based, since JavaScript limit value size to less than 2^64. 
       
 [npm-url]: https://npmjs.org/package/token-types
 [npm-image]: https://badge.fury.io/js/token-types.svg

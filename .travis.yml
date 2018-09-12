@@ -7,14 +7,14 @@ node_js:
  - "9"
  - "10"
 install:
- - npm install
- - npm run compile
+ - yarn install
+ - yarn run compile
 script:
- - npm run lint
- - npm run test
+ - yarn run lint
+ - yarn run test
 
 jobs:
   include:
     - stage: after_success
-      script: npm run coveralls
+      script: yarn run coveralls
       node_js: 9

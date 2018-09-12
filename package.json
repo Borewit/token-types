@@ -15,7 +15,7 @@
     "lint": "tslint 'src/**/*.ts' --exclude 'src/**/*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
     "test": "mocha --require ts-node/register test",
     "cover-test": "nyc yarn run test",
-    "coveralls": "npm yarn cover-test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "yarn run cover-test && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
     "node": ">=0.1.98"

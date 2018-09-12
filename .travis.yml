@@ -15,5 +15,8 @@ script:
 jobs:
   include:
     - stage: after_success
-      script: yarn run coveralls
+      script:
+      - yarn install
+      - yarn run compile
+      - yarn run coveralls
       node_js: 9

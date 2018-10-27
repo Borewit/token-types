@@ -1,6 +1,6 @@
 {
   "name": "token-types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common token types for decoding and encoding binairy values",
   "author": {
     "name": "Borewit",
@@ -48,6 +48,8 @@
   },
   "dependencies": {},
   "remarkConfig": {
-    "plugins": ["preset-lint-recommended"]
+    "plugins": [
+      "preset-lint-recommended"
+    ]
   }
 }

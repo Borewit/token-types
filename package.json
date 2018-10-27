@@ -7,15 +7,15 @@
     "url": "https://github.com/Borewit"
   },
   "scripts": {
-    "build": "yarn run compile",
+    "build": "npm run compile",
     "compile-src": "tsc -p src",
     "compile-test": "tsc -p test",
-    "compile": "yarn run compile-src && yarn run compile-test",
-    "prepare": "yarn run compile",
+    "compile": "npm run compile-src && npm run compile-test",
+    "prepare": "npm run compile",
     "lint": "tslint 'src/**/*.ts' --exclude 'src/**/*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
     "test": "mocha --require ts-node/register test",
-    "cover-test": "nyc yarn run test",
-    "coveralls": "yarn run cover-test && nyc report --reporter=text-lcov | coveralls"
+    "cover-test": "nyc npm run test",
+    "coveralls": "npm run cover-test && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
     "node": ">=0.1.98"

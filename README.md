@@ -28,3 +28,23 @@ String types:
 *   ISO-8859-1
   
 *) The 64-bit tokens are best effort based, since JavaScript limit value size to less than 2^64.
+
+Complex tokens can be added, which makes very suitable for reading binary files or network messages:
+```JavaScript
+ public static ExtendedHeader: Token.IGetToken<IExtendedHeader> = {
+    len: 10,
+
+    get: (buf, off): IExtendedHeader => {
+      return {
+        // Extended header size
+        size: Token.UINT32_BE.get(buf, off),
+        // Extended Flags
+        extendedFlags: Token.UINT16_BE.get(buf, off + 4),
+        // Size of padding
+        sizeOfPadding: Token.UINT32_BE.get(buf, off + 6),
+        // CRC data present
+        crcDataPresent: common.strtokBITSET.get(buf, off + 4, 31)
+      };
+    }
+  };
+```

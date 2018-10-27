@@ -5,11 +5,13 @@ node_js:
  - "8"
  - "9"
  - "10"
+ - "11"
 install:
  - yarn install
  - yarn run compile
 script:
- - yarn run lint
+ - yarn run lint-ts
+ - yarn run lint-md
  - yarn run test
 
 jobs:

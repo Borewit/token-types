@@ -2,4 +2,10 @@ node_modules/
 test/
 coverage/
 src/
-dist/
+.nyc_output/
+lib/**/*.js.map
+lib/**/*.ts
+tsconfig.json
+*.iml
+tslint.json
+.travis.yml

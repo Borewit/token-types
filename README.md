@@ -4,6 +4,7 @@
 [![Dependencies](https://david-dm.org/Borewit/token-types.svg)](https://david-dm.org/Borewit/token-types)
 [![coveralls](https://coveralls.io/repos/github/Borewit/token-types/badge.svg?branch=master)](https://coveralls.io/github/Borewit/token-types?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4723ce4613fc49cda8db5eed29f18834)](https://www.codacy.com/app/Borewit/token-types?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Borewit/token-types&amp;utm_campaign=Badge_Grade)
+[![DeepScan grade](https://deepscan.io/api/teams/5165/projects/6940/branches/61852/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5165&pid=6940&bid=61852)
 [![Known Vulnerabilities](https://snyk.io/test/github/Borewit/token-types/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Borewit/token-types?targetFile=package.json)
 
 A primitive token library used to read from, and to write a node `Buffer`.

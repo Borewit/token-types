@@ -5,7 +5,7 @@ src/
 .nyc_output/
 lib/**/*.js.map
 lib/**/*.ts
-tsconfig.json
+**/tsconfig.json
 *.iml
 tslint.json
 .travis.yml

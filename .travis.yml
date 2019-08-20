@@ -16,6 +16,5 @@ jobs:
     - stage: after_success
       script:
       - yarn install
-      - yarn run compile
       - yarn run coveralls
       node_js: 12

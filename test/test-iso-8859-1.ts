@@ -1,6 +1,6 @@
 import {} from "mocha";
 import {assert} from "chai";
-import {AnsiStringType} from "../src/index";
+import {AnsiStringType} from "../lib/index";
 
 describe("Decode ANSI-string (ISO-8859-1)", () => {
 

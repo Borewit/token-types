@@ -1,10 +1,4 @@
 {
-  "compilerOptions": {
-    "sourceMap":  true,
-    "inlineSources": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "declaration": false
-  }
+  "extends": "../tsconfig.json"
 }
 

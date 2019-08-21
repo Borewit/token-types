@@ -1,13 +1,12 @@
 language: node_js
 node_js:
- - "6"
  - "8"
  - "10"
  - "12"
 install:
  - yarn install
- - yarn run compile
 script:
+ - yarn run compile
  - yarn run lint-ts
  - yarn run lint-md
  - yarn run test
@@ -16,7 +15,5 @@ jobs:
   include:
     - stage: after_success
       script:
-      - yarn install
-      - yarn run compile
       - yarn run coveralls
       node_js: 12

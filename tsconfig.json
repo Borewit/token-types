@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "sourceMap":  true,
+    "inlineSources": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2017",
+    "declaration": false
+  }
+}
+

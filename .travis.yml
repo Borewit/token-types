@@ -5,8 +5,8 @@ node_js:
  - "12"
 install:
  - yarn install
- - yarn run compile
 script:
+ - yarn run compile
  - yarn run lint-ts
  - yarn run lint-md
  - yarn run test
@@ -15,6 +15,5 @@ jobs:
   include:
     - stage: after_success
       script:
-      - yarn install
       - yarn run coveralls
       node_js: 12

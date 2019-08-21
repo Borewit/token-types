@@ -31,11 +31,11 @@ String types:
 *) The 64-bit tokens are best effort based, since JavaScript limit value size to less than 2^64.
 
 Complex tokens can be added, which makes very suitable for reading binary files or network messages:
-```JavaScript
- public static ExtendedHeader: Token.IGetToken<IExtendedHeader> = {
+```javascript
+ ExtendedHeader = {
     len: 10,
 
-    get: (buf, off): IExtendedHeader => {
+    get: (buf, off) => {
       return {
         // Extended header size
         size: Token.UINT32_BE.get(buf, off),

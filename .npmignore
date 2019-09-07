@@ -11,3 +11,4 @@ lib/**/*.ts
 tslint.json
 .travis.yml
 **/*.log
+.github/

@@ -10,3 +10,4 @@ lib/**/*.ts
 *.iml
 tslint.json
 .travis.yml
+**/*.log

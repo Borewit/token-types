@@ -33,9 +33,9 @@
     "url": "https://github.com/Borewit/token-types/issues"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.0",
+    "@types/chai": "^4.2.1",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^12.7.2",
+    "@types/node": "^12.7.4",
     "chai": "^4.2.0",
     "coveralls": "^3.0.6",
     "del-cli": "^2.0.0",
@@ -45,8 +45,8 @@
     "remark-preset-lint-recommended": "^3.0.3",
     "source-map-support": "^0.5.13",
     "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "tslint": "^5.19.0",
+    "typescript": "^3.6.2"
   },
   "dependencies": {},
   "remarkConfig": {

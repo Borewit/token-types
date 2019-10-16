@@ -26,6 +26,10 @@
     "type": "git",
     "url": "https://github.com/Borewit/token-types"
   },
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.d.ts"
+  ],
   "license": "MIT",
   "main": "./lib/index.js",
   "typings": "lib/index",

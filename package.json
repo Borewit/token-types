@@ -1,6 +1,6 @@
 {
   "name": "token-types",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Common token types for decoding and encoding binairy values",
   "author": {
     "name": "Borewit",

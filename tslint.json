@@ -16,7 +16,8 @@
     "ordered-imports": false,
     "forin": false,
     "no-implicit-dependencies": [true, "dev"],
-    "no-conditional-assignment": false
+    "no-conditional-assignment": false,
+    "no-empty": [true, "allow-empty-functions"]
   },
   "jsRules": {
     "curly": false

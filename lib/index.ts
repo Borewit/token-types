@@ -433,7 +433,7 @@ export const INT64_BE: IToken<number> = {
 /**
  * Ignore a given number of bytes
  */
-export class IgnoreType implements IGetToken<Buffer> {
+export class IgnoreType implements IGetToken<void> {
 
   /**
    * @param len number of bytes to ignore
@@ -442,8 +442,7 @@ export class IgnoreType implements IGetToken<Buffer> {
   }
 
   // ToDo: don't read, but skip data
-  public get(buf: Buffer, off: number): Buffer {
-    return null;
+  public get(buf: Buffer, off: number) {
   }
 }
 

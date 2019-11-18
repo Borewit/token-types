@@ -179,6 +179,9 @@ export const UINT32_LE: IToken<number> = {
   len: 4,
 
   get(buf: Buffer, off: number): number {
+    if ((buf.length - 4) < off) {
+      off = buf.length - 4;
+    }
     return buf.readUInt32LE(off);
   },
 

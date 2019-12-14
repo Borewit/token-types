@@ -9,28 +9,55 @@
 [![DeepScan grade](https://deepscan.io/api/teams/5165/projects/6940/branches/61852/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5165&pid=6940&bid=61852)
 [![Known Vulnerabilities](https://snyk.io/test/github/Borewit/token-types/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Borewit/token-types?targetFile=package.json)
 
-A primitive token library used to read from, and to write a node `Buffer`.
+# strtok3
 
-### Tokens
+A primitive token library used to read from, and to write a node `Buffer`.
+Although it is possible to use this module directly, it is designed to be used with [strtok3 tokenizer](https://github.com/Borewit/strtok3).
+
+## Installation
+
+```sh
+npm add strtok3
+```
+
+## Tokens
 
 `node-strtok` supports a wide variety of numerical tokens out of the box:
 
-*   `UINT8`
-*   `UINT16_BE`, `UINT16_LE`
-*   `UINT24_BE`, `UINT24_LE`
-*   `UINT32_BE`, `UINT32_LE`
-*   `UINT64_BE`, `UINT64_LE`*
-*   `INT8`
-*   `INT16_BE`, `INT16_LE`
-*   `INT24_BE`, `INT24_LE`
-*   `INT32_BE`, `INT32_LE`
-*   `INT64_BE`, `UINT64_LE`*
+| Token         | Number           | Bits | Endianness     |
+|---------------|------------------|------|----------------|
+| `UINT8`       | Unsigned integer |    8 | n/a            |
+| `UINT16_BE`   | Unsigned integer |   16 | big endian     |
+| `UINT16_LE`   | Unsigned integer |   16 | little endian  |
+| `UINT24_BE`   | Unsigned integer |   24 | big endian     |
+| `UINT24_LE`   | Unsigned integer |   24 | little endian  |
+| `UINT32_BE`   | Unsigned integer |   32 | big endian     |
+| `UINT32_LE`   | Unsigned integer |   32 | little endian  |
+| `UINT64_BE`   | Unsigned integer |   64 | big endian     |
+| `UINT64_LE`*  | Unsigned integer |   64 | little endian  |
+| `INT8`        | Signed integer   |    8 | n/a            |
+| `INT16_BE`    | Signed integer   |   16 | big endian     |
+| `INT16_LE`    | Signed integer   |   16 | little endian  |
+| `INT24_BE`    | Signed integer   |   24 | big endian     |
+| `INT24_LE`    | Signed integer   |   24 | little endian  |
+| `INT32_BE`    | Signed integer   |   32 | big endian     |
+| `INT32_LE`    | Signed integer   |   32 | little endian  |
+| `INT64_BE`    | Signed integer   |   64 | big endian     |
+| `INT64_LE`*   | Signed integer   |   64 | little endian  |
+| `Float16_BE`  | IEEE 754 float   |   16 | big endian     |
+| `Float16_LE`  | IEEE 754 float   |   16 | little endian  |
+| `Float32_BE`  | IEEE 754 float   |   32 | big endian     |
+| `Float32_LE`  | IEEE 754 float   |   32 | little endian  |
+| `Float64_BE`  | IEEE 754 float   |   64 | big endian     |
+| `Float64_LE`  | IEEE 754 float   |   64 | little endian  |
+| `Float80_BE`* | IEEE 754 float   |   80 | big endian     |
+| `Float80_LE`* | IEEE 754 float   |   80 | little endian  |
 
 String types:
 *   Windows-1252
 *   ISO-8859-1
   
-*) The 64-bit tokens are best effort based, since JavaScript limit value size to less than 2^64.
+*) The tokens exceed the JavaScript IEEE 754 64-bit Floating Point precision, decoding and encoding is best effort based.
 
 Complex tokens can be added, which makes very suitable for reading binary files or network messages:
 ```javascript

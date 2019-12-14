@@ -52,7 +52,9 @@
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ieee754": "^1.1.13"
+  },
   "remarkConfig": {
     "plugins": [
       "preset-lint-recommended"
@@ -73,5 +75,15 @@
       "text"
     ],
     "report-dir": "coverage"
-  }
+  },
+  "keywords": [
+    "token",
+    "integer",
+    "unsigned",
+    "numeric",
+    "float",
+    "IEEE",
+    "754",
+    "strtok3"
+  ]
 }

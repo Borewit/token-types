@@ -1,13 +1,14 @@
 // A fast streaming parser library.
 
-import * as assert from "assert";
+import * as assert from 'assert';
+import * as ieee754 from 'ieee754';
 
 // Possibly call flush()
 const maybeFlush = (b, o, len, flush) => {
   if (o + len > b.length) {
-    if (typeof(flush) !== "function") {
+    if (typeof (flush) !== 'function') {
       throw new Error(
-        "Buffer out of space and no valid flush() function found"
+        'Buffer out of space and no valid flush() function found'
       );
     }
 
@@ -61,8 +62,8 @@ export const UINT8: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -86,8 +87,8 @@ export const UINT16_LE: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -111,8 +112,8 @@ export const UINT16_BE: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -136,8 +137,8 @@ export const UINT24_LE: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -158,8 +159,8 @@ export const UINT24_BE: IToken<number> = {
     return buf.readUIntBE(off, 3);
   },
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -183,8 +184,8 @@ export const UINT32_LE: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -208,8 +209,8 @@ export const UINT32_BE: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -233,8 +234,8 @@ export const INT8: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= -128 && v <= 127);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -255,8 +256,8 @@ export const INT16_BE: IToken<number> = {
     return buf.readInt16BE(off);
   },
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= -32768 && v <= 32767);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -277,8 +278,8 @@ export const INT16_LE: IToken<number> = {
     return buf.readInt16LE(off);
   },
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= -32768 && v <= 32767);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -299,8 +300,8 @@ export const INT24_LE: IToken<number> = {
     return buf.readIntLE(off, 3);
   },
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= -0x800000 && v <= 0x7fffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -321,8 +322,8 @@ export const INT24_BE: IToken<number> = {
     return buf.readIntBE(off, 3);
   },
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= -0x800000 && v <= 0x7fffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -343,8 +344,8 @@ export const INT32_BE: IToken<number> = {
     return buf.readInt32BE(off);
   },
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= -2147483648 && v <= 2147483647);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -365,8 +366,8 @@ export const INT32_LE: IToken<number> = {
     return buf.readInt32LE(off);
   },
   put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, "number");
-    assert.equal(typeof v, "number");
+    assert.equal(typeof o, 'number');
+    assert.equal(typeof v, 'number');
     assert.ok(v >= -2147483648 && v <= 2147483647);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
@@ -387,7 +388,7 @@ export const UINT64_LE: IToken<number> = {
     return readUIntLE(buf, off, this.len);
   },
   put(b: Buffer, o: number, v: number): number {
-    return writeUIntLE(b, v, o,  this.len);
+    return writeUIntLE(b, v, o, this.len);
   }
 };
 
@@ -400,7 +401,7 @@ export const INT64_LE: IToken<number> = {
     return readIntLE(buf, off, this.len);
   },
   put(b: Buffer, off: number, v: number): number {
-    return writeIntLE(b, v, off,  this.len);
+    return writeIntLE(b, v, off, this.len);
   }
 };
 
@@ -409,11 +410,11 @@ export const INT64_LE: IToken<number> = {
  */
 export const UINT64_BE: IToken<number> = {
   len: 8,
-  get(buf: Buffer, off: number): number {
-    return readUIntBE(buf, off, this.len);
+  get(b: Buffer, off: number): number {
+    return readUIntBE(b, off, this.len);
   },
   put(b: Buffer, o: number, v: number): number {
-    return writeUIntBE(b, v, o,  this.len);
+    return writeUIntBE(b, v, o, this.len);
   }
 };
 
@@ -422,11 +423,115 @@ export const UINT64_BE: IToken<number> = {
  */
 export const INT64_BE: IToken<number> = {
   len: 8,
-  get(buf: Buffer, off: number): number {
-    return readIntBE(buf, off, this.len);
+  get(b: Buffer, off: number): number {
+    return readIntBE(b, off, this.len);
   },
   put(b: Buffer, off: number, v: number): number {
-    return writeIntBE(b, v, off,  this.len);
+    return writeIntBE(b, v, off, this.len);
+  }
+};
+
+/**
+ * IEEE 754 16-bit (half precision) float, big endian
+ */
+export const Float16_BE: IToken<number> = {
+  len: 2,
+  get(b: Buffer, off: number): number {
+    return ieee754.read(b, off, false, 10, this.len);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return ieee754.write(b, v, off, false, 10, this.len);
+  }
+};
+
+/**
+ * IEEE 754 16-bit (half precision) float, little endian
+ */
+export const Float16_LE: IToken<number> = {
+  len: 2,
+  get(b: Buffer, off: number): number {
+    return ieee754.read(b, off, true, 10, this.len);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return ieee754.write(b, v, off, true, 10, this.len);
+  }
+};
+
+/**
+ * IEEE 754 32-bit (single precision) float, big endian
+ */
+export const Float32_BE: IToken<number> = {
+  len: 4,
+  get(b: Buffer, off: number): number {
+    return b.readFloatBE(off);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return b.writeFloatBE(v, off);
+  }
+};
+
+/**
+ * IEEE 754 32-bit (single precision) float, little endian
+ */
+export const Float32_LE: IToken<number> = {
+  len: 4,
+  get(b: Buffer, off: number): number {
+    return b.readFloatLE(off);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return b.writeFloatLE(v, off);
+  }
+};
+
+/**
+ * IEEE 754 64-bit (double precision) float, big endian
+ */
+export const Float64_BE: IToken<number> = {
+  len: 8,
+  get(b: Buffer, off: number): number {
+    return b.readDoubleBE(off);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return b.writeDoubleBE(v, off);
+  }
+};
+
+/**
+ * IEEE 754 64-bit (double precision) float, little endian
+ */
+export const Float64_LE: IToken<number> = {
+  len: 8,
+  get(b: Buffer, off: number): number {
+    return b.readDoubleLE(off);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return b.writeDoubleLE(v, off);
+  }
+};
+
+/**
+ * IEEE 754 80-bit (extended precision) float, big endian
+ */
+export const Float80_BE: IToken<number> = {
+  len: 10,
+  get(b: Buffer, off: number): number {
+    return ieee754.read(b, off, false, 63, this.len);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return ieee754.write(b, v, off, false, 63, this.len);
+  }
+};
+
+/**
+ * IEEE 754 80-bit (extended precision) float, little endian
+ */
+export const Float80_LE: IToken<number> = {
+  len: 10,
+  get(b: Buffer, off: number): number {
+    return ieee754.read(b, off, true, 63, this.len);
+  },
+  put(b: Buffer, off: number, v: number): number {
+    return ieee754.write(b, v, off, true, 63, this.len);
   }
 };
 
@@ -486,7 +591,7 @@ export class AnsiStringType implements IGetToken<string> {
     248, 249, 250, 251, 252, 253, 254, 255];
 
   private static decode(buffer: Uint8Array, off: number, until: number): string {
-    let str = "";
+    let str = '';
     for (let i = off; i < until; ++i) {
       str += AnsiStringType.codePointToString(AnsiStringType.singleByteDecoder(buffer[i]));
     }
@@ -513,7 +618,7 @@ export class AnsiStringType implements IGetToken<string> {
 
     const codePoint = AnsiStringType.windows1252[bite - 0x80];
     if (codePoint === null) {
-      throw Error("invaliding encoding");
+      throw Error('invaliding encoding');
     }
 
     return codePoint;

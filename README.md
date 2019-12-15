@@ -9,18 +9,37 @@
 [![DeepScan grade](https://deepscan.io/api/teams/5165/projects/6940/branches/61852/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5165&pid=6940&bid=61852)
 [![Known Vulnerabilities](https://snyk.io/test/github/Borewit/token-types/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Borewit/token-types?targetFile=package.json)
 
-# strtok3
+# token-types
 
-A primitive token library used to read from, and to write a node `Buffer`.
-Although it is possible to use this module directly, it is designed to be used with [strtok3 tokenizer](https://github.com/Borewit/strtok3).
+A primitive token library used to read and write from a node `Buffer`.
+Although it is possible to use this module directly, it is primary designed to be used with [strtok3 tokenizer](https://github.com/Borewit/strtok3).
 
 ## Installation
 
 ```sh
 npm add strtok3
 ```
+## Example
+
+```js
+const strtok3 = require('strtok3');
+const token = require('token-types');
+    
+(async () => {
+
+  const tokenizer = await strtok3.fromFile("somefile.bin");
+  try {
+    const myNumber = await tokenizer.readToken(token.Float32_BE);
+    console.log(`My number: ${myNumber}`);
+  } finally {
+    tokenizer.close(); // Close the file
+  } 
+})();
+```
 
 ## Tokens
+
+### Numeric tokens
 
 `node-strtok` supports a wide variety of numerical tokens out of the box:
 
@@ -53,14 +72,18 @@ npm add strtok3
 | `Float80_BE`* | IEEE 754 float   |   80 | big endian     |
 | `Float80_LE`* | IEEE 754 float   |   80 | little endian  |
 
+### Other tokens
+
 String types:
 *   Windows-1252
 *   ISO-8859-1
   
 *) The tokens exceed the JavaScript IEEE 754 64-bit Floating Point precision, decoding and encoding is best effort based.
 
+### Custom token
+
 Complex tokens can be added, which makes very suitable for reading binary files or network messages:
-```javascript
+```jS
  ExtendedHeader = {
     len: 10,
 

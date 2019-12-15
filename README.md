@@ -17,8 +17,13 @@ Although it is possible to use this module directly, it is primary designed to b
 ## Installation
 
 ```sh
-npm add strtok3
+npm install token-types
 ```
+Usually in combination with [strtok3](https://github.com/Borewit/strtok3):
+```sh
+npm install strtok3
+```
+
 ## Example
 
 ```js

@@ -9,13 +9,13 @@
   "scripts": {
     "clean": "del-cli lib/**/*.js lib/**/*.js.map lib/**/*.d.ts test/**/*.d.ts test/**/*.js test/**/*.js.map .nyc_output",
     "build": "npm run compile",
-    "compile-src": "tsc -p lib",
-    "compile-test": "tsc -p test",
+    "compile-src": "tsc",
+    "compile-test": "tsc --p test",
     "compile": "npm run compile-src && npm run compile-test",
-    "lint-ts": "tslint 'lib/**/*.ts' --exclude 'lib/**/*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
+    "lint-ts": "tslint index.ts --exclude '*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
     "lint-md": "remark -u preset-lint-recommended .",
     "lint": "npm run lint-ts && npm run lint-md",
-    "test": "mocha --require ts-node/register --require source-map-support/register --full-trace --recursive test/*.ts",
+    "test": "mocha --require ts-node/register --require source-map-support/register --full-trace --recursive test/test-*.ts",
     "test-coverage": "nyc npm run test",
     "coveralls": "npm run test-coverage && nyc report --reporter=text-lcov | coveralls"
   },
@@ -27,12 +27,12 @@
     "url": "https://github.com/Borewit/token-types"
   },
   "files": [
-    "lib/**/*.js",
-    "lib/**/*.d.ts"
+    "index.js",
+    "index.d.ts"
   ],
   "license": "MIT",
-  "main": "./lib/index.js",
-  "typings": "lib/index",
+  "main": "index.js",
+  "typings": "index",
   "bugs": {
     "url": "https://github.com/Borewit/token-types/issues"
   },
@@ -48,6 +48,7 @@
     "remark-cli": "^7.0.1",
     "remark-preset-lint-recommended": "^3.0.3",
     "source-map-support": "^0.5.16",
+    "strtok3": "^3.1.7",
     "ts-node": "^8.5.2",
     "tslint": "^5.20.1",
     "typescript": "^3.7.4"
@@ -63,7 +64,7 @@
   "nyc": {
     "exclude": [
       "test/**/*.ts",
-      "lib/**/*.js"
+      "*.js"
     ],
     "extension": [
       ".ts"

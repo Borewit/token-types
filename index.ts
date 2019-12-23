@@ -1,7 +1,7 @@
-// A fast streaming parser library.
-
 import * as assert from 'assert';
 import * as ieee754 from 'ieee754';
+
+import { IToken, IFlush, IGetToken } from 'strtok3';
 
 // Possibly call flush()
 const maybeFlush = (b, o, len, flush) => {
@@ -19,34 +19,6 @@ const maybeFlush = (b, o, len, flush) => {
 
   return o;
 };
-
-export interface IGetToken<T> {
-
-  /**
-   * Length in bytes of encoded value
-   */
-  len: number;
-
-  /**
-   * Decode value from buffer at offset
-   * @param buf Buffer to read the decoded value from
-   * @param off Decode offset
-   */
-  get(buf: Buffer, off: number): T;
-}
-
-export interface IToken<T> extends IGetToken<T> {
-  /**
-   * Encode value to buffer
-   * @param buffer Buffer to write the encoded value to
-   * @param offset Buffer write offset
-   * @param value Value to decode of type T
-   * @param flush ToDo
-   */
-  put(buffer: Buffer, offset: number, value: T, flush?: IFlush): number
-}
-
-export type IFlush = (b: Buffer, o: number) => void;
 
 // Primitive types
 

@@ -1,5 +1,3 @@
-// A fast streaming parser library.
-
 import * as assert from 'assert';
 import * as ieee754 from 'ieee754';
 
@@ -29,8 +27,8 @@ export interface IGetToken<T> {
 
   /**
    * Decode value from buffer at offset
-   * @param buf Buffer to read the decoded value from
-   * @param off Decode offset
+   * @param buf - Buffer to read the decoded value from
+   * @param off - Decode offset
    */
   get(buf: Buffer, off: number): T;
 }
@@ -38,9 +36,9 @@ export interface IGetToken<T> {
 export interface IToken<T> extends IGetToken<T> {
   /**
    * Encode value to buffer
-   * @param buffer Buffer to write the encoded value to
-   * @param offset Buffer write offset
-   * @param value Value to decode of type T
+   * @param buffer - Buffer to write the encoded value to
+   * @param offset - Buffer write offset
+   * @param value - Value to decode of type T
    * @param flush ToDo
    */
   put(buffer: Buffer, offset: number, value: T, flush?: IFlush): number

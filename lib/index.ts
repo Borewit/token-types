@@ -1,24 +1,7 @@
 import * as assert from 'assert';
 import * as ieee754 from 'ieee754';
 
-import { IToken, IFlush, IGetToken } from 'strtok3';
-
-// Possibly call flush()
-const maybeFlush = (b, o, len, flush) => {
-  if (o + len > b.length) {
-    if (typeof (flush) !== 'function') {
-      throw new Error(
-        'Buffer out of space and no valid flush() function found'
-      );
-    }
-
-    flush(b, o);
-
-    return 0;
-  }
-
-  return o;
-};
+import { IToken, IGetToken } from 'strtok3';
 
 // Primitive types
 
@@ -33,17 +16,14 @@ export const UINT8: IToken<number> = {
     return buf.readUInt8(off);
   },
 
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, 'number');
+  put(buf: Buffer, off: number, v: number): number {
+    assert.equal(typeof off, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
+    assert.ok(off >= 0);
+    assert.ok(this.len <= buf.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeUInt8(v, no);
-
-    return (no - o) + this.len;
+    return buf.writeUInt8(v, off);
   }
 };
 
@@ -58,17 +38,14 @@ export const UINT16_LE: IToken<number> = {
     return buf.readUInt16LE(off);
   },
 
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, 'number');
+  put(buf: Buffer, off: number, v: number): number {
+    assert.equal(typeof off, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
+    assert.ok(off >= 0);
+    assert.ok(this.len <= buf.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeUInt16LE(v, no);
-
-    return (no - o) + this.len;
+    return buf.writeUInt16LE(v, off);
   }
 };
 
@@ -83,17 +60,14 @@ export const UINT16_BE: IToken<number> = {
     return buf.readUInt16BE(off);
   },
 
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, 'number');
+  put(buf: Buffer, off: number, v: number): number {
+    assert.equal(typeof off, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
+    assert.ok(off >= 0);
+    assert.ok(this.len <= buf.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeUInt16BE(v, no);
-
-    return (no - o) + this.len;
+    return buf.writeUInt16BE(v, off);
   }
 };
 
@@ -108,17 +82,14 @@ export const UINT24_LE: IToken<number> = {
     return buf.readUIntLE(off, 3);
   },
 
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, 'number');
+  put(buf: Buffer, off: number, v: number): number {
+    assert.equal(typeof off, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
+    assert.ok(off >= 0);
+    assert.ok(this.len <= buf.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeUIntLE(v, no, 3);
-
-    return (no - o) + this.len;
+    return buf.writeUIntLE(v, off, 3);
   }
 };
 
@@ -130,17 +101,14 @@ export const UINT24_BE: IToken<number> = {
   get(buf: Buffer, off: number): number {
     return buf.readUIntBE(off, 3);
   },
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, 'number');
+  put(buf: Buffer, off: number, v: number): number {
+    assert.equal(typeof off, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
+    assert.ok(off >= 0);
+    assert.ok(this.len <= buf.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeUIntBE(v, no, 3);
-
-    return (no - o) + this.len;
+    return buf.writeUIntBE(v, off, 3);
   }
 };
 
@@ -155,17 +123,14 @@ export const UINT32_LE: IToken<number> = {
     return buf.readUInt32LE(off);
   },
 
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+  put(b: Buffer, o: number, v: number): number {
     assert.equal(typeof o, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeUInt32LE(v, no);
-
-    return (no - o) + this.len;
+    return b.writeUInt32LE(v, o);
   }
 };
 
@@ -180,17 +145,14 @@ export const UINT32_BE: IToken<number> = {
     return buf.readUInt32BE(off);
   },
 
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, 'number');
+  put(buf: Buffer, off: number, v: number): number {
+    assert.equal(typeof off, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= 0 && v <= 0xffffffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
+    assert.ok(off >= 0);
+    assert.ok(this.len <= buf.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeUInt32BE(v, no);
-
-    return (no - o) + this.len;
+    return buf.writeUInt32BE(v, off);
   }
 };
 
@@ -205,17 +167,14 @@ export const INT8: IToken<number> = {
     return buf.readInt8(off);
   },
 
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
-    assert.equal(typeof o, 'number');
+  put(buf: Buffer, off: number, v: number): number {
+    assert.equal(typeof off, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= -128 && v <= 127);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
+    assert.ok(off >= 0);
+    assert.ok(this.len <= buf.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeInt8(v, no);
-
-    return (no - o) + this.len;
+    return buf.writeInt8(v, off);
   }
 };
 
@@ -227,17 +186,14 @@ export const INT16_BE: IToken<number> = {
   get(buf: Buffer, off: number): number {
     return buf.readInt16BE(off);
   },
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+  put(b: Buffer, o: number, v: number): number {
     assert.equal(typeof o, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= -32768 && v <= 32767);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeInt16BE(v, no);
-
-    return (no - o) + this.len;
+    return b.writeInt16BE(v, o);
   }
 };
 
@@ -249,17 +205,14 @@ export const INT16_LE: IToken<number> = {
   get(buf: Buffer, off: number): number {
     return buf.readInt16LE(off);
   },
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+  put(b: Buffer, o: number, v: number): number {
     assert.equal(typeof o, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= -32768 && v <= 32767);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeInt16LE(v, no);
-
-    return (no - o) + this.len;
+    return b.writeInt16LE(v, o);
   }
 };
 
@@ -271,17 +224,14 @@ export const INT24_LE: IToken<number> = {
   get(buf: Buffer, off: number): number {
     return buf.readIntLE(off, 3);
   },
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+  put(b: Buffer, o: number, v: number): number {
     assert.equal(typeof o, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= -0x800000 && v <= 0x7fffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeIntLE(v, no, 3);
-
-    return (no - o) + this.len;
+    return b.writeIntLE(v, o, 3);
   }
 };
 
@@ -293,17 +243,14 @@ export const INT24_BE: IToken<number> = {
   get(buf: Buffer, off: number): number {
     return buf.readIntBE(off, 3);
   },
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+  put(b: Buffer, o: number, v: number): number {
     assert.equal(typeof o, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= -0x800000 && v <= 0x7fffff);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeIntBE(v, no, 3);
-
-    return (no - o) + this.len;
+    return b.writeIntBE(v, o, 3);
   }
 };
 
@@ -315,17 +262,14 @@ export const INT32_BE: IToken<number> = {
   get(buf: Buffer, off: number): number {
     return buf.readInt32BE(off);
   },
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+  put(b: Buffer, o: number, v: number): number {
     assert.equal(typeof o, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= -2147483648 && v <= 2147483647);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeInt32BE(v, no);
-
-    return (no - o) + this.len;
+    return b.writeInt32BE(v, o);
   }
 };
 
@@ -337,17 +281,14 @@ export const INT32_LE: IToken<number> = {
   get(buf: Buffer, off: number): number {
     return buf.readInt32LE(off);
   },
-  put(b: Buffer, o: number, v: number, flush?: IFlush): number {
+  put(b: Buffer, o: number, v: number): number {
     assert.equal(typeof o, 'number');
     assert.equal(typeof v, 'number');
     assert.ok(v >= -2147483648 && v <= 2147483647);
     assert.ok(o >= 0);
     assert.ok(this.len <= b.length);
 
-    const no = maybeFlush(b, o, this.len, flush);
-    b.writeInt32LE(v, no);
-
-    return (no - o) + this.len;
+    return b.writeInt32LE(v, o);
   }
 };
 

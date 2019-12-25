@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import * as ieee754 from 'ieee754';
-
-import { IToken, IGetToken } from 'strtok3';
+import { IToken, IGetToken } from '@tokenizer/token';
 
 // Primitive types
 

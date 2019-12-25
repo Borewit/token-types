@@ -154,6 +154,11 @@
     "@nodelib/fs.scandir" "2.1.2"
     fastq "^1.6.0"
 
+"@tokenizer/token@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@tokenizer/token/-/token-0.1.0.tgz#9ee92540c56ca02e997d65dd14645cf9438c3dcf"
+  integrity sha512-fXk7a5R+aE8bfDRbfT+xRG2evSatjbljGGSUflfQmqw555My8II/EWly2GmcHaqXF5HCMitBEfSNhCRZCrLGGg==
+
 "@types/chai@^4.2.5":
   version "4.2.7"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.7.tgz#1c8c25cbf6e59ffa7d6b9652c78e547d9a41692d"
@@ -2587,14 +2592,6 @@ strip-json-comments@2.0.1, strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-strtok3@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-4.0.0.tgz#2b132d4eb95dc2bbcb2d698decd447605ce8546c"
-  integrity sha512-fd9lKQjKCgVy7qP6RUdGQsOMMPDyFG5cDue9FNW3CpsVphaCr4L6EORM15OHBsVvV3aBGnMy9csHPrO5ncX5ng==
-  dependencies:
-    debug "^4.1.1"
-    then-read-stream "^3.0.0"
-
 supports-color@6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-6.0.0.tgz#76cfe742cf1f41bb9b1c29ad03068c05b4c0e40a"
@@ -2636,11 +2633,6 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
-
-then-read-stream@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/then-read-stream/-/then-read-stream-3.0.0.tgz#4a4ec37e23f18135b56fbc61670b6e8195e545b2"
-  integrity sha512-4rrXPPD+MRft1kzKj8qe9Lo0qoz+uEkwn6QxWSM4iXux3p7MP72Oq/QJ849/yhmHweOJJI8jJsMjKvAjI33+2A==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"

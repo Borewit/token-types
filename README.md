@@ -88,7 +88,7 @@ String types:
 ### Custom token
 
 Complex tokens can be added, which makes very suitable for reading binary files or network messages:
-```jS
+```js
  ExtendedHeader = {
     len: 10,
 

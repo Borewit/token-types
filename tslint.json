@@ -17,7 +17,8 @@
     "forin": false,
     "no-implicit-dependencies": [true, "dev"],
     "no-conditional-assignment": false,
-    "no-empty": [true, "allow-empty-functions"]
+    "no-empty": [true, "allow-empty-functions"],
+    "no-submodule-imports": [true, "strtok3"]
   },
   "jsRules": {
     "curly": false

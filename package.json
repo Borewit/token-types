@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "del-cli *.js *.js.map *.d.ts test/**/*.d.ts test/**/*.js test/**/*.js.map .nyc_output",
     "build": "npm run compile",
-    "compile-src": "tsc",
+    "compile-src": "tsc --p lib",
     "compile-test": "tsc --p test",
     "compile": "npm run compile-src && npm run compile-test",
     "lint-ts": "tslint index.ts --exclude '*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
@@ -27,12 +27,12 @@
     "url": "https://github.com/Borewit/token-types"
   },
   "files": [
-    "index.js",
-    "index.d.ts"
+    "lib/index.js",
+    "lib/index.d.ts"
   ],
   "license": "MIT",
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "bugs": {
     "url": "https://github.com/Borewit/token-types/issues"
   },
@@ -64,7 +64,7 @@
   "nyc": {
     "exclude": [
       "test/**/*.ts",
-      "*.js"
+      "lib/**/*.*.js"
     ],
     "extension": [
       ".ts"

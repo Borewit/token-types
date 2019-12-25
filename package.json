@@ -7,7 +7,7 @@
     "url": "https://github.com/Borewit"
   },
   "scripts": {
-    "clean": "del-cli lib/**/*.js lib/**/*.js.map lib/**/*.d.ts test/**/*.d.ts test/**/*.js test/**/*.js.map .nyc_output",
+    "clean": "del-cli *.js *.js.map *.d.ts test/**/*.d.ts test/**/*.js test/**/*.js.map .nyc_output",
     "build": "npm run compile",
     "compile-src": "tsc",
     "compile-test": "tsc --p test",

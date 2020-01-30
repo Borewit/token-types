@@ -37,7 +37,7 @@
     "url": "https://github.com/Borewit/token-types/issues"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.5",
+    "@types/chai": "^4.2.8",
     "@types/mocha": "^5.2.5",
     "@types/node": "^13.5.1",
     "chai": "^4.2.0",

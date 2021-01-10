@@ -48,7 +48,7 @@
     "coveralls": "^3.1.0",
     "del-cli": "^3.0.0",
     "mocha": "^7.2.0",
-    "nyc": "^15.0.0",
+    "nyc": "^15.1.0",
     "remark-cli": "^7.0.1",
     "remark-preset-lint-recommended": "^3.0.3",
     "source-map-support": "^0.5.19",

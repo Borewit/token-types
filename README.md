@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Borewit/token-types.svg?branch=master)](https://travis-ci.org/Borewit/token-types)
+![Node.js CI](https://github.com/Borewit/token-types/workflows/Node.js%20CI/badge.svg)
 [![NPM version](https://badge.fury.io/js/token-types.svg)](https://npmjs.org/package/token-types)
 [![npm downloads](http://img.shields.io/npm/dm/token-types.svg)](https://npmcharts.com/compare/token-types,strtok3?start=1200&interval=30)
 [![Dependencies](https://david-dm.org/Borewit/token-types.svg)](https://david-dm.org/Borewit/token-types)

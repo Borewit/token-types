@@ -1,4 +1,3 @@
-import * as assert from 'assert';
 import * as ieee754 from 'ieee754';
 import { IToken, IGetToken } from '@tokenizer/token';
 
@@ -16,12 +15,6 @@ export const UINT8: IToken<number> = {
   },
 
   put(buf: Buffer, off: number, v: number): number {
-    assert.equal(typeof off, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= 0 && v <= 0xff);
-    assert.ok(off >= 0);
-    assert.ok(this.len <= buf.length);
-
     return buf.writeUInt8(v, off);
   }
 };
@@ -38,12 +31,6 @@ export const UINT16_LE: IToken<number> = {
   },
 
   put(buf: Buffer, off: number, v: number): number {
-    assert.equal(typeof off, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= 0 && v <= 0xffff);
-    assert.ok(off >= 0);
-    assert.ok(this.len <= buf.length);
-
     return buf.writeUInt16LE(v, off);
   }
 };
@@ -60,12 +47,6 @@ export const UINT16_BE: IToken<number> = {
   },
 
   put(buf: Buffer, off: number, v: number): number {
-    assert.equal(typeof off, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= 0 && v <= 0xffff);
-    assert.ok(off >= 0);
-    assert.ok(this.len <= buf.length);
-
     return buf.writeUInt16BE(v, off);
   }
 };
@@ -82,12 +63,6 @@ export const UINT24_LE: IToken<number> = {
   },
 
   put(buf: Buffer, off: number, v: number): number {
-    assert.equal(typeof off, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= 0 && v <= 0xffffff);
-    assert.ok(off >= 0);
-    assert.ok(this.len <= buf.length);
-
     return buf.writeUIntLE(v, off, 3);
   }
 };
@@ -101,12 +76,6 @@ export const UINT24_BE: IToken<number> = {
     return buf.readUIntBE(off, 3);
   },
   put(buf: Buffer, off: number, v: number): number {
-    assert.equal(typeof off, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= 0 && v <= 0xffffff);
-    assert.ok(off >= 0);
-    assert.ok(this.len <= buf.length);
-
     return buf.writeUIntBE(v, off, 3);
   }
 };
@@ -123,12 +92,6 @@ export const UINT32_LE: IToken<number> = {
   },
 
   put(b: Buffer, o: number, v: number): number {
-    assert.equal(typeof o, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= 0 && v <= 0xffffffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
-
     return b.writeUInt32LE(v, o);
   }
 };
@@ -145,12 +108,6 @@ export const UINT32_BE: IToken<number> = {
   },
 
   put(buf: Buffer, off: number, v: number): number {
-    assert.equal(typeof off, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= 0 && v <= 0xffffffff);
-    assert.ok(off >= 0);
-    assert.ok(this.len <= buf.length);
-
     return buf.writeUInt32BE(v, off);
   }
 };
@@ -167,12 +124,6 @@ export const INT8: IToken<number> = {
   },
 
   put(buf: Buffer, off: number, v: number): number {
-    assert.equal(typeof off, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= -128 && v <= 127);
-    assert.ok(off >= 0);
-    assert.ok(this.len <= buf.length);
-
     return buf.writeInt8(v, off);
   }
 };
@@ -186,12 +137,6 @@ export const INT16_BE: IToken<number> = {
     return buf.readInt16BE(off);
   },
   put(b: Buffer, o: number, v: number): number {
-    assert.equal(typeof o, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= -32768 && v <= 32767);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
-
     return b.writeInt16BE(v, o);
   }
 };
@@ -205,12 +150,6 @@ export const INT16_LE: IToken<number> = {
     return buf.readInt16LE(off);
   },
   put(b: Buffer, o: number, v: number): number {
-    assert.equal(typeof o, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= -32768 && v <= 32767);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
-
     return b.writeInt16LE(v, o);
   }
 };
@@ -224,12 +163,6 @@ export const INT24_LE: IToken<number> = {
     return buf.readIntLE(off, 3);
   },
   put(b: Buffer, o: number, v: number): number {
-    assert.equal(typeof o, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= -0x800000 && v <= 0x7fffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
-
     return b.writeIntLE(v, o, 3);
   }
 };
@@ -243,12 +176,6 @@ export const INT24_BE: IToken<number> = {
     return buf.readIntBE(off, 3);
   },
   put(b: Buffer, o: number, v: number): number {
-    assert.equal(typeof o, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= -0x800000 && v <= 0x7fffff);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
-
     return b.writeIntBE(v, o, 3);
   }
 };
@@ -262,12 +189,6 @@ export const INT32_BE: IToken<number> = {
     return buf.readInt32BE(off);
   },
   put(b: Buffer, o: number, v: number): number {
-    assert.equal(typeof o, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= -2147483648 && v <= 2147483647);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
-
     return b.writeInt32BE(v, o);
   }
 };
@@ -281,12 +202,6 @@ export const INT32_LE: IToken<number> = {
     return buf.readInt32LE(off);
   },
   put(b: Buffer, o: number, v: number): number {
-    assert.equal(typeof o, 'number');
-    assert.equal(typeof v, 'number');
-    assert.ok(v >= -2147483648 && v <= 2147483647);
-    assert.ok(o >= 0);
-    assert.ok(this.len <= b.length);
-
     return b.writeInt32LE(v, o);
   }
 };

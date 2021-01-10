@@ -478,7 +478,7 @@ export class BufferType implements IGetToken<Buffer> {
  */
 export class StringType implements IGetToken<string> {
 
-  public constructor(public len: number, public encoding: string) {
+  public constructor(public len: number, public encoding: BufferEncoding) {
   }
 
   public get(buf: Buffer, off: number): string {

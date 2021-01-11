@@ -1,7 +1,6 @@
 ![Node.js CI](https://github.com/Borewit/token-types/workflows/Node.js%20CI/badge.svg)
 [![NPM version](https://badge.fury.io/js/token-types.svg)](https://npmjs.org/package/token-types)
 [![npm downloads](http://img.shields.io/npm/dm/token-types.svg)](https://npmcharts.com/compare/token-types,strtok3?start=1200&interval=30)
-[![Dependencies](https://david-dm.org/Borewit/token-types.svg)](https://david-dm.org/Borewit/token-types)
 [![coveralls](https://coveralls.io/repos/github/Borewit/token-types/badge.svg?branch=master)](https://coveralls.io/github/Borewit/token-types?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4723ce4613fc49cda8db5eed29f18834)](https://www.codacy.com/app/Borewit/token-types?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Borewit/token-types&amp;utm_campaign=Badge_Grade)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Borewit/token-types.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Borewit/token-types/context:javascript)

@@ -267,7 +267,8 @@ export const Float16_BE: IToken<number> = {
     return ieee754.read(b, off, false, 10, this.len);
   },
   put(b: Buffer, off: number, v: number): number {
-    return ieee754.write(b, v, off, false, 10, this.len);
+    ieee754.write(b, v, off, false, 10, this.len);
+    return off + this.len;
   }
 };
 
@@ -280,7 +281,8 @@ export const Float16_LE: IToken<number> = {
     return ieee754.read(b, off, true, 10, this.len);
   },
   put(b: Buffer, off: number, v: number): number {
-    return ieee754.write(b, v, off, true, 10, this.len);
+    ieee754.write(b, v, off, true, 10, this.len);
+    return off + this.len;
   }
 };
 
@@ -345,7 +347,8 @@ export const Float80_BE: IToken<number> = {
     return ieee754.read(b, off, false, 63, this.len);
   },
   put(b: Buffer, off: number, v: number): number {
-    return ieee754.write(b, v, off, false, 63, this.len);
+    ieee754.write(b, v, off, false, 63, this.len);
+    return off + this.len;
   }
 };
 
@@ -358,7 +361,8 @@ export const Float80_LE: IToken<number> = {
     return ieee754.read(b, off, true, 63, this.len);
   },
   put(b: Buffer, off: number, v: number): number {
-    return ieee754.write(b, v, off, true, 63, this.len);
+    ieee754.write(b, v, off, true, 63, this.len);
+    return off + this.len;
   }
 };
 

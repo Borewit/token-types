@@ -62,16 +62,16 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(4);
+        const buffer = Buffer.alloc(4);
 
-        Token.Float32_BE.put(buf, 0, 0.0);
-        util.checkBuffer(buf, '00000000');
+        Token.Float32_BE.put(buffer, 0, 0.0);
+        util.checkBuffer(buffer, '00000000');
 
-        Token.Float32_BE.put(buf, 0, 85.125);
-        util.checkBuffer(buf, '42aa4000');
+        Token.Float32_BE.put(buffer, 0, 85.125);
+        util.checkBuffer(buffer, '42aa4000');
 
-        Token.Float32_BE.put(buf, 0, -1);
-        util.checkBuffer(buf, 'bf800000');
+        Token.Float32_BE.put(buffer, 0, -1);
+        util.checkBuffer(buffer, 'bf800000');
       });
 
       it('should decode', () => {

@@ -16,7 +16,7 @@
     "compile-src": "tsc --p lib",
     "compile-test": "tsc --p test",
     "compile": "npm run compile-src && npm run compile-test",
-    "lint-ts": "tslint index.ts --exclude '*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
+    "lint-ts": "tslint lib/index.ts --exclude '*.d.ts' 'test/**/*.ts' --exclude 'test/**/*.d.ts'",
     "lint-md": "remark -u preset-lint-recommended .",
     "lint": "npm run lint-ts && npm run lint-md",
     "test": "mocha --require ts-node/register --require source-map-support/register --full-trace --recursive test/test-*.ts",

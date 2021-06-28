@@ -24,7 +24,7 @@
     "coveralls": "npm run test-coverage && nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
-    "node": ">=0.1.98"
+    "node": ">=10"
   },
   "repository": {
     "type": "git",

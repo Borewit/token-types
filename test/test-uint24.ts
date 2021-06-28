@@ -1,6 +1,5 @@
 // Test writing and reading uint24 values in different endiannesses.
 
-import {} from 'mocha';
 import {assert} from 'chai';
 import * as Token from '../lib';
 import * as util from './util';

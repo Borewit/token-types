@@ -1,6 +1,5 @@
 // Test reading int64 values.
 
-import {} from 'mocha';
 import {assert} from 'chai';
 import * as Token from '../lib';
 import * as util from './util';

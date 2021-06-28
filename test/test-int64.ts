@@ -24,7 +24,7 @@ describe("Parse 64-bit signed integer", () => {
 
         it("should decode", () => {
 
-            assert.equal(Token.INT64_BE.get(Buffer.from('\x00\x00\x00\x00\x00\x00\x00\x00', 'binary'), 0), 0);
+            assert.strictEqual(Token.INT64_BE.get(Buffer.from('\x00\x00\x00\x00\x00\x00\x00\x00', 'binary'), 0), 0);
             assert.approximately(Token.INT64_BE.get(Buffer.from('\xff\xff\xff\xff\xff\xff\xff\xff', 'binary'), 0), -1, 1);
 
         });
@@ -51,12 +51,12 @@ describe("Parse 64-bit signed integer", () => {
 
             let buf = Buffer.from('\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xff\xff', 'binary');
 
-            assert.equal(Token.INT64_LE.get(buf, 0), 0);
+            assert.strictEqual(Token.INT64_LE.get(buf, 0), 0);
             assert.approximately(Token.INT64_LE.get(buf, 8), -1, 1);
 
             buf = Buffer.from('\xaa\xcc\xdd\xee\xbb\xff\x00\x00\xbb\xcc\xdd\xee\xbb\xff\x00\x00', 'binary');
-            assert.equal(Token.INT64_LE.get(buf, 0), 0x0000ffbbeeddccaa);
-            assert.equal(Token.INT64_LE.get(buf, 8), 0x0000ffbbeeddccbb);
+            assert.strictEqual(Token.INT64_LE.get(buf, 0), 0x0000ffbbeeddccaa);
+            assert.strictEqual(Token.INT64_LE.get(buf, 8), 0x0000ffbbeeddccbb);
 
         });
 

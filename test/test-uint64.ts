@@ -28,8 +28,8 @@ describe("Parse 64-bit unsigned integer", () => {
     it("should decode", () => {
       const buf = Buffer.from('\x00\x00\x1a\x00\x1a\x00\x1a\x01\x00\x00\x1a\x00\x1a\x00\x1a\x02', 'binary');
 
-      assert.equal(Token.UINT64_BE.get(buf, 0), 0x00001a001a001a01);
-      assert.equal(Token.UINT64_BE.get(buf, 8), 0x00001a001a001a02);
+      assert.strictEqual(Token.UINT64_BE.get(buf, 0), 0x00001a001a001a01);
+      assert.strictEqual(Token.UINT64_BE.get(buf, 8), 0x00001a001a001a02);
     });
 
   });
@@ -57,8 +57,8 @@ describe("Parse 64-bit unsigned integer", () => {
       const buf = Buffer.from('\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00', 'binary');
 
       it("little-endian", () => {
-        assert.equal(Token.UINT64_LE.get(buf, 0), 0x001a001a);
-        assert.equal(Token.UINT64_LE.get(buf, 8), 0x001a001a);
+        assert.strictEqual(Token.UINT64_LE.get(buf, 0), 0x001a001a);
+        assert.strictEqual(Token.UINT64_LE.get(buf, 8), 0x001a001a);
       });
 
     });

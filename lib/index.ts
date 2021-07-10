@@ -10,12 +10,12 @@ export const UINT8: IToken<number> = {
 
   len: 1,
 
-  get(buf: Buffer, off: number): number {
-    return buf.readUInt8(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readUInt8(offset);
   },
 
-  put(buf: Buffer, off: number, v: number): number {
-    return buf.writeUInt8(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeUInt8(v, offset);
   }
 };
 
@@ -26,12 +26,12 @@ export const UINT16_LE: IToken<number> = {
 
   len: 2,
 
-  get(buf: Buffer, off: number): number {
-    return buf.readUInt16LE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readUInt16LE(offset);
   },
 
-  put(buf: Buffer, off: number, v: number): number {
-    return buf.writeUInt16LE(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeUInt16LE(v, offset);
   }
 };
 
@@ -42,12 +42,12 @@ export const UINT16_BE: IToken<number> = {
 
   len: 2,
 
-  get(buf: Buffer, off: number): number {
-    return buf.readUInt16BE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readUInt16BE(offset);
   },
 
-  put(buf: Buffer, off: number, v: number): number {
-    return buf.writeUInt16BE(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeUInt16BE(v, offset);
   }
 };
 
@@ -58,12 +58,12 @@ export const UINT24_LE: IToken<number> = {
 
   len: 3,
 
-  get(buf: Buffer, off: number): number {
-    return buf.readUIntLE(off, 3);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readUIntLE(offset, 3);
   },
 
-  put(buf: Buffer, off: number, v: number): number {
-    return buf.writeUIntLE(v, off, 3);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeUIntLE(v, offset, 3);
   }
 };
 
@@ -72,11 +72,11 @@ export const UINT24_LE: IToken<number> = {
  */
 export const UINT24_BE: IToken<number> = {
   len: 3,
-  get(buf: Buffer, off: number): number {
-    return buf.readUIntBE(off, 3);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readUIntBE(offset, 3);
   },
-  put(buf: Buffer, off: number, v: number): number {
-    return buf.writeUIntBE(v, off, 3);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeUIntBE(v, offset, 3);
   }
 };
 
@@ -87,8 +87,8 @@ export const UINT32_LE: IToken<number> = {
 
   len: 4,
 
-  get(buf: Buffer, off: number): number {
-    return buf.readUInt32LE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readUInt32LE(offset);
   },
 
   put(b: Buffer, o: number, v: number): number {
@@ -103,12 +103,12 @@ export const UINT32_BE: IToken<number> = {
 
   len: 4,
 
-  get(buf: Buffer, off: number): number {
-    return buf.readUInt32BE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readUInt32BE(offset);
   },
 
-  put(buf: Buffer, off: number, v: number): number {
-    return buf.writeUInt32BE(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeUInt32BE(v, offset);
   }
 };
 
@@ -119,12 +119,12 @@ export const INT8: IToken<number> = {
 
   len: 1,
 
-  get(buf: Buffer, off: number): number {
-    return buf.readInt8(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readInt8(offset);
   },
 
-  put(buf: Buffer, off: number, v: number): number {
-    return buf.writeInt8(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeInt8(v, offset);
   }
 };
 
@@ -133,8 +133,8 @@ export const INT8: IToken<number> = {
  */
 export const INT16_BE: IToken<number> = {
   len: 2,
-  get(buf: Buffer, off: number): number {
-    return buf.readInt16BE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readInt16BE(offset);
   },
   put(b: Buffer, o: number, v: number): number {
     return b.writeInt16BE(v, o);
@@ -146,8 +146,8 @@ export const INT16_BE: IToken<number> = {
  */
 export const INT16_LE: IToken<number> = {
   len: 2,
-  get(buf: Buffer, off: number): number {
-    return buf.readInt16LE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readInt16LE(offset);
   },
   put(b: Buffer, o: number, v: number): number {
     return b.writeInt16LE(v, o);
@@ -159,8 +159,8 @@ export const INT16_LE: IToken<number> = {
  */
 export const INT24_LE: IToken<number> = {
   len: 3,
-  get(buf: Buffer, off: number): number {
-    return buf.readIntLE(off, 3);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readIntLE(offset, 3);
   },
   put(b: Buffer, o: number, v: number): number {
     return b.writeIntLE(v, o, 3);
@@ -172,8 +172,8 @@ export const INT24_LE: IToken<number> = {
  */
 export const INT24_BE: IToken<number> = {
   len: 3,
-  get(buf: Buffer, off: number): number {
-    return buf.readIntBE(off, 3);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readIntBE(offset, 3);
   },
   put(b: Buffer, o: number, v: number): number {
     return b.writeIntBE(v, o, 3);
@@ -185,8 +185,8 @@ export const INT24_BE: IToken<number> = {
  */
 export const INT32_BE: IToken<number> = {
   len: 4,
-  get(buf: Buffer, off: number): number {
-    return buf.readInt32BE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readInt32BE(offset);
   },
   put(b: Buffer, o: number, v: number): number {
     return b.writeInt32BE(v, o);
@@ -198,8 +198,8 @@ export const INT32_BE: IToken<number> = {
  */
 export const INT32_LE: IToken<number> = {
   len: 4,
-  get(buf: Buffer, off: number): number {
-    return buf.readInt32LE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readInt32LE(offset);
   },
   put(b: Buffer, o: number, v: number): number {
     return b.writeInt32LE(v, o);
@@ -209,52 +209,52 @@ export const INT32_LE: IToken<number> = {
 /**
  * 64-bit unsigned integer, Little Endian byte order
  */
-export const UINT64_LE: IToken<number> = {
+export const UINT64_LE: IToken<bigint> = {
   len: 8,
-  get(buf: Buffer, off: number): number {
-    return readUIntLE(buf, off, this.len);
+  get(buffer: Buffer, offset: number): bigint {
+    return buffer.readBigUInt64LE(offset);
   },
-  put(b: Buffer, o: number, v: number): number {
-    return writeUIntLE(b, v, o, this.len);
+  put(buffer: Buffer, offset: number, value: bigint): number {
+    return buffer.writeBigUInt64LE(value, offset);
   }
 };
 
 /**
  * 64-bit signed integer, Little Endian byte order
  */
-export const INT64_LE: IToken<number> = {
+export const INT64_LE: IToken<bigint> = {
   len: 8,
-  get(buf: Buffer, off: number): number {
-    return readIntLE(buf, off, this.len);
+  get(buffer: Buffer, offset: number): bigint {
+    return buffer.readBigInt64LE(offset);
   },
-  put(b: Buffer, off: number, v: number): number {
-    return writeIntLE(b, v, off, this.len);
+  put(buffer: Buffer, offset: number, value: bigint): number {
+    return buffer.writeBigInt64LE(value, offset);
   }
 };
 
 /**
  * 64-bit unsigned integer, Big Endian byte order
  */
-export const UINT64_BE: IToken<number> = {
+export const UINT64_BE: IToken<bigint> = {
   len: 8,
-  get(b: Buffer, off: number): number {
-    return readUIntBE(b, off, this.len);
+  get(buffer: Buffer, offset: number): bigint {
+    return buffer.readBigUInt64BE(offset);
   },
-  put(b: Buffer, o: number, v: number): number {
-    return writeUIntBE(b, v, o, this.len);
+  put(buffer: Buffer, offset: number, value: bigint): number {
+    return buffer.writeBigUInt64BE(value, offset);
   }
 };
 
 /**
  * 64-bit signed integer, Big Endian byte order
  */
-export const INT64_BE: IToken<number> = {
+export const INT64_BE: IToken<bigint> = {
   len: 8,
-  get(b: Buffer, off: number): number {
-    return readIntBE(b, off, this.len);
+  get(buffer: Buffer, offset: number): bigint {
+    return buffer.readBigInt64BE(offset);
   },
-  put(b: Buffer, off: number, v: number): number {
-    return writeIntBE(b, v, off, this.len);
+  put(buffer: Buffer, offset: number, value: bigint): number {
+    return buffer.writeBigInt64BE(value, offset);
   }
 };
 
@@ -263,12 +263,12 @@ export const INT64_BE: IToken<number> = {
  */
 export const Float16_BE: IToken<number> = {
   len: 2,
-  get(b: Buffer, off: number): number {
-    return ieee754.read(b, off, false, 10, this.len);
+  get(b: Buffer, offset: number): number {
+    return ieee754.read(b, offset, false, 10, this.len);
   },
-  put(b: Buffer, off: number, v: number): number {
-    ieee754.write(b, v, off, false, 10, this.len);
-    return off + this.len;
+  put(b: Buffer, offset: number, v: number): number {
+    ieee754.write(b, v, offset, false, 10, this.len);
+    return offset + this.len;
   }
 };
 
@@ -277,12 +277,12 @@ export const Float16_BE: IToken<number> = {
  */
 export const Float16_LE: IToken<number> = {
   len: 2,
-  get(b: Buffer, off: number): number {
-    return ieee754.read(b, off, true, 10, this.len);
+  get(buffer: Buffer, offset: number): number {
+    return ieee754.read(buffer, offset, true, 10, this.len);
   },
-  put(b: Buffer, off: number, v: number): number {
-    ieee754.write(b, v, off, true, 10, this.len);
-    return off + this.len;
+  put(buffer: Buffer, offset: number, v: number): number {
+    ieee754.write(buffer, v, offset, true, 10, this.len);
+    return offset + this.len;
   }
 };
 
@@ -291,11 +291,11 @@ export const Float16_LE: IToken<number> = {
  */
 export const Float32_BE: IToken<number> = {
   len: 4,
-  get(b: Buffer, off: number): number {
-    return b.readFloatBE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readFloatBE(offset);
   },
-  put(b: Buffer, off: number, v: number): number {
-    return b.writeFloatBE(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeFloatBE(v, offset);
   }
 };
 
@@ -304,11 +304,11 @@ export const Float32_BE: IToken<number> = {
  */
 export const Float32_LE: IToken<number> = {
   len: 4,
-  get(b: Buffer, off: number): number {
-    return b.readFloatLE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readFloatLE(offset);
   },
-  put(b: Buffer, off: number, v: number): number {
-    return b.writeFloatLE(v, off);
+  put(bufferb: Buffer, offset: number, v: number): number {
+    return bufferb.writeFloatLE(v, offset);
   }
 };
 
@@ -317,11 +317,11 @@ export const Float32_LE: IToken<number> = {
  */
 export const Float64_BE: IToken<number> = {
   len: 8,
-  get(b: Buffer, off: number): number {
-    return b.readDoubleBE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readDoubleBE(offset);
   },
-  put(b: Buffer, off: number, v: number): number {
-    return b.writeDoubleBE(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeDoubleBE(v, offset);
   }
 };
 
@@ -330,11 +330,11 @@ export const Float64_BE: IToken<number> = {
  */
 export const Float64_LE: IToken<number> = {
   len: 8,
-  get(b: Buffer, off: number): number {
-    return b.readDoubleLE(off);
+  get(buffer: Buffer, offset: number): number {
+    return buffer.readDoubleLE(offset);
   },
-  put(b: Buffer, off: number, v: number): number {
-    return b.writeDoubleLE(v, off);
+  put(buffer: Buffer, offset: number, v: number): number {
+    return buffer.writeDoubleLE(v, offset);
   }
 };
 
@@ -343,12 +343,12 @@ export const Float64_LE: IToken<number> = {
  */
 export const Float80_BE: IToken<number> = {
   len: 10,
-  get(b: Buffer, off: number): number {
-    return ieee754.read(b, off, false, 63, this.len);
+  get(buffer: Buffer, offset: number): number {
+    return ieee754.read(buffer, offset, false, 63, this.len);
   },
-  put(b: Buffer, off: number, v: number): number {
-    ieee754.write(b, v, off, false, 63, this.len);
-    return off + this.len;
+  put(buffer: Buffer, offset: number, v: number): number {
+    ieee754.write(buffer, v, offset, false, 63, this.len);
+    return offset + this.len;
   }
 };
 
@@ -357,12 +357,12 @@ export const Float80_BE: IToken<number> = {
  */
 export const Float80_LE: IToken<number> = {
   len: 10,
-  get(b: Buffer, off: number): number {
-    return ieee754.read(b, off, true, 63, this.len);
+  get(buffer: Buffer, offset: number): number {
+    return ieee754.read(buffer, offset, true, 63, this.len);
   },
-  put(b: Buffer, off: number, v: number): number {
-    ieee754.write(b, v, off, true, 63, this.len);
-    return off + this.len;
+  put(buffer: Buffer, offset: number, v: number): number {
+    ieee754.write(buffer, v, offset, true, 63, this.len);
+    return offset + this.len;
   }
 };
 
@@ -378,7 +378,7 @@ export class IgnoreType implements IGetToken<void> {
   }
 
   // ToDo: don't read, but skip data
-  public get(buf: Buffer, off: number) {
+  public get(buffer: Buffer, offset: number) {
   }
 }
 
@@ -387,8 +387,8 @@ export class BufferType implements IGetToken<Buffer> {
   public constructor(public len: number) {
   }
 
-  public get(buf: Buffer, off: number): Buffer {
-    return buf.slice(off, off + this.len);
+  public get(buffer: Buffer, offset: number): Buffer {
+    return buffer.slice(offset, offset + this.len);
   }
 }
 
@@ -400,8 +400,8 @@ export class StringType implements IGetToken<string> {
   public constructor(public len: number, public encoding: BufferEncoding) {
   }
 
-  public get(buf: Buffer, off: number): string {
-    return buf.toString(this.encoding, off, off + this.len);
+  public get(buffer: Buffer, offset: number): string {
+    return buffer.toString(this.encoding, offset, offset + this.len);
   }
 }
 
@@ -421,9 +421,9 @@ export class AnsiStringType implements IGetToken<string> {
     233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247,
     248, 249, 250, 251, 252, 253, 254, 255];
 
-  private static decode(buffer: Uint8Array, off: number, until: number): string {
+  private static decode(buffer: Uint8Array, offset: number, until: number): string {
     let str = '';
-    for (let i = off; i < until; ++i) {
+    for (let i = offset; i < until; ++i) {
       str += AnsiStringType.codePointToString(AnsiStringType.singleByteDecoder(buffer[i]));
     }
     return str;
@@ -458,162 +458,7 @@ export class AnsiStringType implements IGetToken<string> {
   public constructor(public len: number) {
   }
 
-  public get(buf: Buffer, off: number = 0): string {
-    return AnsiStringType.decode(buf, off, off + this.len);
+  public get(buffer: Buffer, offset: number = 0): string {
+    return AnsiStringType.decode(buffer, offset, offset + this.len);
   }
-}
-
-/**
- * Best effort approach to read up to 64 bit unsigned integer, little endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-function readUIntLE(buf: Buffer, offset: number, byteLength: number): number {
-  offset = offset >>> 0;
-  byteLength = byteLength >>> 0;
-
-  let val = buf[offset];
-  let mul = 1;
-  let i = 0;
-  while (++i < byteLength && (mul *= 0x100)) {
-    val += buf[offset + i] * mul;
-  }
-  return val;
-}
-
-/**
- * Best effort approach to write up to 64 bit unsigned integer, little endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-function writeUIntLE(buf: Buffer, value: number, offset: number, byteLength: number) {
-  value = +value;
-  offset = offset >>> 0;
-  byteLength = byteLength >>> 0;
-
-  let mul = 1;
-  let i = 0;
-  buf[offset] = value & 0xFF;
-  while (++i < byteLength && (mul *= 0x100)) {
-    buf[offset + i] = (value / mul) & 0xFF;
-  }
-  return offset + byteLength;
-}
-
-/**
- * Best effort approach to read 64 but signed integer, little endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-function readIntLE(buf: Buffer, offset: number, byteLength: number): number {
-  offset = offset >>> 0;
-  byteLength = byteLength >>> 0;
-
-  let val = buf[offset];
-  let mul = 1;
-  let i = 0;
-  while (++i < byteLength && (mul *= 0x100)) {
-    val += buf[offset + i] * mul;
-  }
-  mul *= 0x80;
-
-  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-  return val;
-}
-
-/**
- * Best effort approach to write 64 but signed integer, little endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-export function writeIntLE(buf: Buffer, value: number, offset: number, byteLength: number): number {
-  value = +value;
-  offset = offset >>> 0;
-
-  let i = 0;
-  let mul = 1;
-  let sub = 0;
-  buf[offset] = value & 0xFF;
-  while (++i < byteLength && (mul *= 0x100)) {
-    if (value < 0 && sub === 0 && buf[offset + i - 1] !== 0) {
-      sub = 1;
-    }
-    buf[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
-  }
-
-  return offset + byteLength;
-}
-
-/**
- * Best effort approach to read up to 64 bit unsigned integer, big endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-export function readUIntBE(buf: Buffer, offset: number, byteLength: number): number {
-  offset = offset >>> 0;
-  byteLength = byteLength >>> 0;
-
-  let val = buf[offset + --byteLength];
-  let mul = 1;
-  while (byteLength > 0 && (mul *= 0x100)) {
-    val += buf[offset + --byteLength] * mul;
-  }
-  return val;
-}
-
-/**
- * Best effort approach to write up to 64 bit unsigned integer, big endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-export function writeUIntBE(buf: Buffer, value: number, offset: number, byteLength: number) {
-  value = +value;
-  offset = offset >>> 0;
-  byteLength = byteLength >>> 0;
-
-  let i = byteLength - 1;
-  let mul = 1;
-  buf[offset + i] = value & 0xFF;
-  while (--i >= 0 && (mul *= 0x100)) {
-    buf[offset + i] = (value / mul) & 0xFF;
-  }
-  return offset + byteLength;
-}
-
-/**
- * Best effort approach to read 64 but signed integer, big endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-export function readIntBE(buf: Buffer, offset: number, byteLength: number): number {
-  offset = offset >>> 0;
-  byteLength = byteLength >>> 0;
-
-  let i = byteLength;
-  let mul = 1;
-  let val = buf[offset + --i];
-  while (i > 0 && (mul *= 0x100)) {
-    val += buf[offset + --i] * mul;
-  }
-  mul *= 0x80;
-
-  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-  return val;
-}
-
-/**
- * Best effort approach to write 64 but signed integer, big endian.
- * Note that JavasScript is limited to 2^53 - 1 bit.
- */
-export function writeIntBE(buf: Buffer, value: number, offset: number, byteLength: number): number {
-  value = +value;
-  offset = offset >>> 0;
-
-  let i = byteLength - 1;
-  let mul = 1;
-  let sub = 0;
-  buf[offset + i] = value & 0xFF;
-  while (--i >= 0 && (mul *= 0x100)) {
-    if (value < 0 && sub === 0 && buf[offset + i + 1] !== 0) {
-      sub = 1;
-    }
-    buf[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
-  }
-
-  return offset + byteLength;
 }

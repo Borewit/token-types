@@ -47,7 +47,7 @@
     "chai": "^4.3.4",
     "coveralls": "^3.1.1",
     "del-cli": "^4.0.0",
-    "mocha": "^7.2.0",
+    "mocha": "^9.0.2",
     "nyc": "^15.1.0",
     "remark-cli": "^9.0.0",
     "remark-preset-lint-recommended": "^5.0.0",

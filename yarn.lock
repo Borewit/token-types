@@ -154,10 +154,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@tokenizer/token@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@tokenizer/token/-/token-0.1.1.tgz#f0d92c12f87079ddfd1b29f614758b9696bc29e3"
-  integrity sha512-XO6INPbZCxdprl+9qa/AAbFFOMzzwqYxpjPgLICrMD6C2FCw6qfJOPcBk6JqqPLSaZ/Qx87qn4rpPmPMwaAK6w==
+"@tokenizer/token@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@tokenizer/token/-/token-0.2.0.tgz#7bb0b297cbc9a3476c6556516336a81b86eb04d1"
+  integrity sha512-fflBWuCBMLlP1cdB0oltjTGxBLwMCX8Z4P7mcK+IA/v4+tBH/ECe1YRcZJHgoiupzTx9HT4cFmqQycNq4ZivaQ==
 
 "@tsconfig/node10@^1.0.7":
   version "1.0.7"

@@ -1,5 +1,5 @@
 import {assert} from 'chai';
 
-export const checkBuffer = (buf: Buffer, hexStr: string) => {
-    assert.equal(buf.toString('hex'), hexStr);
+export const checkBuffer = (uint8Array: Uint8Array, hexStr: string) => {
+    assert.equal(Buffer.from(uint8Array).toString('hex'), hexStr);
 };

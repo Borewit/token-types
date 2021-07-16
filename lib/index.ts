@@ -3,6 +3,11 @@ import { IToken, IGetToken } from '@tokenizer/token';
 
 // Primitive types
 
+function dv(array: Uint8Array) {
+  return new DataView(array.buffer, array.byteOffset);
+}
+
+
 /**
  * 8-bit unsigned integer
  */
@@ -10,12 +15,13 @@ export const UINT8: IToken<number> = {
 
   len: 1,
 
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readUInt8(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getUint8(offset);
   },
 
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeUInt8(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setUint8(offset, value);
+    return offset + 1;
   }
 };
 
@@ -26,12 +32,13 @@ export const UINT16_LE: IToken<number> = {
 
   len: 2,
 
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readUInt16LE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getUint16(offset, true);
   },
 
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeUInt16LE(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setUint16(offset, value, true);
+    return offset + 2;
   }
 };
 
@@ -42,12 +49,13 @@ export const UINT16_BE: IToken<number> = {
 
   len: 2,
 
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readUInt16BE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getUint16(offset);
   },
 
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeUInt16BE(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setUint16(offset, value);
+    return offset + 2;
   }
 };
 
@@ -55,15 +63,16 @@ export const UINT16_BE: IToken<number> = {
  * 24-bit unsigned integer, Little Endian byte order
  */
 export const UINT24_LE: IToken<number> = {
-
   len: 3,
-
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readUIntLE(offset, 3);
+  get(array: Uint8Array, offset: number): number {
+    const dataView = dv(array);
+    return dataView.getUint8(offset) + (dataView.getUint16(offset + 1, true) << 8);
   },
-
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeUIntLE(v, offset, 3);
+  put(array: Uint8Array, offset: number, value: number): number {
+    const dataView = dv(array);
+    dataView.setUint8(offset, value & 0xff);
+    dataView.setUint16(offset + 1, value >> 8, true);
+    return offset + 3;
   }
 };
 
@@ -72,11 +81,15 @@ export const UINT24_LE: IToken<number> = {
  */
 export const UINT24_BE: IToken<number> = {
   len: 3,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readUIntBE(offset, 3);
+  get(array: Uint8Array, offset: number): number {
+    const dataView = dv(array);
+    return (dataView.getUint16(offset) << 8) + dataView.getUint8(offset + 2);
   },
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeUIntBE(v, offset, 3);
+  put(array: Uint8Array, offset: number, value: number): number {
+    const dataView = dv(array);
+    dataView.setUint16(offset, value >> 8);
+    dataView.setUint8(offset + 2, value & 0xff);
+    return offset + 3;
   }
 };
 
@@ -87,12 +100,13 @@ export const UINT32_LE: IToken<number> = {
 
   len: 4,
 
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readUInt32LE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getUint32(offset, true);
   },
 
-  put(b: Buffer, o: number, v: number): number {
-    return b.writeUInt32LE(v, o);
+  put(array: Uint8Array, offset: number, value: number) {
+    dv(array).setUint32(offset, value, true);
+    return offset + 4;
   }
 };
 
@@ -103,12 +117,13 @@ export const UINT32_BE: IToken<number> = {
 
   len: 4,
 
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readUInt32BE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getUint32(offset);
   },
 
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeUInt32BE(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setUint32(offset, value);
+    return offset + 4;
   }
 };
 
@@ -119,12 +134,13 @@ export const INT8: IToken<number> = {
 
   len: 1,
 
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readInt8(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getInt8(offset);
   },
 
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeInt8(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setInt8(offset, value);
+    return offset + 2;
   }
 };
 
@@ -133,11 +149,12 @@ export const INT8: IToken<number> = {
  */
 export const INT16_BE: IToken<number> = {
   len: 2,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readInt16BE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getInt16(offset);
   },
-  put(b: Buffer, o: number, v: number): number {
-    return b.writeInt16BE(v, o);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setInt16(offset, value);
+    return offset + 2;
   }
 };
 
@@ -146,11 +163,12 @@ export const INT16_BE: IToken<number> = {
  */
 export const INT16_LE: IToken<number> = {
   len: 2,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readInt16LE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getInt16(offset, true);
   },
-  put(b: Buffer, o: number, v: number): number {
-    return b.writeInt16LE(v, o);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setInt16(offset, value, true);
+    return offset + 2;
   }
 };
 
@@ -159,11 +177,15 @@ export const INT16_LE: IToken<number> = {
  */
 export const INT24_LE: IToken<number> = {
   len: 3,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readIntLE(offset, 3);
+  get(array: Uint8Array, offset: number): number {
+    const unsigned = UINT24_LE.get(array, offset);
+    return unsigned > 0x7fffff ? unsigned - 0x1000000 : unsigned;
   },
-  put(b: Buffer, o: number, v: number): number {
-    return b.writeIntLE(v, o, 3);
+  put(array: Uint8Array, offset: number, value: number): number {
+    const dataView = dv(array);
+    dataView.setUint8(offset, value & 0xff);
+    dataView.setUint16(offset + 1, value >> 8, true);
+    return offset + 3;
   }
 };
 
@@ -172,11 +194,15 @@ export const INT24_LE: IToken<number> = {
  */
 export const INT24_BE: IToken<number> = {
   len: 3,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readIntBE(offset, 3);
+  get(array: Uint8Array, offset: number): number {
+    const unsigned = UINT24_BE.get(array, offset);
+    return unsigned > 0x7fffff ? unsigned - 0x1000000 : unsigned;
   },
-  put(b: Buffer, o: number, v: number): number {
-    return b.writeIntBE(v, o, 3);
+  put(array: Uint8Array, offset: number, value: number): number {
+    const dataView = dv(array);
+    dataView.setUint16(offset, value >> 8);
+    dataView.setUint8(offset + 2, value & 0xff);
+    return offset + 3;
   }
 };
 
@@ -185,11 +211,12 @@ export const INT24_BE: IToken<number> = {
  */
 export const INT32_BE: IToken<number> = {
   len: 4,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readInt32BE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getInt32(offset);
   },
-  put(b: Buffer, o: number, v: number): number {
-    return b.writeInt32BE(v, o);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setInt32(offset, value);
+    return offset + 4;
   }
 };
 
@@ -198,11 +225,12 @@ export const INT32_BE: IToken<number> = {
  */
 export const INT32_LE: IToken<number> = {
   len: 4,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readInt32LE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getInt32(offset, true);
   },
-  put(b: Buffer, o: number, v: number): number {
-    return b.writeInt32LE(v, o);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setInt32(offset, value, true);
+    return offset + 4;
   }
 };
 
@@ -211,11 +239,12 @@ export const INT32_LE: IToken<number> = {
  */
 export const UINT64_LE: IToken<bigint> = {
   len: 8,
-  get(buffer: Buffer, offset: number): bigint {
-    return buffer.readBigUInt64LE(offset);
+  get(array: Uint8Array, offset: number): bigint {
+    return dv(array).getBigUint64(offset, true);
   },
-  put(buffer: Buffer, offset: number, value: bigint): number {
-    return buffer.writeBigUInt64LE(value, offset);
+  put(array: Uint8Array, offset: number, value: bigint): number {
+    dv(array).setBigUint64(offset, value, true);
+    return offset + 8;
   }
 };
 
@@ -224,11 +253,12 @@ export const UINT64_LE: IToken<bigint> = {
  */
 export const INT64_LE: IToken<bigint> = {
   len: 8,
-  get(buffer: Buffer, offset: number): bigint {
-    return buffer.readBigInt64LE(offset);
+  get(array: Uint8Array, offset: number): bigint {
+    return dv(array).getBigInt64(offset, true);
   },
-  put(buffer: Buffer, offset: number, value: bigint): number {
-    return buffer.writeBigInt64LE(value, offset);
+  put(array: Uint8Array, offset: number, value: bigint): number {
+    dv(array).setBigInt64(offset, value, true);
+    return offset + 8;
   }
 };
 
@@ -237,11 +267,12 @@ export const INT64_LE: IToken<bigint> = {
  */
 export const UINT64_BE: IToken<bigint> = {
   len: 8,
-  get(buffer: Buffer, offset: number): bigint {
-    return buffer.readBigUInt64BE(offset);
+  get(array: Uint8Array, offset: number): bigint {
+    return dv(array).getBigUint64(offset);
   },
-  put(buffer: Buffer, offset: number, value: bigint): number {
-    return buffer.writeBigUInt64BE(value, offset);
+  put(array: Uint8Array, offset: number, value: bigint): number {
+    dv(array).setBigUint64(offset, value);
+    return offset + 8;
   }
 };
 
@@ -250,11 +281,12 @@ export const UINT64_BE: IToken<bigint> = {
  */
 export const INT64_BE: IToken<bigint> = {
   len: 8,
-  get(buffer: Buffer, offset: number): bigint {
-    return buffer.readBigInt64BE(offset);
+  get(array: Uint8Array, offset: number): bigint {
+    return dv(array).getBigInt64(offset);
   },
-  put(buffer: Buffer, offset: number, value: bigint): number {
-    return buffer.writeBigInt64BE(value, offset);
+  put(array: Uint8Array, offset: number, value: bigint): number {
+    dv(array).setBigInt64(offset, value);
+    return offset + 8;
   }
 };
 
@@ -263,11 +295,11 @@ export const INT64_BE: IToken<bigint> = {
  */
 export const Float16_BE: IToken<number> = {
   len: 2,
-  get(b: Buffer, offset: number): number {
-    return ieee754.read(b, offset, false, 10, this.len);
+  get(dataView: Uint8Array, offset: number): number {
+    return ieee754.read(dataView, offset, false, 10, this.len);
   },
-  put(b: Buffer, offset: number, v: number): number {
-    ieee754.write(b, v, offset, false, 10, this.len);
+  put(dataView: Uint8Array, offset: number, value: number): number {
+    ieee754.write(dataView, value, offset, false, 10, this.len);
     return offset + this.len;
   }
 };
@@ -277,11 +309,11 @@ export const Float16_BE: IToken<number> = {
  */
 export const Float16_LE: IToken<number> = {
   len: 2,
-  get(buffer: Buffer, offset: number): number {
-    return ieee754.read(buffer, offset, true, 10, this.len);
+  get(array: Uint8Array, offset: number): number {
+    return ieee754.read(array, offset, true, 10, this.len);
   },
-  put(buffer: Buffer, offset: number, v: number): number {
-    ieee754.write(buffer, v, offset, true, 10, this.len);
+  put(array: Uint8Array, offset: number, value: number): number {
+    ieee754.write(array, value, offset, true, 10, this.len);
     return offset + this.len;
   }
 };
@@ -291,11 +323,12 @@ export const Float16_LE: IToken<number> = {
  */
 export const Float32_BE: IToken<number> = {
   len: 4,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readFloatBE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getFloat32(offset);
   },
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeFloatBE(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setFloat32(offset, value);
+    return offset + 4;
   }
 };
 
@@ -304,11 +337,12 @@ export const Float32_BE: IToken<number> = {
  */
 export const Float32_LE: IToken<number> = {
   len: 4,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readFloatLE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getFloat32(offset, true);
   },
-  put(bufferb: Buffer, offset: number, v: number): number {
-    return bufferb.writeFloatLE(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setFloat32(offset, value, true);
+    return offset + 4;
   }
 };
 
@@ -317,11 +351,12 @@ export const Float32_LE: IToken<number> = {
  */
 export const Float64_BE: IToken<number> = {
   len: 8,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readDoubleBE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getFloat64(offset);
   },
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeDoubleBE(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setFloat64(offset, value);
+    return offset + 8;
   }
 };
 
@@ -330,11 +365,12 @@ export const Float64_BE: IToken<number> = {
  */
 export const Float64_LE: IToken<number> = {
   len: 8,
-  get(buffer: Buffer, offset: number): number {
-    return buffer.readDoubleLE(offset);
+  get(array: Uint8Array, offset: number): number {
+    return dv(array).getFloat64(offset, true);
   },
-  put(buffer: Buffer, offset: number, v: number): number {
-    return buffer.writeDoubleLE(v, offset);
+  put(array: Uint8Array, offset: number, value: number): number {
+    dv(array).setFloat64(offset, value, true);
+    return offset + 8;
   }
 };
 
@@ -343,11 +379,11 @@ export const Float64_LE: IToken<number> = {
  */
 export const Float80_BE: IToken<number> = {
   len: 10,
-  get(buffer: Buffer, offset: number): number {
-    return ieee754.read(buffer, offset, false, 63, this.len);
+  get(array: Uint8Array, offset: number): number {
+    return ieee754.read(array, offset, false, 63, this.len);
   },
-  put(buffer: Buffer, offset: number, v: number): number {
-    ieee754.write(buffer, v, offset, false, 63, this.len);
+  put(array: Uint8Array, offset: number, value: number): number {
+    ieee754.write(array, value, offset, false, 63, this.len);
     return offset + this.len;
   }
 };
@@ -357,11 +393,11 @@ export const Float80_BE: IToken<number> = {
  */
 export const Float80_LE: IToken<number> = {
   len: 10,
-  get(buffer: Buffer, offset: number): number {
-    return ieee754.read(buffer, offset, true, 63, this.len);
+  get(array: Uint8Array, offset: number): number {
+    return ieee754.read(array, offset, true, 63, this.len);
   },
-  put(buffer: Buffer, offset: number, v: number): number {
-    ieee754.write(buffer, v, offset, true, 63, this.len);
+  put(array: Uint8Array, offset: number, value: number): number {
+    ieee754.write(array, value, offset, true, 63, this.len);
     return offset + this.len;
   }
 };
@@ -378,24 +414,24 @@ export class IgnoreType implements IGetToken<void> {
   }
 
   // ToDo: don't read, but skip data
-  public get(buffer: Buffer, offset: number) {
+  public get(array: Uint8Array, off: number) {
   }
 }
 
-export class BufferType implements IGetToken<Buffer> {
+export class Uint8ArrayType implements IGetToken<Uint8Array> {
 
   public constructor(public len: number) {
   }
 
-  public get(buffer: Buffer, offset: number): Buffer {
-    return buffer.slice(offset, offset + this.len);
+  public get(array: Uint8Array, off: number): Uint8Array {
+    return Uint8Array.prototype.slice(off, off + this.len);
   }
 }
 
 /**
  * Consume a fixed number of bytes from the stream and return a string with a specified encoding.
  */
-export class StringType implements IGetToken<string> {
+export class StringType implements IGetToken<string, Buffer> {
 
   public constructor(public len: number, public encoding: BufferEncoding) {
   }

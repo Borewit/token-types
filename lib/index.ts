@@ -423,8 +423,18 @@ export class Uint8ArrayType implements IGetToken<Uint8Array> {
   public constructor(public len: number) {
   }
 
-  public get(array: Uint8Array, off: number): Uint8Array {
-    return Uint8Array.prototype.slice(off, off + this.len);
+  public get(array: Uint8Array, offset: number): Uint8Array {
+    return array.subarray(offset, offset + this.len);
+  }
+}
+
+export class BufferType implements IGetToken<Uint8Array, Buffer> {
+
+  public constructor(public len: number) {
+  }
+
+  public get(buffer: Buffer, off: number): Buffer {
+    return buffer.slice(off, off + this.len);
   }
 }
 
@@ -436,8 +446,8 @@ export class StringType implements IGetToken<string, Buffer> {
   public constructor(public len: number, public encoding: BufferEncoding) {
   }
 
-  public get(buffer: Buffer, offset: number): string {
-    return buffer.toString(this.encoding, offset, offset + this.len);
+  public get(uint8Array: Uint8Array, offset: number): string {
+    return Buffer.from(uint8Array).toString(this.encoding, offset, offset + this.len);
   }
 }
 

@@ -23,6 +23,14 @@ Usually in combination with [strtok3](https://github.com/Borewit/strtok3):
 npm install --save strtok3
 ```
 
+Using TypeScript you should also install [@tokenizer/token](https://github.com/Borewit/tokenizer-token) as a development
+dependency:
+
+```shell
+npm install --save-dev @tokenizer/token
+```
+
+
 ## Example
 
 ```js

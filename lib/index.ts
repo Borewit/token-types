@@ -475,7 +475,7 @@ export class AnsiStringType implements IGetToken<string> {
     return str;
   }
 
-  private static inRange(a, min, max): boolean {
+  private static inRange(a: number, min: number, max: number): boolean {
     return min <= a && a <= max;
   }
 

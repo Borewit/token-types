@@ -1,8 +1,9 @@
 // Test writing and reading uint8 values.
 
 import { assert } from 'chai';
-import * as Token from '../lib';
-import * as util from './util';
+import { Buffer } from 'node:buffer';
+import * as Token from '../lib/index.js';
+import * as util from './util.js';
 
 describe('IEEE 754 floats', () => {
 

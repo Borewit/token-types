@@ -1,5 +1,6 @@
 import { assert } from 'chai';
-import { BufferType, StringType, Uint8ArrayType } from '../lib';
+import { Buffer } from 'node:buffer';
+import { BufferType, StringType, Uint8ArrayType } from '../lib/index.js';
 
 describe('BufferType', () => {
 

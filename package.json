@@ -1,6 +1,6 @@
 {
   "name": "token-types",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "Common token types for decoding and encoding numeric and string values",
   "author": {
     "name": "Borewit",
@@ -52,6 +52,7 @@
     "@types/chai": "^4.3.0",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.11.12",
+    "c8": "^7.10.0",
     "chai": "^4.3.4",
     "coveralls": "^3.1.1",
     "del-cli": "^4.0.1",
@@ -64,7 +65,6 @@
   },
   "dependencies": {
     "@tokenizer/token": "^0.3.0",
-    "c8": "^7.10.0",
     "ieee754": "^1.2.1"
   },
   "remarkConfig": {

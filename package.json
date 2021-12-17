@@ -37,13 +37,7 @@
   ],
   "license": "MIT",
   "type": "module",
-  "exports": {
-    ".": {
-      "node": "./lib/index.js",
-      "default": "./lib/core.js"
-    },
-    "./core": "./lib/core.js"
-  },
+  "exports": "./lib/index.js",
   "types": "lib/index.d.ts",
   "bugs": {
     "url": "https://github.com/Borewit/token-types/issues"

@@ -3,7 +3,7 @@ import { BufferType, StringType, Uint8ArrayType } from '../lib';
 
 describe('BufferType', () => {
 
-  it('should should not copy data fom the source array', () => {
+  it('Should copy data fom the source array', () => {
 
     const source = Buffer.from([0xa1, 0xa2, 0xb1, 0xb2, 0xc1, 0xc2]);
 
@@ -16,7 +16,7 @@ describe('BufferType', () => {
     bufferResult[0] = 0xd1;
     bufferResult[1] = 0xd2;
 
-    assert.deepStrictEqual(source,  Buffer.from([0xa1, 0xa2, 0xd1, 0xd2, 0xc1, 0xc2]), 'should not copy the data');
+    assert.notDeepEqual(source,  Buffer.from([0xa1, 0xa2, 0xd1, 0xd2, 0xc1, 0xc2]), 'should copy the data');
   });
 });
 

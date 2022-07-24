@@ -20,8 +20,7 @@
     "lint-md": "remark -u preset-lint-recommended .",
     "lint": "npm run lint-ts && npm run lint-md",
     "test": "mocha --require ts-node/register --require source-map-support/register --full-trace --recursive test/test-*.ts",
-    "test-coverage": "nyc npm run test",
-    "coveralls": "npm run test-coverage && nyc report --reporter=text-lcov | coveralls"
+    "test-coverage": "nyc npm run test"
   },
   "engines": {
     "node": ">=10"

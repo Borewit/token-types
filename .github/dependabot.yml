@@ -1,4 +1,6 @@
 version: 2
+
+# CommonJS
 updates:
 - package-ecosystem: npm
   directory: "/"
@@ -7,22 +9,20 @@ updates:
     time: "04:00"
   open-pull-requests-limit: 10
   versioning-strategy: increase
-  ignore:
-  - dependency-name: "@types/node"
-    versions:
-    - "> 12.11.6, < 12.12"
-  - dependency-name: "@types/node"
-    versions:
-    - "> 12.12.5, < 12.13"
-  - dependency-name: "@types/node"
-    versions:
-    - 15.0.0
-  - dependency-name: y18n
-    versions:
-    - 4.0.1
-    - 4.0.2
-  - dependency-name: mocha
-    versions:
-    - 8.2.1
-    - 8.3.0
-    - 8.3.1
+  target-branch: "master"
+  labels:
+    - "dependencies"
+    - "CJS"
+
+# TypeScript Module
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "06:00"
+  open-pull-requests-limit: 10
+  versioning-strategy: increase
+  target-branch: "es-module"
+  labels:
+    - "dependencies"
+    - "ESM"

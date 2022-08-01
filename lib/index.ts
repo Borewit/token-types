@@ -433,8 +433,8 @@ export class BufferType implements IGetToken<Uint8Array, Buffer> {
   public constructor(public len: number) {
   }
 
-  public get(buffer: Buffer, off: number): Buffer {
-    return buffer.slice(off, off + this.len);
+  public get(uint8Array: Uint8Array, off: number): Buffer {
+    return Buffer.from(uint8Array.subarray(off, off + this.len));
   }
 }
 

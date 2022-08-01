@@ -414,6 +414,7 @@ export class IgnoreType implements IGetToken<void> {
   }
 
   // ToDo: don't read, but skip data
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   public get(array: Uint8Array, off: number) {
   }
 }

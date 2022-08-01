@@ -11,8 +11,11 @@ updates:
   versioning-strategy: increase
   target-branch: "master"
   labels:
-    - "dependencies"
-    - "CJS"
+    - dependencies
+    - CJS
+  ignore:
+    - dependency-name: "mocha"
+      update-types: [ "version-update:semver-major" ]
 
 # TypeScript Module
 - package-ecosystem: npm
@@ -24,5 +27,5 @@ updates:
   versioning-strategy: increase
   target-branch: "es-module"
   labels:
-    - "dependencies"
-    - "ESM"
+    - dependencies
+    - ESM

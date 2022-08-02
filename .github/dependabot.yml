@@ -11,8 +11,8 @@ updates:
   versioning-strategy: increase
   target-branch: "commonjs"
   labels:
-    - "dependencies"
-    - "CJS"
+    - dependencies
+    - CJS
   ignore:
     - dependency-name: "mocha"
       versions: ["10.x"]
@@ -27,5 +27,5 @@ updates:
   versioning-strategy: increase
   target-branch: "master"
   labels:
-    - "dependencies"
-    - "ESM"
+    - dependencies
+    - ESM

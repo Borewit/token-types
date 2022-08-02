@@ -140,7 +140,7 @@ export const INT8: IToken<number> = {
 
   put(array: Uint8Array, offset: number, value: number): number {
     dv(array).setInt8(offset, value);
-    return offset + 2;
+    return offset + 1;
   }
 };
 

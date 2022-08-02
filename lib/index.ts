@@ -1,12 +1,12 @@
 import * as ieee754 from 'ieee754';
 import { IToken, IGetToken } from '@tokenizer/token';
+import { Buffer } from 'node:buffer';
 
 // Primitive types
 
 function dv(array: Uint8Array) {
   return new DataView(array.buffer, array.byteOffset);
 }
-
 
 /**
  * 8-bit unsigned integer
@@ -414,6 +414,7 @@ export class IgnoreType implements IGetToken<void> {
   }
 
   // ToDo: don't read, but skip data
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   public get(array: Uint8Array, off: number) {
   }
 }

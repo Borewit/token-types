@@ -1,5 +1,8 @@
 import { assert } from 'chai';
-import { AnsiStringType } from '../lib';
+import { Buffer } from 'node:buffer';
+import { AnsiStringType } from '../lib/index.js';
+
+/* eslint-disable max-len */
 
 describe('Decode ANSI-string (ISO-8859-1)', () => {
 

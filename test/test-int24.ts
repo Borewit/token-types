@@ -1,28 +1,29 @@
 // Test reading int24 values.
 
-import {assert} from 'chai';
-import * as Token from '../lib';
-import * as util from './util';
+import { assert } from 'chai';
+import { Buffer } from 'node:buffer';
+import * as Token from '../lib/index.js';
+import * as util from './util.js';
 
-describe("Parse 24-bit signed integer", () => {
+describe('Parse 24-bit signed integer', () => {
 
-  describe("little-endian", () => {
+  describe('little-endian', () => {
 
-    it("should encode", () => {
+    it('should encode', () => {
 
       const buf = Buffer.alloc(3);
 
       Token.INT24_LE.put(buf, 0, 0x00);
-      util.checkBuffer(buf, "000000");
+      util.checkBuffer(buf, '000000');
 
       Token.INT24_LE.put(buf, 0, 0x0f0ba0);
-      util.checkBuffer(buf, "a00b0f");
+      util.checkBuffer(buf, 'a00b0f');
 
       Token.INT24_LE.put(buf, 0, -0x0f0bcc);
-      util.checkBuffer(buf, "34f4f0");
+      util.checkBuffer(buf, '34f4f0');
     });
 
-    it("should decode", () => {
+    it('should decode', () => {
 
       const buf = Buffer.from('\x00\x00\x00\xff\xff\xff\xff\x00\x10\x00\x00\x80', 'binary');
 
@@ -34,23 +35,23 @@ describe("Parse 24-bit signed integer", () => {
     });
   });
 
-  describe("big-endian", () => {
+  describe('big-endian', () => {
 
-    it("should encode", () => {
+    it('should encode', () => {
 
       const buf = Buffer.alloc(3);
 
       Token.INT24_BE.put(buf, 0, 0x00);
-      util.checkBuffer(buf, "000000");
+      util.checkBuffer(buf, '000000');
 
       Token.INT24_BE.put(buf, 0, 0x0f0ba0);
-      util.checkBuffer(buf, "0f0ba0");
+      util.checkBuffer(buf, '0f0ba0');
 
       Token.INT24_BE.put(buf, 0, -0x0f0bcc);
-      util.checkBuffer(buf, "f0f434");
+      util.checkBuffer(buf, 'f0f434');
     });
 
-    it("should decode", () => {
+    it('should decode', () => {
 
       const buf = Buffer.from('\x00\x00\x00\xff\xff\xff\x10\x00\xff\x80\x00\x00', 'binary');
 

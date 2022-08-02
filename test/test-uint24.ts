@@ -1,8 +1,9 @@
 // Test writing and reading uint24 values in different endiannesses.
 
 import { assert } from 'chai';
-import * as Token from '../lib';
-import * as util from './util';
+import { Buffer } from 'node:buffer';
+import * as Token from '../lib/index.js';
+import * as util from './util.js';
 
 describe('Parse 24-bit unsigned integer', () => {
 

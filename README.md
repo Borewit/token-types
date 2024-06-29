@@ -8,7 +8,7 @@
 
 # token-types
 
-A primitive token library used to read and write from a `UInt8Array`.
+A primitive token library used to read and write from a `Uint8Array`.
 Although it is possible to use this module directly, it is primarily designed to be used with [strtok3 tokenizer](https://github.com/Borewit/strtok3).
 
 ## Compatibility

@@ -39,7 +39,7 @@ npm install --save-dev @tokenizer/token
 ```js
 import * as strtok3 from 'strtok3';
 import * as token from 'token-types';
-    
+
 (async () => {
 
   const tokenizer = await strtok3.fromFile("somefile.bin");
@@ -48,7 +48,7 @@ import * as token from 'token-types';
     console.log(`My number: ${myNumber}`);
   } finally {
     tokenizer.close(); // Close the file
-  } 
+  }
 })();
 ```
 
@@ -92,7 +92,7 @@ import * as token from 'token-types';
 String types:
 * Windows-1252
 * ISO-8859-1
-  
+
 *) The tokens exceed the JavaScript IEEE 754 64-bit Floating Point precision, decoding and encoding is best effort based.
 
 ### Custom token

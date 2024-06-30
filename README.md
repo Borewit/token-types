@@ -1,4 +1,4 @@
-![Node.js CI](https://github.com/Borewit/token-types/workflows/Node.js%20CI/badge.svg)
+[![Node.js CI](https://github.com/Borewit/token-types/actions/workflows/nodejs-ci.yml/badge.svg?branch=master)](https://github.com/Borewit/token-types/actions/workflows/nodejs-ci.yml?query=branch%3Amaster)
 [![NPM version](https://badge.fury.io/js/token-types.svg)](https://npmjs.org/package/token-types)
 [![npm downloads](http://img.shields.io/npm/dm/token-types.svg)](https://npmcharts.com/compare/token-types,strtok3?start=1200&interval=30)
 [![coveralls](https://coveralls.io/repos/github/Borewit/token-types/badge.svg?branch=master)](https://coveralls.io/github/Borewit/token-types?branch=master)

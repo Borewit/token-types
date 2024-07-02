@@ -1,18 +1,17 @@
 // Test writing and reading uint32 values in different endiannesses.
 
 import { assert } from 'chai';
-import { Buffer } from 'node:buffer';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
 describe('Parse 32-bit unsigned integer', () => {
 
-  const decbuf = Buffer.from('\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00\x1a\x00', 'binary');
+  const decbuf = new Uint8Array([0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00]);
 
   describe('big-endian', () => {
 
     it('should encode', () => {
-      const buf = Buffer.alloc(4);
+      const buf = new Uint8Array(4);
 
       Token.UINT32_BE.put(buf, 0, 0x00);
       util.checkBuffer(buf, '00000000');
@@ -33,7 +32,7 @@ describe('Parse 32-bit unsigned integer', () => {
   describe('little-endian', () => {
 
     it('should encode', () => {
-      const buf = Buffer.alloc(4);
+      const buf = new Uint8Array(4);
 
       Token.UINT32_LE.put(buf, 0, 0x00);
       util.checkBuffer(buf, '00000000');

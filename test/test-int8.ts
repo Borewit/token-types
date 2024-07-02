@@ -1,7 +1,6 @@
 // Test reading int8 values.
 
 import { assert } from 'chai';
-import { Buffer } from 'node:buffer';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -9,7 +8,7 @@ describe('Parse 8-bit signed integer (INT8)', () => {
 
   it('should encode', () => {
 
-    const buf = Buffer.alloc(1);
+    const buf = new Uint8Array(1);
 
     Token.INT8.put(buf, 0, 0x00);
     util.checkBuffer(buf, '00');
@@ -23,7 +22,7 @@ describe('Parse 8-bit signed integer (INT8)', () => {
 
   it('should decode', () => {
 
-    const buf = Buffer.from('\x00\x7f\x80\xff\x81', 'binary');
+    const buf = new Uint8Array([0x00, 0x7f, 0x80, 0xff, 0x81]);
 
     assert.strictEqual(Token.INT8.get(buf, 0), 0);
     assert.strictEqual(Token.INT8.get(buf, 1), 127);

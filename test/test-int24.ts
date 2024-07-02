@@ -1,7 +1,6 @@
 // Test reading int24 values.
 
 import { assert } from 'chai';
-import { Buffer } from 'node:buffer';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -11,7 +10,7 @@ describe('Parse 24-bit signed integer', () => {
 
     it('should encode', () => {
 
-      const buf = Buffer.alloc(3);
+      const buf = new Uint8Array(3);
 
       Token.INT24_LE.put(buf, 0, 0x00);
       util.checkBuffer(buf, '000000');
@@ -25,7 +24,7 @@ describe('Parse 24-bit signed integer', () => {
 
     it('should decode', () => {
 
-      const buf = Buffer.from('\x00\x00\x00\xff\xff\xff\xff\x00\x10\x00\x00\x80', 'binary');
+      const buf = new Uint8Array([0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x00, 0x10, 0x00, 0x00, 0x80]);
 
       assert.equal(Token.INT24_LE.get(buf, 0), 0);
       assert.equal(Token.INT24_LE.get(buf, 3), -1);
@@ -39,7 +38,7 @@ describe('Parse 24-bit signed integer', () => {
 
     it('should encode', () => {
 
-      const buf = Buffer.alloc(3);
+      const buf = new Uint8Array(3);
 
       Token.INT24_BE.put(buf, 0, 0x00);
       util.checkBuffer(buf, '000000');
@@ -53,7 +52,7 @@ describe('Parse 24-bit signed integer', () => {
 
     it('should decode', () => {
 
-      const buf = Buffer.from('\x00\x00\x00\xff\xff\xff\x10\x00\xff\x80\x00\x00', 'binary');
+      const buf = new Uint8Array([0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x10, 0x00, 0xff, 0x80, 0x00, 0x00]);
 
       assert.equal(Token.INT24_BE.get(buf, 0), 0);
       assert.equal(Token.INT24_BE.get(buf, 3), -1);

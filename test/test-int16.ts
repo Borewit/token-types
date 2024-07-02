@@ -1,7 +1,6 @@
 // Test reading int16 values.
 
 import { assert } from 'chai';
-import { Buffer } from 'node:buffer';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -11,7 +10,7 @@ describe('Parse 16-bit signed integer', () => {
 
     it('should encode', () => {
 
-      const buf = Buffer.alloc(2);
+      const buf = new Uint8Array(2);
 
       Token.INT16_BE.put(buf, 0, 0x00);
       util.checkBuffer(buf, '0000');
@@ -25,7 +24,7 @@ describe('Parse 16-bit signed integer', () => {
 
     it('should decode', () => {
 
-      const buf = Buffer.from('\x0a\x1a\x00\x00\xff\xff\x80\x00', 'binary');
+      const buf = new Uint8Array([0x0a, 0x1a, 0x00, 0x00, 0xff, 0xff, 0x80, 0x00]);
 
       assert.equal(Token.INT16_BE.get(buf, 0), 2586);
       assert.equal(Token.INT16_BE.get(buf, 2), 0);
@@ -39,7 +38,7 @@ describe('Parse 16-bit signed integer', () => {
 
     it('should encode', () => {
 
-      const buf = Buffer.alloc(2);
+      const buf = new Uint8Array(2);
 
       Token.INT16_LE.put(buf, 0, 0x00);
       util.checkBuffer(buf, '0000');
@@ -53,7 +52,7 @@ describe('Parse 16-bit signed integer', () => {
 
     it('should decode', () => {
 
-      const buf = Buffer.from('\x1a\x0a\x00\x00\xff\xff\x00\x80', 'binary');
+      const buf = new Uint8Array([0x1a, 0x0a, 0x00, 0x00, 0xff, 0xff, 0x00, 0x80]);
 
       assert.equal(Token.INT16_LE.get(buf, 0), 2586);
       assert.equal(Token.INT16_LE.get(buf, 2), 0);

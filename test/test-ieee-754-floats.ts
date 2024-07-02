@@ -1,7 +1,6 @@
 // Test writing and reading uint8 values.
 
 import { assert } from 'chai';
-import { Buffer } from 'node:buffer';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -13,7 +12,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(2);
+        const buf = new Uint8Array(2);
 
         Token.Float16_BE.put(buf, 0, 0.0);
         util.checkBuffer(buf, '0000');
@@ -26,7 +25,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it('should decode', () => {
-        const buf = Buffer.from('\x55\x52', 'binary');
+        const buf = new Uint8Array([0x55, 0x52]);
         assert.strictEqual(Token.Float16_BE.get(buf, 0), 85.125);
       });
 
@@ -36,7 +35,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(2);
+        const buf = new Uint8Array(2);
 
         Token.Float16_LE.put(buf, 0, 0.0);
         util.checkBuffer(buf, '0000');
@@ -49,7 +48,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it('should decode', () => {
-        const buf = Buffer.from('\x52\x55', 'binary');
+        const buf = new Uint8Array([0x52, 0x55]);
         assert.strictEqual(Token.Float16_LE.get(buf, 0), 85.125);
       });
 
@@ -62,7 +61,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buffer = Buffer.alloc(4);
+        const buffer = new Uint8Array(4);
 
         Token.Float32_BE.put(buffer, 0, 0.0);
         util.checkBuffer(buffer, '00000000');
@@ -75,7 +74,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it('should decode', () => {
-        const buf = Buffer.from('\x42\xAA\x40\x00', 'binary');
+        const buf = new Uint8Array([0x42, 0xAA, 0x40, 0x00]);
         assert.strictEqual(Token.Float32_BE.get(buf, 0), 85.125);
       });
 
@@ -85,7 +84,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(4);
+        const buf = new Uint8Array(4);
 
         Token.Float32_LE.put(buf, 0, 0.0);
         util.checkBuffer(buf, '00000000');
@@ -98,7 +97,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it('should decode', () => {
-        const buf = Buffer.from('\x00\x40\xAA\x42', 'binary');
+        const buf = new Uint8Array([0x00, 0x40, 0xAA, 0x42]);
         assert.strictEqual(Token.Float32_LE.get(buf, 0), 85.125);
       });
 
@@ -111,7 +110,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(8);
+        const buf = new Uint8Array(8);
 
         Token.Float64_BE.put(buf, 0, 0.0);
         util.checkBuffer(buf, '0000000000000000');
@@ -124,7 +123,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it('should decode', () => {
-        const buf = Buffer.from('\x40\x55\x48\x00\x00\x00\x00\x00', 'binary');
+        const buf = new Uint8Array([0x40, 0x55, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00]);
         assert.strictEqual(Token.Float64_BE.get(buf, 0), 85.125);
       });
 
@@ -134,7 +133,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(8);
+        const buf = new Uint8Array(8);
 
         Token.Float64_LE.put(buf, 0, 0.0);
         util.checkBuffer(buf, '0000000000000000');
@@ -147,7 +146,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it('should decode', () => {
-        const buf = Buffer.from('\x00\x00\x00\x00\x00\x48\x55\x40', 'binary');
+        const buf = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x55, 0x40]);
         assert.strictEqual(Token.Float64_LE.get(buf, 0), 85.125);
       });
 
@@ -160,7 +159,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(10);
+        const buf = new Uint8Array(10);
 
         Token.Float80_BE.put(buf, 0, 0.0);
         util.checkBuffer(buf, '00000000000000000000');
@@ -173,7 +172,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it('should decode', () => {
-        const buf = Buffer.from('\x40\x02\xAA\x40\x00\x00\x00\x00\x00\x00\x00\x00', 'binary');
+        const buf = new Uint8Array([0x40, 0x02, 0xAA, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
         assert.strictEqual(Token.Float80_BE.get(buf, 0), 85.125);
       });
 
@@ -183,7 +182,7 @@ describe('IEEE 754 floats', () => {
 
       it('should encode', () => {
 
-        const buf = Buffer.alloc(10);
+        const buf = new Uint8Array(10);
 
         Token.Float80_LE.put(buf, 0, 0.0);
         util.checkBuffer(buf, '00000000000000000000');
@@ -196,7 +195,7 @@ describe('IEEE 754 floats', () => {
       });
 
       it.skip('should decode', () => {
-        const buf = Buffer.from('\x00\x00\x00\x00\x00\x00\x00\x00\x40\xAA\x02\x40', 'binary');
+        const buf = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xAA, 0x02, 0x40]);
         assert.strictEqual(Token.Float80_LE.get(buf, 0), 85.125);
       });
 

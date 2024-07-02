@@ -1,7 +1,6 @@
 // Test reading int64 values.
 
 import { assert } from 'chai';
-import { Buffer } from 'node:buffer';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -11,7 +10,7 @@ describe('Parse 64-bit signed integer', () => {
 
     it('should encode', () => {
 
-      const buf = Buffer.alloc(8);
+      const buf = new Uint8Array(8);
 
       Token.INT64_BE.put(buf, 0, BigInt(0x01));
       util.checkBuffer(buf, '0000000000000001');
@@ -25,8 +24,8 @@ describe('Parse 64-bit signed integer', () => {
 
     it('should decode', () => {
 
-      assert.strictEqual(Token.INT64_BE.get(Buffer.from('\x00\x00\x00\x00\x00\x00\x00\x00', 'binary'), 0), BigInt(0));
-      assert.strictEqual(Token.INT64_BE.get(Buffer.from('\xff\xff\xff\xff\xff\xff\xff\xff', 'binary'), 0), BigInt(-1));
+      assert.strictEqual(Token.INT64_BE.get(new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]), 0), BigInt(0));
+      assert.strictEqual(Token.INT64_BE.get(new Uint8Array([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]), 0), BigInt(-1));
 
     });
 
@@ -36,7 +35,7 @@ describe('Parse 64-bit signed integer', () => {
 
     it('should encode', () => {
 
-      const buf = Buffer.alloc(8);
+      const buf = new Uint8Array(8);
 
       Token.INT64_LE.put(buf, 0, BigInt(0x00));
       util.checkBuffer(buf, '0000000000000000');
@@ -50,12 +49,12 @@ describe('Parse 64-bit signed integer', () => {
 
     it('should decode', () => {
 
-      let buf = Buffer.from('\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xff\xff', 'binary');
+      let buf = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
 
       assert.strictEqual(Token.INT64_LE.get(buf, 0), BigInt(0));
       assert.strictEqual(Token.INT64_LE.get(buf, 8), BigInt(-1));
 
-      buf = Buffer.from('\xaa\xcc\xdd\xee\xbb\xff\x00\x00\xbb\xcc\xdd\xee\xbb\xff\x00\x00', 'binary');
+      buf = new Uint8Array([0xaa, 0xcc, 0xdd, 0xee, 0xbb, 0xff, 0x00, 0x00, 0xbb, 0xcc, 0xdd, 0xee, 0xbb, 0xff, 0x00, 0x00]);
       assert.strictEqual(Token.INT64_LE.get(buf, 0), BigInt(0x0000ffbbeeddccaa));
       assert.strictEqual(Token.INT64_LE.get(buf, 8), BigInt(0x0000ffbbeeddccbb));
 

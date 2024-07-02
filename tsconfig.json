@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "inlineSources": false,
     "module": "node16",
     "moduleResolution": "node16",
@@ -8,4 +9,3 @@
     "strict": true
   }
 }
-

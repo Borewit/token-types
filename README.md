@@ -8,8 +8,8 @@
 
 # token-types
 
-A primitive token library used to read and write from a node `Buffer`.
-Although it is possible to use this module directly, it is primary designed to be used with [strtok3 tokenizer](https://github.com/Borewit/strtok3).
+A primitive token library used to read and write from a `UInt8Array`.
+Although it is possible to use this module directly, it is primarily designed to be used with [strtok3 tokenizer](https://github.com/Borewit/strtok3).
 
 ## Compatibility
 
@@ -56,7 +56,7 @@ import * as token from 'token-types';
 
 ### Numeric tokens
 
-`node-strtok` supports a wide variety of numerical tokens out of the box:
+`token-types` supports a wide variety of numeric tokens out of the box:
 
 | Token         | Number           | Bits | Endianness     |
 |---------------|------------------|------|----------------|
@@ -87,19 +87,23 @@ import * as token from 'token-types';
 | `Float80_BE`* | IEEE 754 float   |   80 | big endian     |
 | `Float80_LE`* | IEEE 754 float   |   80 | little endian  |
 
-### Other tokens
+(*) The tokens exceed the JavaScript IEEE 754 64-bit Floating Point precision, decoding and encoding is best effort based.
 
-String types:
+### String tokens
+
+StringType decoding is implemented using TextDecoder which supports a large number of encodings including but not limited to:
+
+* UTF-8 (the default)
 * Windows-1252
 * ISO-8859-1
 
-*) The tokens exceed the JavaScript IEEE 754 64-bit Floating Point precision, decoding and encoding is best effort based.
+Check out [the MDN web docs for the TextDecoder](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/encoding) for a complete list
 
-### Custom token
+### Custom tokens
 
-Complex tokens can be added, which makes very suitable for reading binary files or network messages:
+Custom tokens can be added, suitable for reading binary files or network messages:
 ```js
- ExtendedHeader = {
+  ExtendedHeader = {
     len: 10,
 
     get: (buf, off) => {

@@ -120,3 +120,7 @@ Custom tokens can be added, suitable for reading binary files or network message
     }
   };
 ```
+
+## Licence
+
+This project is licensed under the [MIT License](LICENSE.txt). Feel free to use, modify, and distribute as needed.

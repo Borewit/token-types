@@ -1,21 +1,6 @@
 version: 2
 
-# CommonJS (CJS)
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    time: "04:00"
-  open-pull-requests-limit: 10
-  versioning-strategy: increase
-  target-branch: "commonjs"
-  labels:
-    - dependencies
-    - CJS
-  ignore:
-    - dependency-name: "mocha"
-      versions: [ ">=10.x" ]
 
 # ECMAScript Module (ESM)
 - package-ecosystem: npm

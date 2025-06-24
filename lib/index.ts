@@ -413,8 +413,7 @@ export class IgnoreType implements IGetToken<void> {
   }
 
   // ToDo: don't read, but skip data
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public get(array: Uint8Array, off: number) {
+  public get(_array: Uint8Array, _off: number) {
   }
 }
 
@@ -430,11 +429,7 @@ export class Uint8ArrayType implements IGetToken<Uint8Array> {
 
 /**
  * Consume a fixed number of bytes from the stream and return a string with a specified encoding.
- * Supports all encodings supported by TextDecoder, except 'windows-1252',
- * which is handled manually for compatibility.
- */
-/**
- * ANSI Latin 1 String using windows-1252 / ISO 8859-1 decoding.
+ * Supports all encodings supported by TextDecoder, plus 'windows-1252'.
  */
 export class StringType implements IGetToken<string> {
   private decoder: (bytes: Uint8Array) => string;
@@ -470,7 +465,6 @@ export class StringType implements IGetToken<string> {
 /**
  * ANSI Latin 1 String using Windows-1252 (Code Page 1252)
  * Windows-1252 is a superset of ISO 8859-1 / Latin-1.
- * This is just an alias for StringType with 'windows-1252' encoding.
  */
 export class AnsiStringType extends StringType {
   constructor(len: number) {

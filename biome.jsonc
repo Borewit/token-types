@@ -1,0 +1,64 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
+	"assist": { "actions": { "source": { "organizeImports": "off" } } },
+	"formatter": {
+		"enabled": false
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"correctness": {
+				"noConstantCondition": "warn",
+				"noUnusedImports": "error"
+			},
+			"style": {
+				"noParameterAssign": "off",
+				"useConst": "error",
+				"useConsistentBuiltinInstantiation": "error",
+				"useThrowNewError": "error",
+				"useThrowOnlyError": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error",
+				"noRestrictedImports": {
+					"level": "error",
+					"options": {
+						"paths": {
+							"node:buffer": "Use Uint8Array instead of Buffer"
+						}
+					}
+				}
+			},
+			"recommended": true,
+			"complexity": {
+				"useSimpleNumberKeys": "off", // In some files we want to use hexadecimal keys
+				"noForEach": "off"
+			},
+			"suspicious": {
+				"noEmptyBlockStatements": "off",
+				"noControlCharactersInRegex": "off",
+				"useErrorMessage": "error",
+				"noAssignInExpressions": "off"
+			},
+			"nursery": {}
+		}
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"includes": [
+			"**",
+			"!coverage",
+			"!yarn",
+			"!lib/**/*.d.ts",
+			"!lib/**/*.js",
+			"!test/**/*.d.ts",
+			"!test/**/*.js"
+		]
+	}
+}

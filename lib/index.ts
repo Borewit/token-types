@@ -430,31 +430,50 @@ export class Uint8ArrayType implements IGetToken<Uint8Array> {
 
 /**
  * Consume a fixed number of bytes from the stream and return a string with a specified encoding.
+ * Supports all encodings supported by TextDecoder, except 'windows-1252',
+ * which is handled manually for compatibility.
+ */
+/**
+ * ANSI Latin 1 String using windows-1252 / ISO 8859-1 decoding.
  */
 export class StringType implements IGetToken<string> {
-  private textDecoder: TextDecoder;
+  private decoder: (bytes: Uint8Array) => string;
 
-  public constructor(public len: number, public encoding: string) {
-    this.textDecoder = new TextDecoder(encoding);
+  private static readonly win1252Map = '\u20AC\u0081\u201A\u0192\u201E\u2026\u2020\u2021\u02C6\u2030\u0160\u2039\u0152\u008D\u017D\u008F\u0090\u2018\u2019\u201C\u201D\u2022\u2013\u2014\u02DC\u2122\u0161\u203A\u0153\u009D\u017E\u0178';
+
+  constructor(public len: number, encoding: string) {
+    if (encoding.toLowerCase() === 'windows-1252') {
+      this.decoder = StringType.decodeWindows1252;
+    } else {
+      const textDecoder = new TextDecoder(encoding);
+      this.decoder = (bytes: Uint8Array) => textDecoder.decode(bytes);
+    }
   }
 
-  public get(uint8Array: Uint8Array, offset: number): string {
-    return this.textDecoder.decode(uint8Array.subarray(offset, offset + this.len));
+  public get(data: Uint8Array, offset = 0): string {
+    const bytes = data.subarray(offset, offset + this.len);
+    return this.decoder(bytes);
+  }
+
+  private static decodeWindows1252(bytes: Uint8Array): string {
+    let result = '';
+    for (let i = 0; i < bytes.length; i++) {
+      const byte = bytes[i];
+      result += byte < 0x80 || byte >= 0xA0
+        ? String.fromCharCode(byte)
+        : StringType.win1252Map[byte - 0x80];
+    }
+    return result;
   }
 }
 
 /**
- * ANSI Latin 1 String
- * Using windows-1252 / ISO 8859-1 decoding
+ * ANSI Latin 1 String using Windows-1252 (Code Page 1252)
+ * Windows-1252 is a superset of ISO 8859-1 / Latin-1.
+ * This is just an alias for StringType with 'windows-1252' encoding.
  */
-export class AnsiStringType implements IGetToken<string> {
-  private textDecoder: TextDecoder;
-
-  public constructor(public len: number) {
-    this.textDecoder = new TextDecoder('windows-1252');
-  }
-
-  public get(uint8Array: Uint8Array, offset: number = 0): string {
-    return this.textDecoder.decode(uint8Array.subarray(offset, offset + this.len));
+export class AnsiStringType extends StringType {
+  constructor(len: number) {
+    super(len, 'windows-1252');
   }
 }

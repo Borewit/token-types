@@ -1,4 +1,5 @@
 name: CI
+
 on:
   pull_request:
     branches: [ "master" ]
@@ -7,30 +8,30 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
 
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Yarn install
+      - name: Install Dependencies
         run: yarn install
 
-      - name: Build & Code analysis
+      - name: Lint
         run: yarn run lint
 
-      - name: Build
+      - name: Build Project
         run: yarn run build
 
-      - name: Upload build
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build
@@ -42,9 +43,7 @@ jobs:
             test/**/*.js.map
 
   test:
-
     runs-on: ubuntu-latest
-
     needs: build
 
     strategy:
@@ -52,11 +51,10 @@ jobs:
         node-version: [18.x, 20.x, 22.x, 24.x]
 
     steps:
-
-      - name: 'Checkout the repository'
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Test with Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -64,29 +62,30 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: yarn install
 
-      - name: Download build
+      - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
           name: build
 
-      - name: Test with Node.js ${{ matrix.node-version }}
+      - name: Run Tests
         run: yarn run test-coverage
 
-      - name: Coveralls Parallel
+      - name: Upload to Coveralls (Parallel)
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.github_token }}
-          flag-name: run-${{ matrix.test_number }}
+          flag-name: run-${{ matrix.node-version }}
           parallel: true
 
   finish:
     needs: test
     runs-on: ubuntu-latest
+
     steps:
-      - name: Coveralls Finished
+      - name: Finalize Coveralls Report
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.github_token }}

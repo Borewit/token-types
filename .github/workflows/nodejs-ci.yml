@@ -3,7 +3,6 @@ on:
   pull_request:
     branches: [ "master" ]
   push:
-    branches: [ "master" ]
 
 jobs:
 
@@ -50,7 +49,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x, 22.x]
+        node-version: [16.x, 18.x, 20.x, 22.x, 24.x]
 
     steps:
 

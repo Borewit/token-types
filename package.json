@@ -11,7 +11,7 @@
     "url": "https://github.com/sponsors/Borewit"
   },
   "scripts": {
-    "clean": "del-cli lib/**/*.js lib/***.js.map *.d.ts test/**/*.d.ts test/**/*.js test/**/*.js.map .nyc_output",
+    "clean": "del-cli 'lib/**/*.js' 'lib/***.js.map' 'test/**/*.d.ts' 'test/**/*.js' 'test/**/*.js.map'",
     "build": "npm run compile",
     "compile-src": "tsc --p lib",
     "compile-test": "tsc --p test",
@@ -74,5 +74,6 @@
     "IEEE",
     "754",
     "strtok3"
-  ]
+  ],
+  "packageManager": "yarn@4.9.2"
 }

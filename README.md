@@ -91,11 +91,8 @@ import * as token from 'token-types';
 
 ### String tokens
 
-StringType decoding is implemented using TextDecoder which supports a large number of encodings including but not limited to:
-
-* UTF-8 (the default)
-* Windows-1252
-* ISO-8859-1
+StringType decoding is implemented using [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder),
+it has build-in support for [Windows-1252](https://en.wikipedia.org/wiki/Windows-1252) decoding.
 
 Check out [the MDN web docs for the TextDecoder](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/encoding) for a complete list
 

@@ -13,4 +13,3 @@ updates:
   target-branch: "master"
   labels:
     - dependencies
-    - ESM

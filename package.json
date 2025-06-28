@@ -44,7 +44,7 @@
   "devDependencies": {
     "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.0",
-    "@types/node": "^20.14.9",
+    "@types/node": "^24.0.7",
     "c8": "^10.1.2",
     "chai": "^5.2.0",
     "del-cli": "^5.0.0",

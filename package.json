@@ -42,6 +42,7 @@
     "url": "https://github.com/Borewit/token-types/issues"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.0.5",
     "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.0",
     "@types/node": "^24.0.7",
@@ -56,7 +57,6 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@biomejs/biome": "^2.0.5",
     "@tokenizer/token": "^0.3.0",
     "ieee754": "^1.2.1"
   },

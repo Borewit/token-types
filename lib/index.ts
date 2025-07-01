@@ -1,4 +1,5 @@
 import * as ieee754 from 'ieee754';
+import { uint8ArrayToString } from 'uint8array-extras';
 import type { IToken, IGetToken } from '@tokenizer/token';
 
 // Primitive types
@@ -440,8 +441,7 @@ export class StringType implements IGetToken<string> {
     if (encoding && encoding.toLowerCase() === 'windows-1252') {
       this.decoder = StringType.decodeWindows1252;
     } else {
-      const textDecoder = new TextDecoder(encoding);
-      this.decoder = (bytes: Uint8Array) => textDecoder.decode(bytes);
+      this.decoder = (bytes: Uint8Array) => uint8ArrayToString(bytes, encoding);
     }
   }
 

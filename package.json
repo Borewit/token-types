@@ -21,7 +21,8 @@
     "lint": "npm run lint:md && npm run lint:ts",
     "test": "mocha",
     "test-coverage": "c8 npm run test",
-    "send-codacy": "c8 report --reports-dir=./.coverage --reporter=text-lcov | codacy-coverage"
+    "send-codacy": "c8 report --reports-dir=./.coverage --reporter=text-lcov | codacy-coverage",
+    "update-biome": "yarn add -D --exact @biomejs/biome && npx @biomejs/biome migrate --write"
   },
   "engines": {
     "node": ">=14.16"
@@ -42,7 +43,7 @@
     "url": "https://github.com/Borewit/token-types/issues"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.6",
+    "@biomejs/biome": "2.1.2",
     "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.0",
     "@types/node": "^24.0.7",

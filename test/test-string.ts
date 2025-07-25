@@ -3,6 +3,17 @@ import { AnsiStringType, StringType } from '../lib/index.js';
 
 /* eslint-disable max-len */
 
+describe('text decoding', () => {
+
+  it('should decode from latin1', () => {
+    assert.strictEqual(new StringType(4, 'latin1').get(new Uint8Array([0x41, 0x42, 0x43, 0x44])), 'ABCD');
+  });
+
+  it('should decode from ascii', () => {
+    assert.strictEqual(new StringType(4, 'ascii').get(new Uint8Array([0x41, 0x42, 0x43, 0x44])), 'ABCD');
+  });
+});
+
 describe('Decode ANSI-string (Windows-1252)', () => {
 
   it('should decode from AnsiStringType', () => {

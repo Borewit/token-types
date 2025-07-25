@@ -13,7 +13,7 @@
   "scripts": {
     "clean": "del-cli 'lib/**/*.js' 'lib/***.js.map' 'test/**/*.d.ts' 'test/**/*.js' 'test/**/*.js.map'",
     "build": "npm run compile",
-    "compile-src": "tsc --p lib",
+    "compile-src": "tsc --p lib --sourceMap false",
     "compile-test": "tsc --p test",
     "compile": "npm run compile-src && npm run compile-test",
     "lint:ts": "biome check",

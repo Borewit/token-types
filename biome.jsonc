@@ -1,6 +1,11 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
 	"assist": { "actions": { "source": { "organizeImports": "off" } } },
+	"javascript": {
+		"formatter":  {
+			"quoteStyle": "single"
+		}
+	},
 	"formatter": {
 		"enabled": false
 	},

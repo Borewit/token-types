@@ -1,6 +1,8 @@
 import * as ieee754 from 'ieee754';
 import type { IToken, IGetToken } from '@tokenizer/token';
 
+import { TextDecoder } from "@kayahr/text-encoding";
+
 // Primitive types
 
 function dv(array: Uint8Array) {
@@ -432,33 +434,15 @@ export class Uint8ArrayType implements IGetToken<Uint8Array> {
  * Supports all encodings supported by TextDecoder, plus 'windows-1252'.
  */
 export class StringType implements IGetToken<string> {
-  private decoder: (bytes: Uint8Array) => string;
-
-  private static readonly win1252Map = '\u20AC\u0081\u201A\u0192\u201E\u2026\u2020\u2021\u02C6\u2030\u0160\u2039\u0152\u008D\u017D\u008F\u0090\u2018\u2019\u201C\u201D\u2022\u2013\u2014\u02DC\u2122\u0161\u203A\u0153\u009D\u017E\u0178';
+  private textDecoder: TextDecoder;
 
   constructor(public len: number, encoding?: string) {
-    if (encoding && encoding.toLowerCase() === 'windows-1252') {
-      this.decoder = StringType.decodeWindows1252;
-    } else {
-      const textDecoder = new TextDecoder(encoding);
-      this.decoder = (bytes: Uint8Array) => textDecoder.decode(bytes);
-    }
+    this.textDecoder = new TextDecoder(encoding);
   }
 
   public get(data: Uint8Array, offset = 0): string {
     const bytes = data.subarray(offset, offset + this.len);
-    return this.decoder(bytes);
-  }
-
-  private static decodeWindows1252(bytes: Uint8Array): string {
-    let result = '';
-    for (let i = 0; i < bytes.length; i++) {
-      const byte = bytes[i];
-      result += byte < 0x80 || byte >= 0xA0
-        ? String.fromCharCode(byte)
-        : StringType.win1252Map[byte - 0x80];
-    }
-    return result;
+    return this.textDecoder.decode(bytes);
   }
 }
 

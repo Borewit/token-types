@@ -58,6 +58,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@kayahr/text-encoding": "^2.0.1",
     "@tokenizer/token": "^0.3.0",
     "ieee754": "^1.2.1"
   },

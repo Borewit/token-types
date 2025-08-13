@@ -132,6 +132,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@borewit/text-codec@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@borewit/text-codec@npm:0.1.0"
+  checksum: 10c0/2c316990180d4b2ef6204a9ea759895f6ba4dd690560311e37f376601ca25c43d365a7dd2060aa695b7027ad225792f11d755adc18a02b882cd2b74b00fc6f53
+  languageName: node
+  linkType: hard
+
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -202,13 +209,6 @@ __metadata:
     "@jridgewell/resolve-uri": "npm:^3.1.0"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
   checksum: 10c0/3d1ce6ebc69df9682a5a8896b414c6537e428a1d68b02fcc8363b04284a8ca0df04d0ee3013132252ab14f2527bc13bea6526a912ecb5658f0e39fd2860b4df4
-  languageName: node
-  linkType: hard
-
-"@kayahr/text-encoding@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@kayahr/text-encoding@npm:2.0.1"
-  checksum: 10c0/1bb7f677eaac834b63a4e30f39421c53faab515db7bff072fd8b9c5b1b5a6f1694680b9241cd0e85dbf4b61cacc62653e16130f0469fe073388afb9783faa4bc
   languageName: node
   linkType: hard
 
@@ -3092,7 +3092,7 @@ __metadata:
   resolution: "token-types@workspace:."
   dependencies:
     "@biomejs/biome": "npm:2.1.4"
-    "@kayahr/text-encoding": "npm:^2.0.1"
+    "@borewit/text-codec": "npm:^0.1.0"
     "@tokenizer/token": "npm:^0.3.0"
     "@types/chai": "npm:^5.2.2"
     "@types/mocha": "npm:^10.0.10"

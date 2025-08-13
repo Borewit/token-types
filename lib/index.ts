@@ -1,7 +1,7 @@
 import * as ieee754 from 'ieee754';
 import type { IToken, IGetToken } from '@tokenizer/token';
 
-import { TextDecoder } from "@kayahr/text-encoding";
+import { textDecode, type SupportedEncoding } from "@borewit/text-codec";
 
 // Primitive types
 
@@ -9,7 +9,7 @@ function dv(array: Uint8Array) {
   return new DataView(array.buffer, array.byteOffset);
 }
 
-/**
+/*
  * 8-bit unsigned integer
  */
 export const UINT8: IToken<number> = {
@@ -434,15 +434,15 @@ export class Uint8ArrayType implements IGetToken<Uint8Array> {
  * Supports all encodings supported by TextDecoder, plus 'windows-1252'.
  */
 export class StringType implements IGetToken<string> {
-  private textDecoder: TextDecoder;
+  private encoding?: string;
 
   constructor(public len: number, encoding?: string) {
-    this.textDecoder = new TextDecoder(encoding);
+    this.encoding = encoding;
   }
 
   public get(data: Uint8Array, offset = 0): string {
     const bytes = data.subarray(offset, offset + this.len);
-    return this.textDecoder.decode(bytes);
+    return textDecode(bytes, this.encoding as SupportedEncoding);
   }
 }
 

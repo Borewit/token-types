@@ -91,9 +91,7 @@ import * as token from 'token-types';
 
 ### String tokens
 
-StringType decoding is using [@kayahr/text-encoding](https://github.com/kayahr/text-encoding).
-
-Check out [Supported encodings](https://github.com/kayahr/text-encoding?tab=readme-ov-file#supported-encodings) for a complete list.
+StringType decoding is using [@borewit/text-codec](https://github.com/Borewit/text-codec).
 
 ### Custom tokens
 

@@ -132,10 +132,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@borewit/text-codec@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@borewit/text-codec@npm:0.1.0"
-  checksum: 10c0/2c316990180d4b2ef6204a9ea759895f6ba4dd690560311e37f376601ca25c43d365a7dd2060aa695b7027ad225792f11d755adc18a02b882cd2b74b00fc6f53
+"@borewit/text-codec@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@borewit/text-codec@npm:0.2.0"
+  checksum: 10c0/831a96fcd15eb9f8f5390f95a1dccb1c28e2aea7b5cbf17ac8606091d6934bb10a560daa13bca4572cb0a09e19cfefd9e12ca7a29d95d5a330b3f5b9e1dbb005
   languageName: node
   linkType: hard
 
@@ -3092,7 +3092,7 @@ __metadata:
   resolution: "token-types@workspace:."
   dependencies:
     "@biomejs/biome": "npm:2.1.4"
-    "@borewit/text-codec": "npm:^0.1.0"
+    "@borewit/text-codec": "npm:^0.2.0"
     "@tokenizer/token": "npm:^0.3.0"
     "@types/chai": "npm:^5.2.2"
     "@types/mocha": "npm:^10.0.10"

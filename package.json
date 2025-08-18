@@ -58,7 +58,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@borewit/text-codec": "^0.1.0",
+    "@borewit/text-codec": "^0.2.0",
     "@tokenizer/token": "^0.3.0",
     "ieee754": "^1.2.1"
   },

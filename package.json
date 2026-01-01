@@ -49,7 +49,7 @@
     "@types/node": "^25.0.3",
     "c8": "^10.1.3",
     "chai": "^6.2.2",
-    "del-cli": "^6.0.0",
+    "del-cli": "^7.0.0",
     "mocha": "^11.7.5",
     "remark-cli": "^12.0.1",
     "remark-preset-lint-recommended": "^7.0.0",

@@ -58,7 +58,7 @@
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {
-		"@borewit/text-codec": "^0.2.1",
+		"@exodus/bytes": "^1.15.0",
 		"@tokenizer/token": "^0.3.0",
 		"ieee754": "^1.2.1"
 	},

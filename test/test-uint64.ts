@@ -34,7 +34,7 @@ describe('Parse 64-bit unsigned integer', () => {
 
   });
 
-  describe('litle-endian', () => {
+  describe('little-endian', () => {
 
     it('should encode', () => {
       const buf = new Uint8Array(8);
@@ -56,11 +56,8 @@ describe('Parse 64-bit unsigned integer', () => {
 
       const buf = new Uint8Array([0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00]);
 
-      it('little-endian', () => {
-        assert.strictEqual(Token.UINT64_LE.get(buf, 0), BigInt(0x001a001a));
-        assert.strictEqual(Token.UINT64_LE.get(buf, 8), BigInt(0x001a001a));
-      });
-
+      assert.strictEqual(Token.UINT64_LE.get(buf, 0), BigInt(0x001a001a001a001a));
+      assert.strictEqual(Token.UINT64_LE.get(buf, 8), BigInt(0x001a001a001a001a));
     });
 
   });

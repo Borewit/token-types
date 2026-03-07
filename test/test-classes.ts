@@ -3,7 +3,7 @@ import { StringType, Uint8ArrayType } from '../lib/index.js';
 
 describe('Uint8ArrayType', () => {
 
-  it('should should not copy data fom the source array', () => {
+  it('should not copy data from the source array', () => {
 
     const source = Uint8Array.from([0xa1, 0xa2, 0xb1, 0xb2, 0xc1, 0xc2]);
 
@@ -28,6 +28,6 @@ describe('StringType', () => {
 
     const stringType = new StringType(5, 'utf8');
 
-    assert.strictEqual(stringType.get(source, 0),  'peter', 'should be 2 middle bytes: 0xb1, 0xb2');
+    assert.strictEqual(stringType.get(source, 0),  'peter');
   });
 });

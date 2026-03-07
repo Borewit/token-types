@@ -1,17 +1,24 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.4.6/schema.json",
-	"assist": { "actions": { "source": { "organizeImports": "off" } } },
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "off"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true
+	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "single"
 		}
 	},
-	"formatter": {
-		"enabled": false
-	},
 	"linter": {
 		"enabled": true,
 		"rules": {
+			"recommended": true,
 			"correctness": {
 				"noConstantCondition": "warn",
 				"noUnusedImports": "error"
@@ -40,9 +47,8 @@
 					}
 				}
 			},
-			"recommended": true,
 			"complexity": {
-				"useSimpleNumberKeys": "off", // In some files we want to use hexadecimal keys
+				"useSimpleNumberKeys": "off",
 				"noForEach": "off"
 			},
 			"suspicious": {

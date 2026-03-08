@@ -1,7 +1,7 @@
 import * as ieee754 from 'ieee754';
 import type { IToken, IGetToken } from '@tokenizer/token';
 
-import { textDecode, type SupportedEncoding } from '@borewit/text-codec';
+import { TextDecoder } from '@exodus/bytes/encoding.js';
 
 // Primitive types
 
@@ -436,7 +436,7 @@ export class StringType implements IGetToken<string> {
 
 	public get(data: Uint8Array, offset = 0): string {
 		const bytes = data.subarray(offset, offset + this.len);
-		return textDecode(bytes, this.encoding as SupportedEncoding);
+		return new TextDecoder(this.encoding).decode(bytes);
 	}
 }
 

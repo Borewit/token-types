@@ -4,22 +4,31 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
-  - title: 🚀 Enhancements
+  - title: ⚠️ API Changes
+    labels:
+      - API change
+  - title: ✨ Enhancements
     labels:
       - enhancement
-  - title: 🎨 Improvements
+  - title: 🚀 Improvements
     labels:
       - improvement
+  - title: 🔒 Security
+    labels:
+      - security
   - title: 🐛 Bug Fixes
     labels:
       - bug
-  - title: 🔧 Under the hood
+  - title: 📚 Documentation
+    labels:
+      - documentation
+  - title: 📦 Dependencies
+    labels:
+      - dependencies
+  - title: 🛠️ Under the hood
     labels:
       - debt
       - dev-dependencies
-  - title: ⬆️ Dependencies
-    labels:
-      - dependencies
 exclude-labels:
   - DevOps
   - dev-dependencies

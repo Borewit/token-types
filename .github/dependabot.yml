@@ -2,14 +2,30 @@ version: 2
 
 updates:
 
-# ECMAScript Module (ESM)
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    time: "06:00"
-  open-pull-requests-limit: 10
-  versioning-strategy: increase
-  target-branch: "master"
-  labels:
-    - dependencies
+  # ECMAScript Module (ESM)
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "06:00"
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    target-branch: "master"
+    labels:
+      - dependencies
+    groups:
+      types:
+        dependency-type: "development"
+        patterns:
+          - "@types/*"
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      time: "06:00"
+    open-pull-requests-limit: 10
+    target-branch: "master"
+    labels:
+      - DevOps

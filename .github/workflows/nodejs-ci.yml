@@ -1,9 +1,16 @@
-name: CI
+name: Node.js CI
 
 on:
   pull_request:
     branches: [ "master" ]
   push:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
 
@@ -11,28 +18,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 22.x
+          node-version: 24.x
 
       - name: Enable Corepack
-        run: corepack enable
+        run: corepack enable yarn
 
-      - name: Install Dependencies
-        run: yarn install
+      - name: Install dependencies
+        run: yarn install --immutable
 
       - name: Lint
         run: yarn run lint
 
-      - name: Build Project
+      - name: Build project
         run: yarn run build
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v7
         with:
           name: build
           path: |
@@ -51,26 +60,28 @@ jobs:
         node-version: [18.x, 20.x, 22.x, 24.x]
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Enable Corepack
-        run: corepack enable
+        run: corepack enable yarn
 
-      - name: Install Dependencies
-        run: yarn install
+      - name: Install dependencies
+        run: yarn install --immutable
 
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
         with:
           name: build
 
-      - name: Run Tests
+      - name: Run tests
         run: yarn run test-coverage
 
       - name: Upload to Coveralls (Parallel)
@@ -85,7 +96,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Finalize Coveralls Report
+      - name: Finalize Coveralls report
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.github_token }}

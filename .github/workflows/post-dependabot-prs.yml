@@ -1,22 +1,33 @@
-  name: Dependabot Pull Request
-  on: pull_request_target
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
-      steps:
-        - name: Fetch Dependabot metadata
-          id: dependabot-metadata
-          uses: dependabot/fetch-metadata@v1
-          with:
-            github-token: "${{ secrets.GITHUB_TOKEN }}"
-        - name: Add dev-dependencies label
-          uses: actions-ecosystem/action-add-labels@v1
-          if: ${{ steps.dependabot-metadata.outputs.dependency-type == 'direct:development' }}
-          with:
-            labels: dev-dependencies
-        - name: Remove dependencies label
-          uses: actions-ecosystem/action-remove-labels@v1
-          if: ${{ steps.dependabot-metadata.outputs.dependency-type == 'direct:development' }}
-          with:
-            labels: dependencies
+name: Dependabot Pull Request
+
+on: pull_request_target
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: dependabot-labels-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v3
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Label development-only updates
+        if: ${{ steps.dependabot-metadata.outputs.dependency-type == 'direct:development' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr edit "$PR_URL" --add-label dev-dependencies
+          if gh pr view "$PR_URL" --json labels --jq '.labels[].name' | grep -qx dependencies; then
+            gh pr edit "$PR_URL" --remove-label dependencies
+          fi

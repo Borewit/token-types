@@ -1,12 +1,18 @@
 {
 	"compilerOptions": {
 		"skipLibCheck": true,
-		"inlineSources": false,
+		"inlineSources": true,
 		"sourceMap": true,
 		"module": "node16",
 		"moduleResolution": "node16",
 		"target": "ES2019",
+		"lib": ["ES2020", "DOM"],
 		"esModuleInterop": true,
-		"strict": true
-	}
+		"strict": true,
+		"rootDir": ".",
+		"outDir": "dist",
+		"declaration": true,
+		"types": ["node", "mocha"]
+	},
+	"include": ["lib/**/*.ts", "test/**/*.ts"]
 }

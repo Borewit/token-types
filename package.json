@@ -14,15 +14,16 @@
 		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'test/**/*.js' 'test/**/*.js.map' 'test/**/*.d.ts' 'index.js' 'index.js.map' coverage",
 		"build": "npm run clean && npm run compile",
 		"prepublishOnly": "npm run build",
-		"compile-src": "tsc --p lib --sourceMap false",
+		"compile-src": "tsc --p lib",
 		"compile-test": "tsc --p test",
 		"compile": "npm run compile-src && npm run compile-test",
 		"lint:ts": "biome check",
 		"lint:md": "remark -u preset-lint-recommended .",
 		"lint": "npm run lint:md && npm run lint:ts",
 		"test": "mocha",
-		"test-coverage": "c8 npm run test",
-		"update-biome": "yarn add -D --exact @biomejs/biome && npx @biomejs/biome migrate --write"
+		"test-coverage": "c8 npm run test:compiled",
+		"update-biome": "yarn add -D --exact @biomejs/biome && npx @biomejs/biome migrate --write",
+		"test:compiled": "mocha --no-config \"test/*.js\""
 	},
 	"engines": {
 		"node": ">=14.16"

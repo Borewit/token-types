@@ -82,22 +82,41 @@ jobs:
           name: build
 
       - name: Run tests
-        run: yarn run test-coverage
+        run: yarn run test:compiled
 
-      - name: Upload to Coveralls (Parallel)
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.github_token }}
-          flag-name: run-${{ matrix.node-version }}
-          parallel: true
-
-  finish:
-    needs: test
+  coverage:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
-      - name: Finalize Coveralls report
-        uses: coverallsapp/github-action@v2
+      - name: Checkout code
+        uses: actions/checkout@v7
         with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.x
+
+      - name: Enable Corepack
+        run: corepack enable yarn
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: build
+
+      - name: Generate mapped coverage
+        run: yarn run test-coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          disable_search: true
+          fail_ci_if_error: true

@@ -1,4 +1,4 @@
-import { type SupportedEncoding, textDecode } from '@borewit/text-codec';
+import { type SupportedEncoding, textDecode, textEncode } from '@borewit/text-codec';
 import type { IGetToken, IToken } from '@tokenizer/token';
 import * as ieee754 from 'ieee754';
 
@@ -410,19 +410,30 @@ export class IgnoreType implements IGetToken<void> {
   }
 }
 
-export class Uint8ArrayType implements IGetToken<Uint8Array> {
+/**
+ * Fixed-size byte array
+ */
+export class Uint8ArrayType implements IToken<Uint8Array> {
   public constructor(public len: number) {}
 
   public get(array: Uint8Array, offset: number): Uint8Array {
     return array.subarray(offset, offset + this.len);
   }
+
+  public put(array: Uint8Array, offset: number, value: Uint8Array): number {
+    if (value.length !== this.len) {
+      throw new RangeError(`Expected a value of ${this.len} byte(s), got ${value.length}`);
+    }
+    array.set(value, offset);
+    return offset + this.len;
+  }
 }
 
 /**
- * Consume a fixed number of bytes from the stream and return a string with a specified encoding.
+ * Decode or encode a fixed number of bytes as a string with a specified encoding.
  * Supports all encodings supported by TextDecoder, plus 'windows-1252'.
  */
-export class StringType implements IGetToken<string> {
+export class StringType implements IToken<string> {
   private encoding?: string;
 
   constructor(
@@ -435,6 +446,15 @@ export class StringType implements IGetToken<string> {
   public get(data: Uint8Array, offset = 0): string {
     const bytes = data.subarray(offset, offset + this.len);
     return textDecode(bytes, this.encoding as SupportedEncoding);
+  }
+
+  public put(array: Uint8Array, offset: number, value: string): number {
+    const bytes = textEncode(value, this.encoding as SupportedEncoding);
+    if (bytes.length !== this.len) {
+      throw new RangeError(`Expected an encoded value of ${this.len} byte(s), got ${bytes.length}`);
+    }
+    array.set(bytes, offset);
+    return offset + this.len;
   }
 }
 

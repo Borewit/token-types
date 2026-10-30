@@ -111,9 +111,26 @@ import * as token from 'token-types';
 
 (*) The tokens exceed the JavaScript IEEE 754 64-bit Floating Point precision, decoding and encoding is best effort based.
 
-### String tokens
+### String and byte tokens
 
-StringType decoding is using [@borewit/text-codec](https://github.com/Borewit/text-codec).
+`StringType` decoding is using [@borewit/text-codec](https://github.com/Borewit/text-codec).
+
+`StringType` and `Uint8ArrayType` implement `IToken`, so the same fixed-size
+token can decode and encode:
+
+```js
+import { StringType, Uint8ArrayType } from 'token-types';
+
+const ascii = new StringType(4, 'ascii');
+const buffer = new Uint8Array(8);
+ascii.put(buffer, 0, 'fLaC');
+
+const bytes = new Uint8ArrayType(4);
+bytes.put(buffer, 4, Uint8Array.from([1, 2, 3, 4]));
+```
+
+`put` rejects values whose byte length differs from `len`, so a fixed-size
+field is never silently truncated or padded.
 
 ### Custom tokens
 

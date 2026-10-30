@@ -44,12 +44,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: build
-          path: |
-            lib/**/*.js
-            lib/**/*.js.map
-            lib/**/*.d.ts
-            test/**/*.js
-            test/**/*.js.map
+          path: dist
 
   test:
     runs-on: ubuntu-latest
@@ -80,6 +75,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: build
+          path: dist
 
       - name: Run tests
         run: yarn run test:compiled
@@ -109,6 +105,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: build
+          path: dist
 
       - name: Generate mapped coverage
         run: yarn run test-coverage

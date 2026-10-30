@@ -11,19 +11,17 @@
 		"url": "https://github.com/sponsors/Borewit"
 	},
 	"scripts": {
-		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'test/**/*.js' 'test/**/*.js.map' 'test/**/*.d.ts' 'index.js' 'index.js.map' coverage",
+		"clean": "del-cli dist coverage 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'test/**/*.js' 'test/**/*.js.map' 'test/**/*.d.ts' 'index.js' 'index.js.map'",
 		"build": "npm run clean && npm run compile",
 		"prepublishOnly": "npm run build",
-		"compile-src": "tsc --p lib",
-		"compile-test": "tsc --p test",
-		"compile": "npm run compile-src && npm run compile-test",
+		"compile": "tsc --project tsconfig.json",
 		"lint:ts": "biome check",
 		"lint:md": "remark -u preset-lint-recommended .",
 		"lint": "npm run lint:md && npm run lint:ts",
-		"test": "mocha",
+		"test": "npm run build && npm run test:compiled",
 		"test-coverage": "c8 npm run test:compiled",
 		"update-biome": "yarn add -D --exact @biomejs/biome && npx @biomejs/biome migrate --write",
-		"test:compiled": "mocha --no-config \"test/*.js\""
+		"test:compiled": "node --enable-source-maps node_modules/mocha/bin/mocha.js"
 	},
 	"engines": {
 		"node": ">=14.16"
@@ -33,13 +31,12 @@
 		"url": "git+https://github.com/Borewit/token-types.git"
 	},
 	"files": [
-		"lib/index.js",
-		"lib/index.d.ts"
+		"dist/lib"
 	],
 	"license": "MIT",
 	"type": "module",
-	"exports": "./lib/index.js",
-	"types": "lib/index.d.ts",
+	"exports": "./dist/lib/index.js",
+	"types": "dist/lib/index.d.ts",
 	"bugs": {
 		"url": "https://github.com/Borewit/token-types/issues"
 	},
@@ -54,9 +51,7 @@
 		"mocha": "^11.7.6",
 		"remark-cli": "^12.0.1",
 		"remark-preset-lint-recommended": "^7.0.0",
-		"source-map-support": "^0.5.21",
-		"ts-node": "^10.9.1",
-		"typescript": "^5.9.3"
+		"typescript": "^7.0.2"
 	},
 	"dependencies": {
 		"@borewit/text-codec": "^0.2.2",
@@ -78,5 +73,5 @@
 		"754",
 		"strtok3"
 	],
-	"packageManager": "yarn@4.9.2"
+	"packageManager": "yarn@4.18.1"
 }

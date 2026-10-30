@@ -62,14 +62,6 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"includes": [
-			"**",
-			"!coverage",
-			"!yarn",
-			"!lib/**/*.d.ts",
-			"!lib/**/*.js",
-			"!test/**/*.d.ts",
-			"!test/**/*.js"
-		]
+		"includes": ["**", "!coverage", "!yarn", "!dist"]
 	}
 }

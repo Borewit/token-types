@@ -15,6 +15,26 @@ Although it is possible to use this module directly, it is primarily designed to
 Module: version 5 migrated from [CommonJS](https://en.wikipedia.org/wiki/CommonJS) to [pure ECMAScript Module (ESM)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 JavaScript is compliant with [ECMAScript 2019 (ES10)](https://en.wikipedia.org/wiki/ECMAScript#10th_Edition_%E2%80%93_ECMAScript_2019).
 
+Node.js 18 is supported for running the published package; it is not a supported
+build environment. CI builds on Node.js 24 and runs the compiled tests on
+Node.js 18, 20, 22 and 24.
+
+## Development
+
+Use Node.js 24 and the Yarn version pinned in `package.json` to install development
+dependencies and build from source:
+
+```sh
+corepack enable
+yarn install --immutable
+yarn test
+```
+
+`yarn test` builds the library and tests into `dist` before running Mocha. To test
+an existing build on a supported runtime such as Node.js 18, run
+`yarn test:compiled`. `yarn clean` removes `dist`, coverage and generated files
+left by the previous build layout, while preserving TypeScript sources.
+
 ## Installation
 
 ```sh

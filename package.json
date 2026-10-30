@@ -51,7 +51,7 @@
 		"c8": "^11.0.0",
 		"chai": "^6.2.2",
 		"del-cli": "^7.0.0",
-		"mocha": "^11.7.6",
+		"mocha": "^12.0.3",
 		"remark-cli": "^12.0.1",
 		"remark-preset-lint-recommended": "^7.0.0",
 		"source-map-support": "^0.5.21",

@@ -90,6 +90,7 @@
       "biome.jsonc",
       "package.json",
       "tsconfig.json",
+      "tsconfig.prod.json",
       "tsconfig.test.json",
       "vitest.config.ts",
       "lib/**/*.ts",

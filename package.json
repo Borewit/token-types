@@ -12,9 +12,10 @@
   },
   "scripts": {
     "clean": "del-cli dist coverage",
-    "build": "npm run clean && npm run compile",
+    "build": "npm run clean && npm run compile:prod",
     "prepublishOnly": "npm run build",
     "compile": "tsc --project tsconfig.json",
+    "compile:prod": "tsc --project tsconfig.prod.json",
     "format:check": "biome format",
     "lint:ts": "biome check",
     "lint:ts:fix": "biome check --write",
@@ -35,7 +36,8 @@
     "url": "git+https://github.com/Borewit/token-types.git"
   },
   "files": [
-    "dist/lib"
+    "dist/lib/**/*.js",
+    "dist/lib/**/*.d.ts"
   ],
   "license": "MIT",
   "type": "module",

@@ -34,6 +34,10 @@ yarn test
 an existing build on a supported runtime such as Node.js 18, run
 `yarn test:compiled`. `yarn clean` removes `dist` and coverage.
 
+`yarn lint` checks the Markdown and Biome rules. `yarn format:check` verifies
+Biome formatting, and `yarn fix` applies formatting, import organization and
+safe lint fixes.
+
 ## Installation
 
 ```sh

@@ -1,67 +1,99 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.4.6/schema.json",
-	"assist": {
-		"actions": {
-			"source": {
-				"organizeImports": "off"
-			}
-		}
-	},
-	"formatter": {
-		"enabled": true
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single"
-		}
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"correctness": {
-				"noConstantCondition": "warn",
-				"noUnusedImports": "error"
-			},
-			"style": {
-				"noParameterAssign": "off",
-				"useConst": "error",
-				"useConsistentBuiltinInstantiation": "error",
-				"useThrowNewError": "error",
-				"useThrowOnlyError": "error",
-				"useAsConstAssertion": "error",
-				"useDefaultParameterLast": "error",
-				"useEnumInitializers": "error",
-				"useSelfClosingElements": "error",
-				"useSingleVarDeclarator": "error",
-				"noUnusedTemplateLiteral": "error",
-				"useNumberNamespace": "error",
-				"noInferrableTypes": "error",
-				"noUselessElse": "error",
-				"noRestrictedImports": {
-					"level": "error",
-					"options": {
-						"paths": {
-							"node:buffer": "Use Uint8Array instead of Buffer"
-						}
-					}
-				}
-			},
-			"complexity": {
-				"useSimpleNumberKeys": "off",
-				"noForEach": "off"
-			},
-			"suspicious": {
-				"noEmptyBlockStatements": "off",
-				"noControlCharactersInRegex": "off",
-				"useErrorMessage": "error",
-				"noAssignInExpressions": "off"
-			},
-			"nursery": {}
-		}
-	},
-	"files": {
-		"ignoreUnknown": true,
-		"includes": ["**", "!coverage", "!yarn", "!dist"]
-	}
+  "$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "none",
+      "arrowParentheses": "asNeeded",
+      "bracketSpacing": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "correctness": {
+        "noConstantCondition": "warn",
+        "noNodejsModules": "error",
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error"
+      },
+      "preset": "recommended",
+      "complexity": {
+        "useSimpleNumberKeys": "off",
+        "noForEach": "off"
+      },
+      "suspicious": {
+        "noEmptyBlockStatements": "error",
+        "noControlCharactersInRegex": "off",
+        "useErrorMessage": "error",
+        "noAssignInExpressions": "off"
+      },
+      "style": {
+        "noParameterAssign": "error",
+        "useConst": "error",
+        "useConsistentBuiltinInstantiation": "error",
+        "useThrowNewError": "error",
+        "useThrowOnlyError": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error",
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "paths": {
+              "node:buffer": "Use Uint8Array instead of Buffer"
+            }
+          }
+        },
+        "useBlockStatements": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": {
+            "syntax": "shorthand"
+          }
+        },
+        "useImportType": "error",
+        "useExportType": "error",
+        "useNodejsImportProtocol": "error"
+      }
+    }
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "biome.jsonc",
+      "package.json",
+      ".mocharc.json",
+      "tsconfig.json",
+      "lib/**/*.ts",
+      "test/**/*.ts",
+      "!**/*.d.ts"
+    ]
+  }
 }

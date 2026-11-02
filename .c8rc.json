@@ -1,7 +1,0 @@
-{
-	"all": true,
-	"include": ["lib/**/*.ts"],
-	"exclude": ["**/*.d.ts", "test/**"],
-	"exclude-after-remap": true,
-	"reporter": ["lcov", "text"]
-}

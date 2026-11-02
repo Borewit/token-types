@@ -12,7 +12,7 @@
     "rootDir": ".",
     "outDir": "dist",
     "declaration": true,
-    "types": ["node", "mocha"]
+    "types": ["node"]
   },
-  "include": ["lib/**/*.ts", "test/**/*.ts"]
+  "include": ["lib/**/*.ts"]
 }

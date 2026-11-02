@@ -1,6 +1,5 @@
 // Test writing and reading uint24 values in different endiannesses.
 
-import { assert } from 'chai';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -21,9 +20,9 @@ describe('Parse 24-bit unsigned integer', () => {
 
     it('should decode', () => {
       const buf = new Uint8Array([0x00, 0x00, 0x00, 0x1a, 0x1a, 0x00, 0xff, 0xff, 0xff]);
-      assert.strictEqual(Token.UINT24_BE.get(buf, 0), 0x000000);
-      assert.strictEqual(Token.UINT24_BE.get(buf, 3), 0x1a1a00);
-      assert.strictEqual(Token.UINT24_BE.get(buf, 6), 0xffffff);
+      expect(Token.UINT24_BE.get(buf, 0)).toBe(0x000000);
+      expect(Token.UINT24_BE.get(buf, 3)).toBe(0x1a1a00);
+      expect(Token.UINT24_BE.get(buf, 6)).toBe(0xffffff);
     });
   });
 
@@ -44,9 +43,9 @@ describe('Parse 24-bit unsigned integer', () => {
     it('should decode', () => {
       const buf = new Uint8Array([0x00, 0x00, 0x00, 0x1a, 0x1a, 0x00, 0xff, 0xff, 0xff]);
 
-      assert.strictEqual(Token.UINT24_LE.get(buf, 0), 0x000000);
-      assert.strictEqual(Token.UINT24_LE.get(buf, 3), 0x001a1a);
-      assert.strictEqual(Token.UINT24_LE.get(buf, 6), 0xffffff);
+      expect(Token.UINT24_LE.get(buf, 0)).toBe(0x000000);
+      expect(Token.UINT24_LE.get(buf, 3)).toBe(0x001a1a);
+      expect(Token.UINT24_LE.get(buf, 6)).toBe(0xffffff);
     });
   });
 });

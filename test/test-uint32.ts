@@ -1,6 +1,5 @@
 // Test writing and reading uint32 values in different endiannesses.
 
-import { assert } from 'chai';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -24,8 +23,8 @@ describe('Parse 32-bit unsigned integer', () => {
     });
 
     it('should decode', () => {
-      assert.equal(Token.UINT32_BE.get(decbuf, 4), 0x1a001a00);
-      assert.equal(Token.UINT32_BE.get(decbuf, 12), 0x1a001a00);
+      expect(Token.UINT32_BE.get(decbuf, 4)).toBe(0x1a001a00);
+      expect(Token.UINT32_BE.get(decbuf, 12)).toBe(0x1a001a00);
     });
   });
 
@@ -44,20 +43,20 @@ describe('Parse 32-bit unsigned integer', () => {
     });
 
     it('should decode', () => {
-      assert.equal(Token.UINT32_LE.get(decbuf, 0), 0x001a001a);
-      assert.equal(Token.UINT32_LE.get(decbuf, 8), 0x001a001a);
+      expect(Token.UINT32_LE.get(decbuf, 0)).toBe(0x001a001a);
+      expect(Token.UINT32_LE.get(decbuf, 8)).toBe(0x001a001a);
     });
   });
 
   describe('should decode', () => {
     it('big-endian', () => {
-      assert.equal(Token.UINT32_BE.get(decbuf, 4), 0x1a001a00);
-      assert.equal(Token.UINT32_BE.get(decbuf, 12), 0x1a001a00);
+      expect(Token.UINT32_BE.get(decbuf, 4)).toBe(0x1a001a00);
+      expect(Token.UINT32_BE.get(decbuf, 12)).toBe(0x1a001a00);
     });
 
     it('little-endian', () => {
-      assert.equal(Token.UINT32_LE.get(decbuf, 0), 0x001a001a);
-      assert.equal(Token.UINT32_LE.get(decbuf, 8), 0x001a001a);
+      expect(Token.UINT32_LE.get(decbuf, 0)).toBe(0x001a001a);
+      expect(Token.UINT32_LE.get(decbuf, 8)).toBe(0x001a001a);
     });
   });
 });

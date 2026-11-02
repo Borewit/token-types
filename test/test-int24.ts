@@ -1,6 +1,5 @@
 // Test reading int24 values.
 
-import { assert } from 'chai';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -22,10 +21,10 @@ describe('Parse 24-bit signed integer', () => {
     it('should decode', () => {
       const buf = new Uint8Array([0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x00, 0x10, 0x00, 0x00, 0x80]);
 
-      assert.equal(Token.INT24_LE.get(buf, 0), 0);
-      assert.equal(Token.INT24_LE.get(buf, 3), -1);
-      assert.equal(Token.INT24_LE.get(buf, 6), 1048831);
-      assert.equal(Token.INT24_LE.get(buf, 9), -8388608);
+      expect(Token.INT24_LE.get(buf, 0)).toBe(0);
+      expect(Token.INT24_LE.get(buf, 3)).toBe(-1);
+      expect(Token.INT24_LE.get(buf, 6)).toBe(1048831);
+      expect(Token.INT24_LE.get(buf, 9)).toBe(-8388608);
     });
   });
 
@@ -46,10 +45,10 @@ describe('Parse 24-bit signed integer', () => {
     it('should decode', () => {
       const buf = new Uint8Array([0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x10, 0x00, 0xff, 0x80, 0x00, 0x00]);
 
-      assert.equal(Token.INT24_BE.get(buf, 0), 0);
-      assert.equal(Token.INT24_BE.get(buf, 3), -1);
-      assert.equal(Token.INT24_BE.get(buf, 6), 1048831);
-      assert.equal(Token.INT24_BE.get(buf, 9), -8388608);
+      expect(Token.INT24_BE.get(buf, 0)).toBe(0);
+      expect(Token.INT24_BE.get(buf, 3)).toBe(-1);
+      expect(Token.INT24_BE.get(buf, 6)).toBe(1048831);
+      expect(Token.INT24_BE.get(buf, 9)).toBe(-8388608);
     });
   });
 });

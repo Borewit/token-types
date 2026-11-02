@@ -89,8 +89,9 @@
     "includes": [
       "biome.jsonc",
       "package.json",
-      ".mocharc.json",
       "tsconfig.json",
+      "tsconfig.test.json",
+      "vitest.config.ts",
       "lib/**/*.ts",
       "test/**/*.ts",
       "!**/*.d.ts"

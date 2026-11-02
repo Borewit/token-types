@@ -1,6 +1,5 @@
 // Test writing and reading uint32 values in different endiannesses.
 
-import { assert } from 'chai';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -27,8 +26,8 @@ describe('Parse 64-bit unsigned integer', () => {
         0x00, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x01, 0x00, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x02
       ]);
 
-      assert.strictEqual(Token.UINT64_BE.get(buf, 0), BigInt(0x00001a001a001a01));
-      assert.strictEqual(Token.UINT64_BE.get(buf, 8), BigInt(0x00001a001a001a02));
+      expect(Token.UINT64_BE.get(buf, 0)).toBe(BigInt(0x00001a001a001a01));
+      expect(Token.UINT64_BE.get(buf, 8)).toBe(BigInt(0x00001a001a001a02));
     });
   });
 
@@ -54,8 +53,8 @@ describe('Parse 64-bit unsigned integer', () => {
         0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00
       ]);
 
-      assert.strictEqual(Token.UINT64_LE.get(buf, 0), BigInt(0x001a001a001a001a));
-      assert.strictEqual(Token.UINT64_LE.get(buf, 8), BigInt(0x001a001a001a001a));
+      expect(Token.UINT64_LE.get(buf, 0)).toBe(BigInt(0x001a001a001a001a));
+      expect(Token.UINT64_LE.get(buf, 8)).toBe(BigInt(0x001a001a001a001a));
     });
   });
 });

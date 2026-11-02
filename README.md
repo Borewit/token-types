@@ -16,8 +16,8 @@ Module: version 5 migrated from [CommonJS](https://en.wikipedia.org/wiki/CommonJ
 JavaScript is compliant with [ECMAScript 2019 (ES10)](https://en.wikipedia.org/wiki/ECMAScript#10th_Edition_%E2%80%93_ECMAScript_2019).
 
 Node.js 18 is supported for running the published package; it is not a supported
-build environment. CI builds on Node.js 24 and runs the compiled tests on
-Node.js 18, 20, 22 and 24.
+build environment. The test toolchain requires Node.js 22.12 or later. CI builds
+on Node.js 24 and runs the tests on Node.js 22, 24 and 26.
 
 ## Development
 
@@ -30,9 +30,10 @@ yarn install --immutable
 yarn test
 ```
 
-`yarn test` builds the library and tests into `dist` before running Mocha. To test
-an existing build on a supported runtime such as Node.js 18, run
-`yarn test:compiled`. `yarn clean` removes `dist` and coverage.
+`yarn test` type-checks the sources and runs the Vitest suite against the
+TypeScript sources. `yarn test:watch` runs Vitest in watch mode, and
+`yarn test-coverage` writes text and LCOV reports to `coverage`. `yarn clean`
+removes `dist` and coverage.
 
 `yarn lint` checks the Markdown and Biome rules. `yarn format:check` verifies
 Biome formatting, and `yarn fix` applies formatting, import organization and

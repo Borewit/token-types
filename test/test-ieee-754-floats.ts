@@ -1,6 +1,5 @@
 // Test writing and reading uint8 values.
 
-import { assert } from 'chai';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -22,7 +21,7 @@ describe('IEEE 754 floats', () => {
 
       it('should decode', () => {
         const buf = new Uint8Array([0x55, 0x52]);
-        assert.strictEqual(Token.Float16_BE.get(buf, 0), 85.125);
+        expect(Token.Float16_BE.get(buf, 0)).toBe(85.125);
       });
     });
 
@@ -42,7 +41,7 @@ describe('IEEE 754 floats', () => {
 
       it('should decode', () => {
         const buf = new Uint8Array([0x52, 0x55]);
-        assert.strictEqual(Token.Float16_LE.get(buf, 0), 85.125);
+        expect(Token.Float16_LE.get(buf, 0)).toBe(85.125);
       });
     });
   });
@@ -64,7 +63,7 @@ describe('IEEE 754 floats', () => {
 
       it('should decode', () => {
         const buf = new Uint8Array([0x42, 0xaa, 0x40, 0x00]);
-        assert.strictEqual(Token.Float32_BE.get(buf, 0), 85.125);
+        expect(Token.Float32_BE.get(buf, 0)).toBe(85.125);
       });
     });
 
@@ -84,7 +83,7 @@ describe('IEEE 754 floats', () => {
 
       it('should decode', () => {
         const buf = new Uint8Array([0x00, 0x40, 0xaa, 0x42]);
-        assert.strictEqual(Token.Float32_LE.get(buf, 0), 85.125);
+        expect(Token.Float32_LE.get(buf, 0)).toBe(85.125);
       });
     });
   });
@@ -106,7 +105,7 @@ describe('IEEE 754 floats', () => {
 
       it('should decode', () => {
         const buf = new Uint8Array([0x40, 0x55, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00]);
-        assert.strictEqual(Token.Float64_BE.get(buf, 0), 85.125);
+        expect(Token.Float64_BE.get(buf, 0)).toBe(85.125);
       });
     });
 
@@ -126,7 +125,7 @@ describe('IEEE 754 floats', () => {
 
       it('should decode', () => {
         const buf = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x55, 0x40]);
-        assert.strictEqual(Token.Float64_LE.get(buf, 0), 85.125);
+        expect(Token.Float64_LE.get(buf, 0)).toBe(85.125);
       });
     });
   });
@@ -148,7 +147,7 @@ describe('IEEE 754 floats', () => {
 
       it('should decode', () => {
         const buf = new Uint8Array([0x40, 0x02, 0xaa, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
-        assert.strictEqual(Token.Float80_BE.get(buf, 0), 85.125);
+        expect(Token.Float80_BE.get(buf, 0)).toBe(85.125);
       });
     });
 
@@ -168,7 +167,7 @@ describe('IEEE 754 floats', () => {
 
       it.skip('should decode', () => {
         const buf = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xaa, 0x02, 0x40]);
-        assert.strictEqual(Token.Float80_LE.get(buf, 0), 85.125);
+        expect(Token.Float80_LE.get(buf, 0)).toBe(85.125);
       });
     });
   });

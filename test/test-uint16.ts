@@ -1,6 +1,5 @@
 // Test writing and reading uint16 values in different endiannesses.
 
-import { assert } from 'chai';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -25,10 +24,10 @@ describe('Parse 16-bit unsigned integer', () => {
     it('should decode', () => {
       const buf = new Uint8Array([0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00]);
 
-      assert.equal(Token.UINT16_LE.get(buf, 0), 0x001a);
-      assert.equal(Token.UINT16_BE.get(buf, 2), 0x1a00);
-      assert.equal(Token.UINT16_LE.get(buf, 4), 0x001a);
-      assert.equal(Token.UINT16_BE.get(buf, 6), 0x1a00);
+      expect(Token.UINT16_LE.get(buf, 0)).toBe(0x001a);
+      expect(Token.UINT16_BE.get(buf, 2)).toBe(0x1a00);
+      expect(Token.UINT16_LE.get(buf, 4)).toBe(0x001a);
+      expect(Token.UINT16_BE.get(buf, 6)).toBe(0x1a00);
     });
   });
 });

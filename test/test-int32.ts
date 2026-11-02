@@ -1,6 +1,5 @@
 // Test reading int32 values.
 
-import { assert } from 'chai';
 import * as Token from '../lib/index.js';
 import * as util from './util.js';
 
@@ -24,12 +23,12 @@ describe('Parse 32-bit signed integer', () => {
 
     it('should decode', () => {
       let buf = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff]);
-      assert.equal(Token.INT32_BE.get(buf, 0), 0);
-      assert.equal(Token.INT32_BE.get(buf, 4), -1);
+      expect(Token.INT32_BE.get(buf, 0)).toBe(0);
+      expect(Token.INT32_BE.get(buf, 4)).toBe(-1);
 
       buf = new Uint8Array([0x00, 0x10, 0x00, 0xff, 0x80, 0x00, 0x00, 0x00]);
-      assert.equal(Token.INT32_BE.get(buf, 0), 1048831);
-      assert.equal(Token.INT32_BE.get(buf, 4), -2147483648);
+      expect(Token.INT32_BE.get(buf, 0)).toBe(1048831);
+      expect(Token.INT32_BE.get(buf, 4)).toBe(-2147483648);
     });
   });
 
@@ -53,12 +52,12 @@ describe('Parse 32-bit signed integer', () => {
     it('should decode', () => {
       let buf = new Uint8Array([0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff]);
 
-      assert.equal(Token.INT32_LE.get(buf, 0), 0);
-      assert.equal(Token.INT32_LE.get(buf, 4), -1);
+      expect(Token.INT32_LE.get(buf, 0)).toBe(0);
+      expect(Token.INT32_LE.get(buf, 4)).toBe(-1);
 
       buf = new Uint8Array([0xff, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x80]);
-      assert.equal(Token.INT32_LE.get(buf, 0), 1048831);
-      assert.equal(Token.INT32_LE.get(buf, 4), -2147483648);
+      expect(Token.INT32_LE.get(buf, 0)).toBe(1048831);
+      expect(Token.INT32_LE.get(buf, 4)).toBe(-2147483648);
     });
   });
 });

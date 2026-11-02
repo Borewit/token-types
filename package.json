@@ -21,10 +21,11 @@
     "fix": "npm run lint:ts:fix",
     "lint:md": "remark -u preset-lint-recommended .",
     "lint": "npm run lint:md && npm run lint:ts",
-    "test": "npm run build && npm run test:compiled --",
-    "test-coverage": "c8 npm run test:compiled",
-    "update-biome": "yarn add -D --exact @biomejs/biome && npx @biomejs/biome migrate --write",
-    "test:compiled": "node --enable-source-maps node_modules/mocha/bin/mocha.js"
+    "test": "npm run typecheck && vitest run",
+    "test:watch": "vitest",
+    "test-coverage": "npm run typecheck && vitest run --coverage",
+    "typecheck": "tsc --project tsconfig.test.json",
+    "update-biome": "yarn add -D --exact @biomejs/biome && npx @biomejs/biome migrate --write"
   },
   "engines": {
     "node": ">=14.16"
@@ -45,16 +46,14 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.4",
-    "@types/chai": "^5.2.3",
-    "@types/mocha": "^10.0.10",
     "@types/node": "^25.3.5",
-    "c8": "^11.0.0",
-    "chai": "^6.2.2",
+    "@vitest/coverage-v8": "^5.0.5",
     "del-cli": "^7.0.0",
-    "mocha": "^11.7.6",
     "remark-cli": "^12.0.1",
     "remark-preset-lint-recommended": "^7.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
   },
   "dependencies": {
     "@borewit/text-codec": "^0.2.2",

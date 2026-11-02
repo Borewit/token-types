@@ -36,6 +36,7 @@ categories:
       labels:
         - DevOps
         - dev-dependencies
+        - internal
   # Keep a patch fallback for changes without a category label.
   - type: version-resolver
     semver-increment: patch
@@ -47,4 +48,4 @@ template: |
   $CHANGES
 
   ## 📦 NPM release
-  NPM release: [token-types@$RESOLVED_VERSION](https://www.npmjs.com/package/token-types/v/$RESOLVED_VERSION)
+  NPM release: [$REPOSITORY@$RESOLVED_VERSION](https://www.npmjs.com/package/$REPOSITORY/v/$RESOLVED_VERSION)

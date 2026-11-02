@@ -56,7 +56,7 @@
     "vitest": "^5.0.5"
   },
   "dependencies": {
-    "@borewit/text-codec": "^0.2.2",
+    "@borewit/text-codec": "^0.2.3",
     "@tokenizer/token": "^0.3.0",
     "ieee754": "^1.2.1"
   },

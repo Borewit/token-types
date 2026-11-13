@@ -54,7 +54,7 @@
     "remark-cli": "^12.0.1",
     "remark-preset-lint-recommended": "^7.0.0",
     "typescript": "^7.0.2",
-    "vite": "^8.3.5",
+    "vite": "^8.3.7",
     "vitest": "^5.0.5"
   },
   "dependencies": {

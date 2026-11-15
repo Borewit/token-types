@@ -8,6 +8,185 @@ function dv(array: Uint8Array) {
   return new DataView(array.buffer, array.byteOffset);
 }
 
+// Scratch view used to inspect the bits of a JavaScript double.
+const f64View = new DataView(new ArrayBuffer(8));
+
+/**
+ * Round to the nearest integer, ties to even.
+ */
+function roundToEven(x: number): number {
+  const fl = Math.floor(x);
+  const frac = x - fl;
+  if (frac > 0.5) {
+    return fl + 1;
+  }
+  if (frac < 0.5) {
+    return fl;
+  }
+  return fl % 2 === 0 ? fl : fl + 1;
+}
+
+/**
+ * Divide an unsigned integer by 2^shift, rounding to nearest with ties to even.
+ */
+function shiftRightRoundToEven(value: bigint, shift: number): bigint {
+  if (shift > 64) {
+    return BigInt(0);
+  }
+  const shiftBig = BigInt(shift);
+  const quotient = value >> shiftBig;
+  const remainder = value & ((BigInt(1) << shiftBig) - BigInt(1));
+  const halfway = BigInt(1) << (shiftBig - BigInt(1));
+  if (remainder > halfway || (remainder === halfway && (quotient & BigInt(1)) === BigInt(1))) {
+    return quotient + BigInt(1);
+  }
+  return quotient;
+}
+
+/**
+ * Decompose the absolute value of a finite, non-zero double into an integer
+ * significand in [2^52, 2^53) and an exponent, so that value = significand * 2^exponent.
+ */
+function decomposeFloat64(value: number): { significand: number; exponent: number } {
+  f64View.setFloat64(0, value);
+  const high = f64View.getUint32(0);
+  const low = f64View.getUint32(4);
+  const expBits = (high >>> 20) & 0x7ff;
+  const fraction = (high & 0xfffff) * 2 ** 32 + low;
+
+  if (expBits !== 0) {
+    return { significand: 2 ** 52 + fraction, exponent: expBits - 1075 };
+  }
+
+  let significand = fraction;
+  let exponent = -1074;
+  while (significand < 2 ** 52) {
+    significand *= 2;
+    exponent--;
+  }
+  return { significand, exponent };
+}
+
+/**
+ * Read an 80-bit big-endian/little-endian value as a bigint (bit 79 = MSB).
+ */
+function readBigInt80(array: Uint8Array, offset: number, isLE: boolean): bigint {
+  const view = dv(array);
+  return isLE
+    ? view.getBigUint64(offset, true) | (BigInt(view.getUint16(offset + 8, true)) << BigInt(64))
+    : (BigInt(view.getUint16(offset)) << BigInt(64)) | view.getBigUint64(offset + 2);
+}
+
+/**
+ * Write an 80-bit bigint (bit 79 = MSB) big-endian/little-endian.
+ */
+function writeBigInt80(array: Uint8Array, offset: number, bits: bigint, isLE: boolean): void {
+  const view = dv(array);
+  const low = bits & ((BigInt(1) << BigInt(64)) - BigInt(1));
+  const high = Number(bits >> BigInt(64));
+  if (isLE) {
+    view.setBigUint64(offset, low, true);
+    view.setUint16(offset + 8, high, true);
+  } else {
+    view.setUint16(offset, high);
+    view.setBigUint64(offset + 2, low);
+  }
+}
+
+/**
+ * Decode an 80-bit IEEE 754 extended-precision float (1-bit sign, 15-bit biased
+ * exponent with bias 16383, 1-bit explicit integer bit, 63-bit fraction).
+ * Best effort: the result is a JavaScript double, so values beyond 53-bit
+ * precision are rounded.
+ */
+function readFloat80(array: Uint8Array, offset: number, isLE: boolean): number {
+  const bits = readBigInt80(array, offset, isLE);
+  const negative = ((bits >> BigInt(79)) & BigInt(1)) === BigInt(1);
+  const exponent = Number((bits >> BigInt(64)) & BigInt(0x7fff));
+  const significand = bits & ((BigInt(1) << BigInt(64)) - BigInt(1));
+
+  // Infinity has the explicit integer bit set; the remaining all-ones exponent
+  // encodings (including pseudo-infinity) are NaN.
+  if (exponent === 0x7fff) {
+    if (significand === BigInt(1) << BigInt(63)) {
+      return negative ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
+    }
+    return Number.NaN;
+  }
+
+  // Scale the significand into [1, 2) before applying the exponent, otherwise
+  // small values underflow in the scale before the significand is applied.
+  const unbiasedExponent = exponent === 0 ? -16382 : exponent - 16383;
+  let magnitude: number;
+  if (unbiasedExponent < -1022) {
+    // Round the 64-bit significand directly to binary64 subnormal precision.
+    const shift = -unbiasedExponent - 1011;
+    magnitude = Number(shiftRightRoundToEven(significand, shift)) * Number.MIN_VALUE;
+  } else {
+    magnitude = (Number(significand) / 2 ** 63) * 2 ** unbiasedExponent;
+  }
+  return negative ? -magnitude : magnitude;
+}
+
+/**
+ * Encode a JavaScript double as an 80-bit IEEE 754 extended-precision float.
+ */
+function writeFloat80(array: Uint8Array, offset: number, value: number, isLE: boolean): number {
+  const negative = value < 0 || Object.is(value, -0);
+  const signBit = (negative ? BigInt(1) : BigInt(0)) << BigInt(79);
+  let bits: bigint;
+
+  if (Number.isNaN(value)) {
+    bits = signBit | (BigInt(0x7fff) << BigInt(64)) | (BigInt(1) << BigInt(63)) | (BigInt(1) << BigInt(62));
+  } else if (!Number.isFinite(value)) {
+    bits = signBit | (BigInt(0x7fff) << BigInt(64)) | (BigInt(1) << BigInt(63));
+  } else if (value === 0) {
+    bits = signBit;
+  } else {
+    const { significand, exponent } = decomposeFloat64(Math.abs(value));
+    bits = signBit | (BigInt(exponent + 16435) << BigInt(64)) | (BigInt(significand) << BigInt(11));
+  }
+
+  writeBigInt80(array, offset, bits, isLE);
+  return offset + 10;
+}
+
+/**
+ * Encode a JavaScript double as a 16-bit IEEE 754 half-precision float,
+ * rounding to nearest-even (ieee754.write only rounds for single precision).
+ */
+function writeFloat16(array: Uint8Array, offset: number, value: number, isLE: boolean): number {
+  const negative = value < 0 || Object.is(value, -0);
+  const sign = negative ? 0x8000 : 0;
+  const absValue = Math.abs(value);
+  let bits: number;
+
+  if (Number.isNaN(value)) {
+    bits = sign | 0x7e00;
+  } else if (!Number.isFinite(value)) {
+    bits = sign | 0x7c00;
+  } else if (absValue === 0) {
+    bits = sign;
+  } else {
+    const { significand, exponent } = decomposeFloat64(absValue);
+    const exp = exponent + 52;
+    if (exp < -14) {
+      bits = sign | roundToEven(absValue * 2 ** 24);
+    } else {
+      let e = exp + 15;
+      let m = roundToEven(significand / 2 ** 42);
+      if (m === 2048) {
+        m = 1024;
+        e++;
+      }
+      bits = e >= 31 ? sign | 0x7c00 : sign | (e << 10) | (m - 1024);
+    }
+  }
+
+  dv(array).setUint16(offset, bits, isLE);
+  return offset + 2;
+}
+
 /*
  * 8-bit unsigned integer
  */
@@ -293,8 +472,7 @@ export const Float16_BE: IToken<number> = {
     return ieee754.read(dataView, offset, false, 10, this.len);
   },
   put(dataView: Uint8Array, offset: number, value: number): number {
-    ieee754.write(dataView, value, offset, false, 10, this.len);
-    return offset + this.len;
+    return writeFloat16(dataView, offset, value, false);
   }
 };
 
@@ -307,8 +485,7 @@ export const Float16_LE: IToken<number> = {
     return ieee754.read(array, offset, true, 10, this.len);
   },
   put(array: Uint8Array, offset: number, value: number): number {
-    ieee754.write(array, value, offset, true, 10, this.len);
-    return offset + this.len;
+    return writeFloat16(array, offset, value, true);
   }
 };
 
@@ -374,11 +551,10 @@ export const Float64_LE: IToken<number> = {
 export const Float80_BE: IToken<number> = {
   len: 10,
   get(array: Uint8Array, offset: number): number {
-    return ieee754.read(array, offset, false, 63, this.len);
+    return readFloat80(array, offset, false);
   },
   put(array: Uint8Array, offset: number, value: number): number {
-    ieee754.write(array, value, offset, false, 63, this.len);
-    return offset + this.len;
+    return writeFloat80(array, offset, value, false);
   }
 };
 
@@ -388,11 +564,10 @@ export const Float80_BE: IToken<number> = {
 export const Float80_LE: IToken<number> = {
   len: 10,
   get(array: Uint8Array, offset: number): number {
-    return ieee754.read(array, offset, true, 63, this.len);
+    return readFloat80(array, offset, true);
   },
   put(array: Uint8Array, offset: number, value: number): number {
-    ieee754.write(array, value, offset, true, 63, this.len);
-    return offset + this.len;
+    return writeFloat80(array, offset, value, true);
   }
 };
 
